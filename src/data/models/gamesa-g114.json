@@ -1,0 +1,132 @@
+{
+  "id": "gamesa-g114",
+  "manufacturer": "Gamesa",
+  "model": "G114 · variante pendiente",
+  "supplier": {
+    "value": "Gamesa",
+    "source": "Informe p. 5",
+    "scope": "installed",
+    "note": "Fabricante documentado; proveedor contractual independiente no identificado."
+  },
+  "parks": [
+    {
+      "name": "Las Peñas",
+      "references": ["B17", "B18"],
+      "evidence": "B",
+      "note": "Cuatro unidades; discrepancia 2 MW / 8,4 MW.",
+      "hubHeightM": {
+        "value": null,
+        "source": null,
+        "scope": "missing",
+        "note": "No consta una altura de buje instalada."
+      },
+      "installationProvider": "CJR Renewables"
+    }
+  ],
+  "specs": {
+    "ratedPowerMW": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "Discrepancia: 2 MW por unidad frente a 8,4 MW para cuatro unidades. No se fija variante."
+    },
+    "rotorDiameterM": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "hubHeightM": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "bladeCount": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "generator": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "gearbox": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "powerControl": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "cutInMS": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "ratedWindMS": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "cutOutMS": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "converter": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    }
+  },
+  "notes": [
+    "La variante G114/2000 aparece en el informe, pero no resuelve la discrepancia de potencia del parque.",
+    "Potencia de 2 MW usada SOLO como supuesto del escenario, no como ficha instalada."
+  ],
+  "simulation": {
+    "fixedWindMS": 8,
+    "ratedPowerMW": 2,
+    "cutInMS": 3,
+    "ratedWindMS": 12,
+    "cutOutMS": 20,
+    "tipSpeedRatio": 7,
+    "maxRotorRPM": 16,
+    "pitchBaseDeg": 1.5,
+    "pitchGainDegPerMS": 2,
+    "gearRatio": 90,
+    "bladeCount": 3,
+    "rotorDiameterM": 110,
+    "hubHeightM": 100,
+    "assumptions": [
+      "Viento fijo de 8 m/s, uniforme, alineado con el rotor.",
+      "Curva cúbica simplificada sin pérdidas; no es una curva medida ni certificada.",
+      "RPM estimadas con relación de velocidad de punta λ=7, límite de 16 RPM.",
+      "Pitch didáctico: 1,5° bajo viento nominal, +2° por m/s sobre nominal.",
+      "Proporciones y ubicación de componentes esquemáticas, sin planos por número de serie.",
+      "Altura visual normalizada; las posiciones del convertidor y transformador son didácticas.",
+      "rotorDiameterM=110: supuesto para animación; dato documental ausente.",
+      "cutInMS=3: supuesto para animación; dato documental ausente.",
+      "ratedWindMS=12: supuesto para animación; dato documental ausente.",
+      "cutOutMS=20: supuesto para animación; dato documental ausente.",
+      "bladeCount=3: supuesto para animación; dato documental ausente.",
+      "ratedPowerMW=2: capacidad ilustrativa sin variante confirmada."
+    ]
+  },
+  "asset": {
+    "glb": "models/gamesa-g114.glb",
+    "lod": "models/gamesa-g114-low.glb",
+    "schematic": true
+  }
+}

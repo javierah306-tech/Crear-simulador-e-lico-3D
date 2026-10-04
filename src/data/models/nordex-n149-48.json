@@ -1,0 +1,156 @@
+{
+  "id": "nordex-n149-48",
+  "manufacturer": "Nordex",
+  "model": "N149 / Delta4000 · 4,8 MW",
+  "supplier": {
+    "value": "Nordex",
+    "source": "Informe p. 4",
+    "scope": "installed",
+    "note": "Fabricante documentado; proveedor contractual independiente no identificado."
+  },
+  "parks": [
+    {
+      "name": "Alena",
+      "references": ["B03", "B06"],
+      "evidence": "B",
+      "note": "Pedido 2019; presencia en registro 2023. Reconfirmar inventario.",
+      "hubHeightM": {
+        "value": null,
+        "source": null,
+        "scope": "missing",
+        "note": "No consta una altura de buje instalada."
+      },
+      "installationProvider": null
+    },
+    {
+      "name": "Los Olmos",
+      "references": ["B07", "B08"],
+      "evidence": "A/B",
+      "note": "A plataforma y cantidad; B identificación N149.",
+      "hubHeightM": {
+        "value": null,
+        "source": null,
+        "scope": "missing",
+        "note": "No consta una altura de buje instalada."
+      },
+      "installationProvider": "Greenwork"
+    },
+    {
+      "name": "Mesamavida",
+      "references": ["B09", "B10"],
+      "evidence": "A/B",
+      "note": "A plataforma/etapa III; B N149. Montaje parcial.",
+      "hubHeightM": {
+        "value": null,
+        "source": null,
+        "scope": "missing",
+        "note": "No consta una altura de buje instalada."
+      },
+      "installationProvider": "Tecnorenova"
+    }
+  ],
+  "specs": {
+    "ratedPowerMW": {
+      "value": 4.8,
+      "source": "Informe p. 4",
+      "scope": "installed",
+      "note": "Potencia unitaria descrita en el catálogo; no equivale a potencia neta de conexión."
+    },
+    "rotorDiameterM": {
+      "value": 149.1,
+      "source": "Nordex N149/4.X, HTML local [B24]",
+      "scope": "family",
+      "note": "Referencia de familia; no certifica la revisión instalada."
+    },
+    "hubHeightM": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "bladeCount": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "generator": {
+      "value": "DFIG · asíncrono doblemente alimentado",
+      "source": "Nordex N149/4.X, HTML local [B24]",
+      "scope": "family",
+      "note": "Referencia de familia; no certifica la revisión instalada."
+    },
+    "gearbox": {
+      "value": true,
+      "source": "Nordex N149/4.X, HTML local [B24]",
+      "scope": "family",
+      "note": "Referencia de familia; no certifica la revisión instalada."
+    },
+    "powerControl": {
+      "value": "pitch",
+      "source": "Nordex N149/4.X, HTML local [B24]",
+      "scope": "family",
+      "note": "Referencia de familia; no certifica la revisión instalada."
+    },
+    "cutInMS": {
+      "value": 3,
+      "source": "Nordex N149/4.X, HTML local [B24]",
+      "scope": "family",
+      "note": "Referencia de familia; no certifica la revisión instalada."
+    },
+    "ratedWindMS": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "cutOutMS": {
+      "value": 20,
+      "source": "Nordex N149/4.X, HTML local [B24]",
+      "scope": "family",
+      "note": "Base de familia 20 m/s; opciones específicas hasta 26 m/s. Umbral de cada parque sin confirmar."
+    },
+    "converter": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    }
+  },
+  "notes": [
+    "N149 confirmado por suministro/montaje; Delta4000 es la plataforma confirmada en Los Olmos y Mesamavida.",
+    "Multiplicadora de dos etapas planetarias y una cilíndrica; relación de transmisión no documentada.",
+    "Alturas comerciales hasta 164 m no identifican la torre instalada."
+  ],
+  "simulation": {
+    "fixedWindMS": 8,
+    "ratedPowerMW": 4.8,
+    "cutInMS": 3,
+    "ratedWindMS": 12,
+    "cutOutMS": 20,
+    "tipSpeedRatio": 7,
+    "maxRotorRPM": 16,
+    "pitchBaseDeg": 1.5,
+    "pitchGainDegPerMS": 2,
+    "gearRatio": 90,
+    "bladeCount": 3,
+    "rotorDiameterM": 149.1,
+    "hubHeightM": 100,
+    "assumptions": [
+      "Viento fijo de 8 m/s, uniforme, alineado con el rotor.",
+      "Curva cúbica simplificada sin pérdidas; no es una curva medida ni certificada.",
+      "RPM estimadas con relación de velocidad de punta λ=7, límite de 16 RPM.",
+      "Pitch didáctico: 1,5° bajo viento nominal, +2° por m/s sobre nominal.",
+      "Proporciones y ubicación de componentes esquemáticas, sin planos por número de serie.",
+      "Altura visual normalizada; las posiciones del convertidor y transformador son didácticas.",
+      "ratedWindMS=12: supuesto para animación; dato documental ausente.",
+      "bladeCount=3: supuesto para animación; dato documental ausente.",
+      "Relación de transmisión ilustrativa 90:1, no documentada."
+    ]
+  },
+  "asset": {
+    "glb": "models/nordex-n149-48.glb",
+    "lod": "models/nordex-n149-48-low.glb",
+    "schematic": true
+  }
+}

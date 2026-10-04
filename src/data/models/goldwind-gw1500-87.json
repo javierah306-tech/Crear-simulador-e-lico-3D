@@ -1,0 +1,126 @@
+{
+  "id": "goldwind-gw1500-87",
+  "manufacturer": "Goldwind",
+  "model": "GW1500-87",
+  "supplier": {
+    "value": "Goldwind",
+    "source": "Informe p. 4",
+    "scope": "installed",
+    "note": "Fabricante documentado; proveedor contractual independiente no identificado."
+  },
+  "parks": [
+    {
+      "name": "Cuel",
+      "references": ["B01"],
+      "evidence": "A",
+      "note": "",
+      "hubHeightM": {
+        "value": null,
+        "source": null,
+        "scope": "missing",
+        "note": "No consta una altura de buje instalada."
+      },
+      "installationProvider": null
+    }
+  ],
+  "specs": {
+    "ratedPowerMW": {
+      "value": 1.5,
+      "source": "Informe p. 4",
+      "scope": "installed",
+      "note": "Potencia unitaria descrita en el catálogo; no equivale a potencia neta de conexión."
+    },
+    "rotorDiameterM": {
+      "value": 87,
+      "source": "Goldwind 1.5 MW, tabla de datos p. PDF 6 [B19]",
+      "scope": "family",
+      "note": "Referencia de familia; no certifica la revisión instalada."
+    },
+    "hubHeightM": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "bladeCount": {
+      "value": 3,
+      "source": "Goldwind 1.5 MW, tabla de datos p. PDF 6 [B19]",
+      "scope": "family",
+      "note": "Referencia de familia; no certifica la revisión instalada."
+    },
+    "generator": {
+      "value": "PMSG · síncrono de imanes permanentes",
+      "source": "Goldwind 1.5 MW, tabla de datos p. PDF 6 [B19]",
+      "scope": "family",
+      "note": "Referencia de familia; no certifica la revisión instalada."
+    },
+    "gearbox": {
+      "value": false,
+      "source": "Goldwind 1.5 MW, tabla de datos p. PDF 6 [B19]",
+      "scope": "family",
+      "note": "Referencia de familia; no certifica la revisión instalada."
+    },
+    "powerControl": {
+      "value": "pitch",
+      "source": "Goldwind 1.5 MW, tabla de datos p. PDF 6 [B19]",
+      "scope": "family",
+      "note": "Referencia de familia; no certifica la revisión instalada."
+    },
+    "cutInMS": {
+      "value": 3,
+      "source": "Goldwind 1.5 MW, tabla de datos p. PDF 6 [B19]",
+      "scope": "family",
+      "note": "Referencia de familia; no certifica la revisión instalada."
+    },
+    "ratedWindMS": {
+      "value": 9.9,
+      "source": "Goldwind 1.5 MW, tabla de datos p. PDF 6 [B19]",
+      "scope": "family",
+      "note": "Referencia de familia; no certifica la revisión instalada."
+    },
+    "cutOutMS": {
+      "value": 22,
+      "source": "Goldwind 1.5 MW, tabla de datos p. PDF 6 [B19]",
+      "scope": "family",
+      "note": "Referencia de familia; no certifica la revisión instalada."
+    },
+    "converter": {
+      "value": "Escala completa (IGBT)",
+      "source": "Goldwind 1.5 MW, tabla de datos p. PDF 6 [B19]",
+      "scope": "family",
+      "note": "Referencia de familia; no certifica la revisión instalada."
+    }
+  },
+  "notes": [
+    "GW1500-87 es la denominación del parque; GW 87/1500 es la nomenclatura del folleto.",
+    "La altura instalada de Cuel no consta en el corpus."
+  ],
+  "simulation": {
+    "fixedWindMS": 8,
+    "ratedPowerMW": 1.5,
+    "cutInMS": 3,
+    "ratedWindMS": 9.9,
+    "cutOutMS": 22,
+    "tipSpeedRatio": 7,
+    "maxRotorRPM": 16,
+    "pitchBaseDeg": 1.5,
+    "pitchGainDegPerMS": 2,
+    "gearRatio": 90,
+    "bladeCount": 3,
+    "rotorDiameterM": 87,
+    "hubHeightM": 100,
+    "assumptions": [
+      "Viento fijo de 8 m/s, uniforme, alineado con el rotor.",
+      "Curva cúbica simplificada sin pérdidas; no es una curva medida ni certificada.",
+      "RPM estimadas con relación de velocidad de punta λ=7, límite de 16 RPM.",
+      "Pitch didáctico: 1,5° bajo viento nominal, +2° por m/s sobre nominal.",
+      "Proporciones y ubicación de componentes esquemáticas, sin planos por número de serie.",
+      "Altura visual normalizada; las posiciones del convertidor y transformador son didácticas."
+    ]
+  },
+  "asset": {
+    "glb": "models/goldwind-gw1500-87.glb",
+    "lod": "models/goldwind-gw1500-87-low.glb",
+    "schematic": true
+  }
+}

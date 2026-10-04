@@ -1,0 +1,130 @@
+{
+  "id": "envision-e110-21",
+  "manufacturer": "Envision",
+  "model": "E110 · 2,1 MW",
+  "supplier": {
+    "value": "Envision",
+    "source": "Informe p. 4",
+    "scope": "installed",
+    "note": "Fabricante documentado; proveedor contractual independiente no identificado."
+  },
+  "parks": [
+    {
+      "name": "La Esperanza",
+      "references": ["B03", "B16"],
+      "evidence": "B",
+      "note": "Cinco máquinas documentadas en montaje 2016.",
+      "hubHeightM": {
+        "value": null,
+        "source": null,
+        "scope": "missing",
+        "note": "No consta una altura de buje instalada."
+      },
+      "installationProvider": "Tecnorenova"
+    }
+  ],
+  "specs": {
+    "ratedPowerMW": {
+      "value": 2.1,
+      "source": "Informe p. 4",
+      "scope": "installed",
+      "note": "Potencia unitaria descrita en el catálogo; no equivale a potencia neta de conexión."
+    },
+    "rotorDiameterM": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "hubHeightM": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "bladeCount": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "generator": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "gearbox": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "powerControl": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "cutInMS": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "ratedWindMS": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "cutOutMS": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "converter": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    }
+  },
+  "notes": [
+    "Sin ficha OEM verificable de esta variante en el corpus. Geometría exterior genérica y cadena de conversión abstracta; no se inventa arquitectura."
+  ],
+  "simulation": {
+    "fixedWindMS": 8,
+    "ratedPowerMW": 2.1,
+    "cutInMS": 3,
+    "ratedWindMS": 12,
+    "cutOutMS": 20,
+    "tipSpeedRatio": 7,
+    "maxRotorRPM": 16,
+    "pitchBaseDeg": 1.5,
+    "pitchGainDegPerMS": 2,
+    "gearRatio": 90,
+    "bladeCount": 3,
+    "rotorDiameterM": 110,
+    "hubHeightM": 100,
+    "assumptions": [
+      "Viento fijo de 8 m/s, uniforme, alineado con el rotor.",
+      "Curva cúbica simplificada sin pérdidas; no es una curva medida ni certificada.",
+      "RPM estimadas con relación de velocidad de punta λ=7, límite de 16 RPM.",
+      "Pitch didáctico: 1,5° bajo viento nominal, +2° por m/s sobre nominal.",
+      "Proporciones y ubicación de componentes esquemáticas, sin planos por número de serie.",
+      "Altura visual normalizada; las posiciones del convertidor y transformador son didácticas.",
+      "rotorDiameterM=110: supuesto para animación; dato documental ausente.",
+      "cutInMS=3: supuesto para animación; dato documental ausente.",
+      "ratedWindMS=12: supuesto para animación; dato documental ausente.",
+      "cutOutMS=20: supuesto para animación; dato documental ausente.",
+      "bladeCount=3: supuesto para animación; dato documental ausente."
+    ]
+  },
+  "asset": {
+    "glb": "models/envision-e110-21.glb",
+    "lod": "models/envision-e110-21-low.glb",
+    "schematic": true
+  }
+}

@@ -1,0 +1,144 @@
+{
+  "id": "vestas-v112-30",
+  "manufacturer": "Vestas",
+  "model": "V112 · 3,0 MW",
+  "supplier": {
+    "value": "Vestas",
+    "source": "Informe p. 4",
+    "scope": "installed",
+    "note": "Fabricante documentado; proveedor contractual independiente no identificado."
+  },
+  "parks": [
+    {
+      "name": "Raki",
+      "references": ["B15"],
+      "evidence": "A",
+      "note": "",
+      "hubHeightM": {
+        "value": null,
+        "source": null,
+        "scope": "missing",
+        "note": "No consta una altura de buje instalada."
+      },
+      "installationProvider": null
+    },
+    {
+      "name": "Huajache",
+      "references": ["B15"],
+      "evidence": "A",
+      "note": "",
+      "hubHeightM": {
+        "value": null,
+        "source": null,
+        "scope": "missing",
+        "note": "No consta una altura de buje instalada."
+      },
+      "installationProvider": null
+    }
+  ],
+  "specs": {
+    "ratedPowerMW": {
+      "value": 3,
+      "source": "Informe p. 4",
+      "scope": "installed",
+      "note": "Potencia unitaria descrita en el catálogo; no equivale a potencia neta de conexión."
+    },
+    "rotorDiameterM": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "hubHeightM": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "bladeCount": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "generator": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "gearbox": {
+      "value": true,
+      "source": "Informe p. 8; Vestas LCA 2011 p. PDF 72 [B27]",
+      "scope": "family",
+      "note": "Referencia de familia; no certifica la revisión instalada."
+    },
+    "powerControl": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "cutInMS": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "ratedWindMS": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "cutOutMS": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "converter": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    }
+  },
+  "notes": [
+    "LCA histórica confirma componentes, sin certificar generador ni etapas de transmisión de Raki/Huajache. No se deduce diámetro del nombre del modelo."
+  ],
+  "simulation": {
+    "fixedWindMS": 8,
+    "ratedPowerMW": 3,
+    "cutInMS": 3,
+    "ratedWindMS": 12,
+    "cutOutMS": 20,
+    "tipSpeedRatio": 7,
+    "maxRotorRPM": 16,
+    "pitchBaseDeg": 1.5,
+    "pitchGainDegPerMS": 2,
+    "gearRatio": 90,
+    "bladeCount": 3,
+    "rotorDiameterM": 110,
+    "hubHeightM": 100,
+    "assumptions": [
+      "Viento fijo de 8 m/s, uniforme, alineado con el rotor.",
+      "Curva cúbica simplificada sin pérdidas; no es una curva medida ni certificada.",
+      "RPM estimadas con relación de velocidad de punta λ=7, límite de 16 RPM.",
+      "Pitch didáctico: 1,5° bajo viento nominal, +2° por m/s sobre nominal.",
+      "Proporciones y ubicación de componentes esquemáticas, sin planos por número de serie.",
+      "Altura visual normalizada; las posiciones del convertidor y transformador son didácticas.",
+      "rotorDiameterM=110: supuesto para animación; dato documental ausente.",
+      "cutInMS=3: supuesto para animación; dato documental ausente.",
+      "ratedWindMS=12: supuesto para animación; dato documental ausente.",
+      "cutOutMS=20: supuesto para animación; dato documental ausente.",
+      "bladeCount=3: supuesto para animación; dato documental ausente.",
+      "Relación de transmisión ilustrativa 90:1, no documentada."
+    ]
+  },
+  "asset": {
+    "glb": "models/vestas-v112-30.glb",
+    "lod": "models/vestas-v112-30-low.glb",
+    "schematic": true
+  }
+}

@@ -1,0 +1,50 @@
+[
+  {
+    "file": "02_PARQUES_COMPONENTES_BIOBIO.pdf",
+    "original": "C:\\Users\\javie\\OneDrive\\Desktop\\Lab Neiron\\modelos 3D eolicos\\modelos chilenos\\02_PARQUES_COMPONENTES_BIOBIO.pdf",
+    "sha256": "84d00c5d49e6e88f50883ccd1ff16a212729daaf69b2f3f2d9d3a9b4b5b6b566",
+    "used": true
+  },
+  {
+    "file": "goldwind_15mw.pdf",
+    "original": "C:\\Users\\javie\\OneDrive\\Desktop\\Lab Neiron\\modelos 3D eolicos\\modelos chilenos\\fabricantes\\goldwind_15mw.pdf",
+    "sha256": "eec47e4886ebf6cc33b1c1f0a9cfbc24a58d8ccb12832854758ab4304b691503",
+    "used": true
+  },
+  {
+    "file": "nordex_n149.html",
+    "original": "C:\\Users\\javie\\OneDrive\\Desktop\\Lab Neiron\\modelos 3D eolicos\\modelos chilenos\\fabricantes\\nordex_n149.html",
+    "sha256": "8dc72f08914ee8cfedaa958a232ea3011139012f01b99fc61c4d19ae704bf612",
+    "used": true
+  },
+  {
+    "file": "vestas_2mw.pdf",
+    "original": "C:\\Users\\javie\\OneDrive\\Desktop\\Lab Neiron\\modelos 3D eolicos\\modelos chilenos\\fabricantes\\vestas_2mw.pdf",
+    "sha256": "1a33364af10dfb0a5792757b29e8c24b8d9c1b9535e84e55a3fa686bfc04030d",
+    "used": true
+  },
+  {
+    "file": "vestas_4mw.pdf",
+    "original": "C:\\Users\\javie\\OneDrive\\Desktop\\Lab Neiron\\modelos 3D eolicos\\modelos chilenos\\fabricantes\\vestas_4mw.pdf",
+    "sha256": "649fa42a390a7ebea29b213382179933b39f402938c98bdb33ede95464be033f",
+    "used": true
+  },
+  {
+    "file": "vestas_v110.html",
+    "original": "C:\\Users\\javie\\OneDrive\\Desktop\\Lab Neiron\\modelos 3D eolicos\\modelos chilenos\\fabricantes\\vestas_v110.html",
+    "sha256": "a1487cf57d6b8b76b6d7e2c6b42d1a2fd45b896ba0029f2b5273078d6a50fcd5",
+    "used": false
+  },
+  {
+    "file": "vestas_v112_lca_2011.pdf",
+    "original": "C:\\Users\\javie\\OneDrive\\Desktop\\Lab Neiron\\modelos 3D eolicos\\modelos chilenos\\fabricantes\\vestas_v112_lca_2011.pdf",
+    "sha256": "e4a1cc202c8136e392f77df40b97fa1411ac8378bb194e78a26156452f9e062a",
+    "used": true
+  },
+  {
+    "file": "vestas_v150.html",
+    "original": "C:\\Users\\javie\\OneDrive\\Desktop\\Lab Neiron\\modelos 3D eolicos\\modelos chilenos\\fabricantes\\vestas_v150.html",
+    "sha256": "77abcf5aefb1ab6300aaa347cd08b742784cbe58d059721320a63636582be270",
+    "used": false
+  }
+]

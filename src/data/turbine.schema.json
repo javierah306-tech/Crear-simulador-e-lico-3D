@@ -1,0 +1,866 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "urn:smartwind:turbine-schema",
+  "title": "Aerogenerador documental y simulación educativa",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "manufacturer",
+    "model",
+    "supplier",
+    "parks",
+    "specs",
+    "notes",
+    "simulation",
+    "asset"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "manufacturer": {
+      "type": "string"
+    },
+    "model": {
+      "type": "string"
+    },
+    "supplier": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "source", "scope", "note"],
+      "properties": {
+        "value": {
+          "type": ["string", "null"]
+        },
+        "source": {
+          "type": ["string", "null"]
+        },
+        "scope": {
+          "enum": ["installed", "family", "missing"]
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "scope": {
+                "const": "missing"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "type": "null"
+              },
+              "source": {
+                "type": "null"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "value": {
+                "type": "string"
+              },
+              "source": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "parks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "references",
+          "evidence",
+          "note",
+          "hubHeightM",
+          "installationProvider"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "references": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "evidence": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          },
+          "hubHeightM": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["value", "source", "scope", "note"],
+            "properties": {
+              "value": {
+                "type": ["number", "null"]
+              },
+              "source": {
+                "type": ["string", "null"]
+              },
+              "scope": {
+                "enum": ["installed", "family", "missing"]
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "scope": {
+                      "const": "missing"
+                    }
+                  }
+                },
+                "then": {
+                  "properties": {
+                    "value": {
+                      "type": "null"
+                    },
+                    "source": {
+                      "type": "null"
+                    }
+                  }
+                },
+                "else": {
+                  "properties": {
+                    "value": {
+                      "type": "number"
+                    },
+                    "source": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "installationProvider": {
+            "type": ["string", "null"]
+          }
+        }
+      }
+    },
+    "specs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ratedPowerMW",
+        "rotorDiameterM",
+        "hubHeightM",
+        "bladeCount",
+        "cutInMS",
+        "ratedWindMS",
+        "cutOutMS",
+        "generator",
+        "powerControl",
+        "converter",
+        "gearbox"
+      ],
+      "properties": {
+        "ratedPowerMW": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["value", "source", "scope", "note"],
+          "properties": {
+            "value": {
+              "type": ["number", "null"]
+            },
+            "source": {
+              "type": ["string", "null"]
+            },
+            "scope": {
+              "enum": ["installed", "family", "missing"]
+            },
+            "note": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "scope": {
+                    "const": "missing"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "null"
+                  },
+                  "source": {
+                    "type": "null"
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "rotorDiameterM": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["value", "source", "scope", "note"],
+          "properties": {
+            "value": {
+              "type": ["number", "null"]
+            },
+            "source": {
+              "type": ["string", "null"]
+            },
+            "scope": {
+              "enum": ["installed", "family", "missing"]
+            },
+            "note": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "scope": {
+                    "const": "missing"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "null"
+                  },
+                  "source": {
+                    "type": "null"
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "hubHeightM": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["value", "source", "scope", "note"],
+          "properties": {
+            "value": {
+              "type": ["number", "null"]
+            },
+            "source": {
+              "type": ["string", "null"]
+            },
+            "scope": {
+              "enum": ["installed", "family", "missing"]
+            },
+            "note": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "scope": {
+                    "const": "missing"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "null"
+                  },
+                  "source": {
+                    "type": "null"
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "bladeCount": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["value", "source", "scope", "note"],
+          "properties": {
+            "value": {
+              "type": ["number", "null"]
+            },
+            "source": {
+              "type": ["string", "null"]
+            },
+            "scope": {
+              "enum": ["installed", "family", "missing"]
+            },
+            "note": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "scope": {
+                    "const": "missing"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "null"
+                  },
+                  "source": {
+                    "type": "null"
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "cutInMS": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["value", "source", "scope", "note"],
+          "properties": {
+            "value": {
+              "type": ["number", "null"]
+            },
+            "source": {
+              "type": ["string", "null"]
+            },
+            "scope": {
+              "enum": ["installed", "family", "missing"]
+            },
+            "note": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "scope": {
+                    "const": "missing"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "null"
+                  },
+                  "source": {
+                    "type": "null"
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "ratedWindMS": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["value", "source", "scope", "note"],
+          "properties": {
+            "value": {
+              "type": ["number", "null"]
+            },
+            "source": {
+              "type": ["string", "null"]
+            },
+            "scope": {
+              "enum": ["installed", "family", "missing"]
+            },
+            "note": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "scope": {
+                    "const": "missing"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "null"
+                  },
+                  "source": {
+                    "type": "null"
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "cutOutMS": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["value", "source", "scope", "note"],
+          "properties": {
+            "value": {
+              "type": ["number", "null"]
+            },
+            "source": {
+              "type": ["string", "null"]
+            },
+            "scope": {
+              "enum": ["installed", "family", "missing"]
+            },
+            "note": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "scope": {
+                    "const": "missing"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "null"
+                  },
+                  "source": {
+                    "type": "null"
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "generator": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["value", "source", "scope", "note"],
+          "properties": {
+            "value": {
+              "type": ["string", "null"]
+            },
+            "source": {
+              "type": ["string", "null"]
+            },
+            "scope": {
+              "enum": ["installed", "family", "missing"]
+            },
+            "note": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "scope": {
+                    "const": "missing"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "null"
+                  },
+                  "source": {
+                    "type": "null"
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "powerControl": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["value", "source", "scope", "note"],
+          "properties": {
+            "value": {
+              "type": ["string", "null"]
+            },
+            "source": {
+              "type": ["string", "null"]
+            },
+            "scope": {
+              "enum": ["installed", "family", "missing"]
+            },
+            "note": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "scope": {
+                    "const": "missing"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "null"
+                  },
+                  "source": {
+                    "type": "null"
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "converter": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["value", "source", "scope", "note"],
+          "properties": {
+            "value": {
+              "type": ["string", "null"]
+            },
+            "source": {
+              "type": ["string", "null"]
+            },
+            "scope": {
+              "enum": ["installed", "family", "missing"]
+            },
+            "note": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "scope": {
+                    "const": "missing"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "null"
+                  },
+                  "source": {
+                    "type": "null"
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "gearbox": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["value", "source", "scope", "note"],
+          "properties": {
+            "value": {
+              "type": ["boolean", "null"]
+            },
+            "source": {
+              "type": ["string", "null"]
+            },
+            "scope": {
+              "enum": ["installed", "family", "missing"]
+            },
+            "note": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "scope": {
+                    "const": "missing"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "null"
+                  },
+                  "source": {
+                    "type": "null"
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "value": {
+                    "type": "boolean"
+                  },
+                  "source": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "simulation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fixedWindMS",
+        "ratedPowerMW",
+        "cutInMS",
+        "ratedWindMS",
+        "cutOutMS",
+        "tipSpeedRatio",
+        "maxRotorRPM",
+        "pitchBaseDeg",
+        "pitchGainDegPerMS",
+        "gearRatio",
+        "bladeCount",
+        "rotorDiameterM",
+        "hubHeightM",
+        "assumptions"
+      ],
+      "properties": {
+        "fixedWindMS": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "ratedPowerMW": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "cutInMS": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "ratedWindMS": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "cutOutMS": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "tipSpeedRatio": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "maxRotorRPM": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "pitchBaseDeg": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "pitchGainDegPerMS": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "gearRatio": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "bladeCount": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "rotorDiameterM": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "hubHeightM": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "assumptions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "asset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["glb", "lod", "schematic"],
+      "properties": {
+        "glb": {
+          "type": "string",
+          "pattern": "^models/[a-z0-9-]+\\.glb$"
+        },
+        "lod": {
+          "type": "string",
+          "pattern": "^models/[a-z0-9-]+\\.glb$"
+        },
+        "schematic": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

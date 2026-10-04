@@ -1,0 +1,12 @@
+node_modules/
+.pnpm-store/
+*.tsbuildinfo
+output/
+dist/
+.vite/
+.env*
+!.env.example
+docs/sources/
+tmp/
+*.blend1
+*.log

@@ -1,0 +1,128 @@
+{
+  "id": "vestas-v110-20",
+  "manufacturer": "Vestas",
+  "model": "V110 · 2,0 MW",
+  "supplier": {
+    "value": "Vestas",
+    "source": "Informe p. 4",
+    "scope": "installed",
+    "note": "Fabricante documentado; proveedor contractual independiente no identificado."
+  },
+  "parks": [
+    {
+      "name": "Los Buenos Aires",
+      "references": ["B14", "B20"],
+      "evidence": "A",
+      "note": "Antecedente de 2019; reconfirmar configuración por unidad.",
+      "hubHeightM": {
+        "value": null,
+        "source": null,
+        "scope": "missing",
+        "note": "No consta una altura de buje instalada."
+      },
+      "installationProvider": null
+    }
+  ],
+  "specs": {
+    "ratedPowerMW": {
+      "value": 2,
+      "source": "Informe p. 4",
+      "scope": "installed",
+      "note": "Potencia unitaria descrita en el catálogo; no equivale a potencia neta de conexión."
+    },
+    "rotorDiameterM": {
+      "value": 110,
+      "source": "Vestas 2 MW, ficha V110 p. PDF 6 [B26]",
+      "scope": "family",
+      "note": "Referencia de familia; no certifica la revisión instalada."
+    },
+    "hubHeightM": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "bladeCount": {
+      "value": 3,
+      "source": "Vestas 2 MW, ficha V110 p. PDF 6 [B26]",
+      "scope": "family",
+      "note": "Referencia de familia; no certifica la revisión instalada."
+    },
+    "generator": {
+      "value": "DFIG · doblemente alimentado con anillos rozantes",
+      "source": "Vestas 2 MW, ficha V110 p. PDF 6 [B26]",
+      "scope": "family",
+      "note": "Referencia de familia; no certifica la revisión instalada."
+    },
+    "gearbox": {
+      "value": true,
+      "source": "Vestas 2 MW, ficha V110 p. PDF 6 [B26]",
+      "scope": "family",
+      "note": "Referencia de familia; no certifica la revisión instalada."
+    },
+    "powerControl": {
+      "value": "pitch",
+      "source": "Vestas 2 MW, ficha V110 p. PDF 6 [B26]",
+      "scope": "family",
+      "note": "Referencia de familia; no certifica la revisión instalada."
+    },
+    "cutInMS": {
+      "value": 3,
+      "source": "Vestas 2 MW, ficha V110 p. PDF 6 [B26]",
+      "scope": "family",
+      "note": "Referencia de familia; no certifica la revisión instalada."
+    },
+    "ratedWindMS": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "cutOutMS": {
+      "value": 21,
+      "source": "Vestas 2 MW, ficha V110 p. PDF 6 [B26]",
+      "scope": "family",
+      "note": "Referencia de familia; no certifica la revisión instalada."
+    },
+    "converter": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    }
+  },
+  "notes": [
+    "Opciones comerciales de altura: 75, 80, 95, 110, 120 y 125 m; no prueban la altura instalada.",
+    "Los ~90 m del relato de un incidente no se usan como altura de buje."
+  ],
+  "simulation": {
+    "fixedWindMS": 8,
+    "ratedPowerMW": 2,
+    "cutInMS": 3,
+    "ratedWindMS": 12,
+    "cutOutMS": 21,
+    "tipSpeedRatio": 7,
+    "maxRotorRPM": 16,
+    "pitchBaseDeg": 1.5,
+    "pitchGainDegPerMS": 2,
+    "gearRatio": 90,
+    "bladeCount": 3,
+    "rotorDiameterM": 110,
+    "hubHeightM": 100,
+    "assumptions": [
+      "Viento fijo de 8 m/s, uniforme, alineado con el rotor.",
+      "Curva cúbica simplificada sin pérdidas; no es una curva medida ni certificada.",
+      "RPM estimadas con relación de velocidad de punta λ=7, límite de 16 RPM.",
+      "Pitch didáctico: 1,5° bajo viento nominal, +2° por m/s sobre nominal.",
+      "Proporciones y ubicación de componentes esquemáticas, sin planos por número de serie.",
+      "Altura visual normalizada; las posiciones del convertidor y transformador son didácticas.",
+      "ratedWindMS=12: supuesto para animación; dato documental ausente.",
+      "Relación de transmisión ilustrativa 90:1, no documentada."
+    ]
+  },
+  "asset": {
+    "glb": "models/vestas-v110-20.glb",
+    "lod": "models/vestas-v110-20-low.glb",
+    "schematic": true
+  }
+}

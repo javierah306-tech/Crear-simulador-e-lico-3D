@@ -1,0 +1,130 @@
+{
+  "id": "vestas-v136-36",
+  "manufacturer": "Vestas",
+  "model": "V136 CP3.6 · PO1 · 50 Hz",
+  "supplier": {
+    "value": "Vestas",
+    "source": "Informe p. 4",
+    "scope": "installed",
+    "note": "Fabricante documentado; proveedor contractual independiente no identificado."
+  },
+  "parks": [
+    {
+      "name": "Negrete",
+      "references": ["B02", "B05"],
+      "evidence": "A",
+      "note": "Diez unidades de 3,6 MW; publicación de instalador difiere (11 × 3,45 MW).",
+      "hubHeightM": {
+        "value": null,
+        "source": null,
+        "scope": "missing",
+        "note": "No consta una altura de buje instalada."
+      },
+      "installationProvider": "Tecnorenova (referencia discrepante B23)"
+    }
+  ],
+  "specs": {
+    "ratedPowerMW": {
+      "value": 3.6,
+      "source": "Informe p. 4",
+      "scope": "installed",
+      "note": "Potencia unitaria descrita en el catálogo; no equivale a potencia neta de conexión."
+    },
+    "rotorDiameterM": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "hubHeightM": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "bladeCount": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "generator": {
+      "value": "Inducción · subtipo no indicado",
+      "source": "Informe p. 7 [B05]",
+      "scope": "installed",
+      "note": "Inducción con convertidor de escala completa; no se infiere DFIG."
+    },
+    "gearbox": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "powerControl": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "cutInMS": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "ratedWindMS": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "cutOutMS": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "converter": {
+      "value": "Escala completa",
+      "source": "Informe p. 7 [B05]",
+      "scope": "installed",
+      "note": "Configuración ensayada de Negrete."
+    }
+  },
+  "notes": [
+    "No se transfieren diámetro, umbrales, transmisión ni opciones del folleto V136-4.2 a CP3.6. El interior muestra únicamente la cadena funcional conocida."
+  ],
+  "simulation": {
+    "fixedWindMS": 8,
+    "ratedPowerMW": 3.6,
+    "cutInMS": 3,
+    "ratedWindMS": 12,
+    "cutOutMS": 20,
+    "tipSpeedRatio": 7,
+    "maxRotorRPM": 16,
+    "pitchBaseDeg": 1.5,
+    "pitchGainDegPerMS": 2,
+    "gearRatio": 90,
+    "bladeCount": 3,
+    "rotorDiameterM": 110,
+    "hubHeightM": 100,
+    "assumptions": [
+      "Viento fijo de 8 m/s, uniforme, alineado con el rotor.",
+      "Curva cúbica simplificada sin pérdidas; no es una curva medida ni certificada.",
+      "RPM estimadas con relación de velocidad de punta λ=7, límite de 16 RPM.",
+      "Pitch didáctico: 1,5° bajo viento nominal, +2° por m/s sobre nominal.",
+      "Proporciones y ubicación de componentes esquemáticas, sin planos por número de serie.",
+      "Altura visual normalizada; las posiciones del convertidor y transformador son didácticas.",
+      "rotorDiameterM=110: supuesto para animación; dato documental ausente.",
+      "cutInMS=3: supuesto para animación; dato documental ausente.",
+      "ratedWindMS=12: supuesto para animación; dato documental ausente.",
+      "cutOutMS=20: supuesto para animación; dato documental ausente.",
+      "bladeCount=3: supuesto para animación; dato documental ausente."
+    ]
+  },
+  "asset": {
+    "glb": "models/vestas-v136-36.glb",
+    "lod": "models/vestas-v136-36-low.glb",
+    "schematic": true
+  }
+}

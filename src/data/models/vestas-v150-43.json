@@ -1,0 +1,143 @@
+{
+  "id": "vestas-v150-43",
+  "manufacturer": "Vestas",
+  "model": "V150 · 4,3 MW",
+  "supplier": {
+    "value": "Vestas",
+    "source": "Informe p. 4",
+    "scope": "installed",
+    "note": "Fabricante documentado; proveedor contractual independiente no identificado."
+  },
+  "parks": [
+    {
+      "name": "Campo Lindo",
+      "references": ["B11"],
+      "evidence": "A",
+      "note": "Alcance de quince unidades ensayadas en 2023.",
+      "hubHeightM": {
+        "value": null,
+        "source": null,
+        "scope": "missing",
+        "note": "No consta una altura de buje instalada."
+      },
+      "installationProvider": null
+    },
+    {
+      "name": "San Matías",
+      "references": ["B12", "B13"],
+      "evidence": "A",
+      "note": "Inconsistencia «N163 V150» conciliada como Vestas V150 por B13.",
+      "hubHeightM": {
+        "value": 140,
+        "source": "Informe p. 5 [B13]",
+        "scope": "installed",
+        "note": "Altura de torre reportada; confirmar definición de altura de buje."
+      },
+      "installationProvider": null
+    }
+  ],
+  "specs": {
+    "ratedPowerMW": {
+      "value": 4.3,
+      "source": "Informe p. 4",
+      "scope": "installed",
+      "note": "Potencia unitaria descrita en el catálogo; no equivale a potencia neta de conexión."
+    },
+    "rotorDiameterM": {
+      "value": 150,
+      "source": "Informe p. 7; Vestas 4 MW p. 9 [B25]",
+      "scope": "family",
+      "note": "Referencia de familia; no certifica la revisión instalada."
+    },
+    "hubHeightM": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "bladeCount": {
+      "value": 3,
+      "source": "Informe p. 7; Vestas 4 MW p. 9 [B25]",
+      "scope": "family",
+      "note": "Referencia de familia; no certifica la revisión instalada."
+    },
+    "generator": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "gearbox": {
+      "value": true,
+      "source": "Informe p. 7; Vestas 4 MW p. 9 [B25]",
+      "scope": "family",
+      "note": "Referencia de familia; no certifica la revisión instalada."
+    },
+    "powerControl": {
+      "value": "pitch",
+      "source": "Informe p. 7; Vestas 4 MW p. 9 [B25]",
+      "scope": "family",
+      "note": "Referencia de familia; no certifica la revisión instalada."
+    },
+    "cutInMS": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "ratedWindMS": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "cutOutMS": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "No consta en los documentos disponibles."
+    },
+    "converter": {
+      "value": "Escala completa",
+      "source": "Informe p. 7; Vestas 4 MW p. 9 [B25]",
+      "scope": "family",
+      "note": "Referencia de familia; no certifica la revisión instalada."
+    }
+  },
+  "notes": [
+    "El folleto V150-4.2/4.5 no documenta una variante 4,3 MW ni confirma umbrales de las unidades chilenas.",
+    "El generador de inducción del Mk3B de 4,2 MW no se transfiere a las variantes de 4,3 MW: su tipo queda sin documentar."
+  ],
+  "simulation": {
+    "fixedWindMS": 8,
+    "ratedPowerMW": 4.3,
+    "cutInMS": 3,
+    "ratedWindMS": 12,
+    "cutOutMS": 20,
+    "tipSpeedRatio": 7,
+    "maxRotorRPM": 16,
+    "pitchBaseDeg": 1.5,
+    "pitchGainDegPerMS": 2,
+    "gearRatio": 90,
+    "bladeCount": 3,
+    "rotorDiameterM": 150,
+    "hubHeightM": 100,
+    "assumptions": [
+      "Viento fijo de 8 m/s, uniforme, alineado con el rotor.",
+      "Curva cúbica simplificada sin pérdidas; no es una curva medida ni certificada.",
+      "RPM estimadas con relación de velocidad de punta λ=7, límite de 16 RPM.",
+      "Pitch didáctico: 1,5° bajo viento nominal, +2° por m/s sobre nominal.",
+      "Proporciones y ubicación de componentes esquemáticas, sin planos por número de serie.",
+      "Altura visual normalizada; las posiciones del convertidor y transformador son didácticas.",
+      "cutInMS=3: supuesto para animación; dato documental ausente.",
+      "ratedWindMS=12: supuesto para animación; dato documental ausente.",
+      "cutOutMS=20: supuesto para animación; dato documental ausente.",
+      "Relación de transmisión ilustrativa 90:1, no documentada."
+    ]
+  },
+  "asset": {
+    "glb": "models/vestas-v150-43.glb",
+    "lod": "models/vestas-v150-43-low.glb",
+    "schematic": true
+  }
+}
