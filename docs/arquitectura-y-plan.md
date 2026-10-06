@@ -78,7 +78,7 @@ En DFIG la electricidad del estator pasa al transformador y la rama del rotor at
 | 2. Catálogo completo         | Nueve modelos/variantes, selector por JSON, separación de arquitectura, vacíos y discrepancias visibles     | Implementado; nueva versión de interiores y acabado visual                 |
 | 3. Fidelidad técnica         | Planos o manuales autorizados por variante, alturas instaladas, curvas OEM, mapa por número de serie        | Pendiente de documentación; no inventar para cerrar vacíos                 |
 | 4. Optimización y validación | Draco, LOD, carga diferida; medir en Android de gama media y Safari iOS; reducir draw calls si es necesario | Compresión, LOD y carga diferida implementados; benchmark físico pendiente |
-| 5. Publicación               | Repositorio remoto, workflow exitoso, URL HTTPS pública sin registro                                        | Destino indicado por el propietario; estado confirmado en verificacion.md  |
+| 5. Publicación               | Repositorio remoto, workflow exitoso, URL HTTPS pública sin registro                                        | Publicado; CI/CD automático en main y evidencia en verificacion.md         |
 
 ### Publicar
 

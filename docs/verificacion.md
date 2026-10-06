@@ -1,25 +1,25 @@
 # Verificación de la nueva versión
 
-Actualización del 5 de octubre de 2026. Esta página registra evidencias de la nueva versión; los resultados de la base del 4 de octubre no se trasladan automáticamente a los assets o a la interfaz renovados.
+Actualización final del 6 de octubre de 2026. Esta página registra evidencias de la nueva versión; los resultados de la base del 4 de octubre no se trasladan automáticamente a los assets o a la interfaz renovados.
 
 ## Comprobaciones de la entrega
 
-| Área          | Comprobación                                               | Estado de la nueva versión                 |
-| ------------- | ---------------------------------------------------------- | ------------------------------------------ |
-| Compilación   | TypeScript y build de Vite                                 | Correcto                                   |
-| Código        | ESLint                                                     | Correcto: revisión completa sin errores    |
-| Datos         | JSON Schema, IDs únicos, umbrales y viento fijo            | Correcto: nueve registros                  |
-| Assets        | GLB v2, Draco, clip de rotor, componentes y arquitectura   | Correcto: dieciocho GLB                    |
-| LOD           | Variante reducida y detallada de cada modelo               | Correcto: todos los LOD reducen triángulos |
-| Simulación    | Invariantes de potencia, RPM y umbrales                    | Correcto: nueve pruebas aprobadas          |
-| Navegador     | Microsoft Edge con WebGL; nueve modelos exterior/interior  | Correcto: revisión completa                |
-| Interacción   | Raycasting, botones, explosión, pausa, ficha y catálogo    | Correcto                                   |
-| Responsive    | Escritorio y móvil 390 × 844 sin desbordamiento horizontal | Correcto: cámara adaptada a retrato        |
-| Condiciones   | Ausencia de reguladores de viento                          | Correcto: sin controles de rango           |
-| GitHub        | Subida al repositorio indicado, rama main                  | Correcto: verificado remotamente           |
-| Sitio público | GitHub Pages configurado con Actions y HTTPS               | Configurado; despliegue inicial en curso   |
+| Área          | Comprobación                                               | Estado de la nueva versión                      |
+| ------------- | ---------------------------------------------------------- | ----------------------------------------------- |
+| Compilación   | TypeScript y build de Vite                                 | Correcto                                        |
+| Código        | ESLint                                                     | Correcto: revisión completa sin errores         |
+| Datos         | JSON Schema, IDs únicos, umbrales y viento fijo            | Correcto: nueve registros                       |
+| Assets        | GLB v2, Draco, componentes, arquitectura y SHA público     | Correcto: dieciocho GLB idénticos a los locales |
+| LOD           | Variante reducida y detallada de cada modelo               | Correcto: todos los LOD reducen triángulos      |
+| Simulación    | Invariantes de potencia, RPM y umbrales                    | Correcto: nueve pruebas aprobadas               |
+| Navegador     | Edge: nueve modelos local, producción y URL pública        | Correcto: revisión completa                     |
+| Interacción   | Raycasting, botones, explosión, pausa, ficha y catálogo    | Correcto                                        |
+| Responsive    | Escritorio y móvil 390 × 844 sin desbordamiento horizontal | Correcto: cámara adaptada a retrato             |
+| Condiciones   | Ausencia de reguladores de viento                          | Correcto: sin controles de rango                |
+| GitHub        | Subida al repositorio indicado, rama main                  | Correcto: verificado remotamente                |
+| Sitio público | GitHub Pages con HTTPS, workflow build/deploy y HTTP 200   | Correcto: aplicación publicada                  |
 
-La nueva versión está subida y verificada en [Crear-simulador-e-lico-3D](https://github.com/javierah306-tech/Crear-simulador-e-lico-3D), rama `main`. Primer commit remoto de esta versión: `66de6667634c4a620d31eb422f2b2bd4e52bb0c6`. GitHub Pages está configurado con Actions y HTTPS obligatorio. El despliegue inicial está en curso; todavía no se declara verificada la [URL pública](https://javierah306-tech.github.io/Crear-simulador-e-lico-3D/).
+La nueva versión está subida y verificada en [Crear-simulador-e-lico-3D](https://github.com/javierah306-tech/Crear-simulador-e-lico-3D), rama `main`. Primer commit remoto de esta versión: `66de6667634c4a620d31eb422f2b2bd4e52bb0c6`. GitHub Pages está configurado con Actions y HTTPS obligatorio. La [URL pública](https://javierah306-tech.github.io/Crear-simulador-e-lico-3D/) está publicada y devuelve HTTP 200 por HTTPS. El [workflow de publicación 37406715059](https://github.com/javierah306-tech/Crear-simulador-e-lico-3D/actions/runs/37406715059) terminó correctamente en sus jobs de build y despliegue, para el commit `d85c037`. La [primera CI 37406528098](https://github.com/javierah306-tech/Crear-simulador-e-lico-3D/actions/runs/37406528098) también aprobó instalación, lint, datos, pruebas y build.
 
 ## Compilación y simulación
 
@@ -35,7 +35,9 @@ Las capturas de escritorio y de móvil a 390 × 844 permiten revisar encuadre y 
 
 La animación auxiliar comparte el reloj del mixer glTF para mantener sincronizados los mecanismos. Al pausar, el Canvas trabaja por demanda; la cámara y las interacciones continúan disponibles sin dibujar constantemente un rotor detenido. El flujo de energía ilustra la dirección funcional y no representa telemetría.
 
-La revisión de producción usó la ruta base `/Crear-simulador-e-lico-3D/`, cargó los nueve modelos y contrastó la región central de los mecanismos: cambió durante la animación y permaneció idéntica al pausar. Los assets V110 definitivos coinciden por SHA con las copias de `dist`. No se registraron errores de consola. Esta prueba local con la ruta del repositorio verifica el build; la revisión de la URL pública se registra por separado al terminar el despliegue.
+La revisión de producción usó la ruta base `/Crear-simulador-e-lico-3D/`, cargó los nueve modelos y contrastó la región central de los mecanismos: cambió durante la animación y permaneció idéntica al pausar. Los assets V110 definitivos coinciden por SHA con las copias de `dist`. No se registraron errores de consola. Esta prueba local con la ruta del repositorio verifica el build; la revisión de navegador contra la URL pública se registra por separado del estado HTTP y del workflow.
+
+La revisión final se repitió contra la web pública HTTPS y aprobó los nueve modelos, movimiento de la región mecánica y estabilidad al pausar, selección por raycasting, vista de explosión, ficha, catálogo y formato móvil 390 × 844 sin desbordamiento horizontal. No hubo errores de consola. Se descargaron además los dieciocho GLB publicados y se comparó su SHA-256 con cada archivo local definitivo: todos coinciden. Así se comprobó que el sitio sirve los interiores y LOD finales, incluido el V110 con su conexión entre etapas.
 
 ## Assets exportados
 

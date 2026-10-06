@@ -65,8 +65,8 @@ Para agregar una eólica basta un JSON que cumpla el esquema y un GLB compatible
 
 ## Repositorio y publicación
 
-La nueva versión está subida a [Crear-simulador-e-lico-3D](https://github.com/javierah306-tech/Crear-simulador-e-lico-3D), rama `main`. GitHub Pages está configurado con GitHub Actions y HTTPS; el primer despliegue de la nueva versión está en curso.
+La nueva versión está subida a [Crear-simulador-e-lico-3D](https://github.com/javierah306-tech/Crear-simulador-e-lico-3D), rama `main`. La aplicación está publicada en GitHub Pages con HTTPS y acceso libre. El workflow de publicación terminó correctamente.
 
-Dirección de la aplicación: [Smartwind · Explorador eólico](https://javierah306-tech.github.io/Crear-simulador-e-lico-3D/). La disponibilidad pública se confirma en [verificación](docs/verificacion.md).
+Abrir la aplicación: [Smartwind · Explorador eólico](https://javierah306-tech.github.io/Crear-simulador-e-lico-3D/). La web pública se verificó con los nueve modelos en escritorio y móvil; los dieciocho GLB publicados coinciden con los archivos locales. Resultados y límites en [verificación](docs/verificacion.md).
 
 Cada subida a `main` ejecuta **Publicar en GitHub Pages**: valida código, datos y simulación, compila el sitio y lo despliega. También puede ejecutarse manualmente desde **Actions**. Las pull requests ejecutan validación sin despliegue. No se requiere registro para visitar la aplicación.
