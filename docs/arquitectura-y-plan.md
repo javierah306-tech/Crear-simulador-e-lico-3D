@@ -1,6 +1,6 @@
 # Arquitectura y plan de entrega
 
-El producto abre directamente el visor. El boceto se interpreta como un selector lateral, una escena central a altura de góndola, acceso a un interior traslúcido y un botón para avanzar al siguiente modelo. Se usan dos posiciones principales de cámara; el usuario también puede orbitar y acercar libremente. La indicación expresa de no ofrecer reguladores prevalece sobre el requisito posterior de un deslizador de viento: el escenario usa 8 m/s fijos y no ofrece edición de las condiciones.
+La nueva versión mantiene acceso directo al visor y renueva su interfaz con arena, verde y cobre, interiores mecánicos de mayor detalle y materiales diferenciados. El boceto se interpreta como un selector lateral, una escena central a altura de góndola, acceso a un interior traslúcido y un botón para avanzar al siguiente modelo. Se usan dos posiciones principales de cámara; el usuario también puede orbitar y acercar libremente. La indicación expresa de no ofrecer reguladores prevalece sobre el requisito posterior de un deslizador de viento: el escenario usa 8 m/s fijos y no ofrece edición de las condiciones.
 
 ## Estructura
 
@@ -30,13 +30,13 @@ scripts/
   export-models.mjs               lanzador Blender
   build_catalog.py               reproducción de la extracción curada
   generate_deliverables.py        tablas y esquema
-  check-data.ts                   verificación de JSON y estructura GLB
+  check-data.ts                   JSON, contrato GLB, animación y LOD
 tests/simulation.test.ts          invariantes de curva y umbrales
-.github/workflows/pages.yml       CI y publicación HTTPS en GitHub Pages
+.github/workflows/               CI de validación y despliegue manual Pages
 docs/                            extracción, arquitectura, fuentes y plan
 ```
 
-El visor se carga con `React.lazy`. Cada GLB solo se solicita al seleccionar el modelo: LOD reducido en exterior y geometría detallada en interior. La cámara usa OrbitControls de drei; GSAP interpola acercamientos y posiciones de la vista de explosión. La animación de rotor viene del glTF exportado por Blender y ajusta su velocidad a las RPM estimadas. Generador y engranajes tienen movimiento cinemático adicional.
+El visor se carga con `React.lazy`. Cada GLB solo se solicita al seleccionar el modelo: LOD reducido en exterior y geometría detallada en interior. La cámara usa OrbitControls de drei y adapta su distancia inicial al formato del visor, incluido el retrato móvil; GSAP interpola acercamientos y posiciones de la vista de explosión. La animación de rotor viene del glTF exportado por Blender y ajusta su velocidad a las RPM estimadas. Los mecanismos auxiliares se animan mediante metadatos del GLB y comparten el reloj del mixer para evitar deriva respecto al rotor. Al pausar, el Canvas se actualiza por demanda. Las piezas estáticas se agrupan por componente y material para reducir llamadas de dibujo sin perder la selección del subsistema. La nueva versión usa carcasas independientes para descubrir ejes, apoyos y equipos en el interior. La iluminación utiliza un entorno generado en la aplicación, sin un HDR remoto. Las transiciones de cámara y explosión respetan la preferencia de reducir movimiento.
 
 Las piezas tienen `extras.component` en glTF. El raycasting identifica ese atributo en la pieza o sus padres. Existe una lista equivalente de botones para selección por teclado. La ficha usa un diálogo nativo modal con foco contenido, cierre por Escape y devolución de foco al disparador. El Canvas tiene mensaje alternativo cuando WebGL no está disponible.
 
@@ -50,10 +50,11 @@ Para agregar un modelo se incorpora un JSON que cumpla el esquema y un GLB con l
 
 - Coordenadas glTF Y hacia arriba; eje mecánico X; góndola centrada cerca del origen.
 - Grupos `RotorAssembly`, `MainShaft`, `Generator`, `GeneratorRotor`, `Converter`, `Transformer`, `Yaw`, `Nacelle`, `Tower`; `Gearbox` solo si está documentada.
-- Mesh `Shell` para transparencia. Cada pieza conserva `extras.component` con su identificador.
-- Pitch: grupos `Pitch_0` a `Pitch_2`; engranajes: `GearWheel_0` a `GearWheel_2` si aplican.
+- Meshes `Shell` o `Shell_*` para transparencia de góndola; `HubCover`, `GearboxCasing_*` y `GeneratorCasing_*` identifican carcasas de los mecanismos. Cada pieza o su grupo padre conserva `extras.component` con su identificador.
+- Pitch: grupos `Pitch_0` a `Pitch_<bladeCount − 1>` según el número de palas del escenario. Las piezas móviles auxiliares llevan `extras.motionAxis` (`x`, `y` o `z`), `extras.motionRatio` firmado respecto a las RPM del rotor y `extras.motionBaseRPM` como referencia de reproducción. La relación visual no se presenta como una relación OEM.
 - Clip de rotación a 12 RPM nominales de reproducción; el runtime usa `timeScale = RPM / 12`.
-- No se usa una geometría como evidencia de un componente instalado. Los assets actuales son modelos educativos normalizados, no reconstrucciones CAD OEM.
+- El clip anima `RotorAssembly` sobre el eje X negativo. Los demás mecanismos se controlan desde sus metadatos; no deben recibir simultáneamente una animación glTF y otra del runtime sobre el mismo eje.
+- No se usa una geometría como evidencia de un componente instalado. Los assets son modelos educativos normalizados, con detalle mecánico original y sin planos CAD OEM. En una arquitectura sin documentar, la ausencia de `Gearbox` evita afirmar una transmisión concreta y no demuestra accionamiento directo.
 
 ## Modelo didáctico
 
@@ -65,27 +66,29 @@ RPM(v) = min(RPM_max, 60 × λ × min(v, v_nom) / (π × D))
 pitch(v) = pitch_base + ganancia × max(0, v − v_nom)
 ```
 
-En la interfaz `v = 8 m/s` es constante. La fórmula incluye límites para validar los cálculos, pero no hay escenarios de fallas, extremos o transitorios. La curva no incorpora pérdidas, variación de densidad, control propietario ni medidas reales. Para Goldwind se usan umbrales de familia 3/9,9/22 m/s; para los datos ausentes se usa nominal ilustrativa 12 m/s. La relación de transmisión de 90:1 en máquinas con multiplicadora es un supuesto visual, no una especificación del fabricante.
+En la interfaz `v = 8 m/s` es constante. La fórmula incluye límites para validar los cálculos, pero no hay escenarios de fallas, extremos o transitorios. La curva no incorpora pérdidas, variación de densidad, control propietario ni medidas reales. Para Goldwind se usan umbrales de familia 3/9,9/22 m/s; para los datos ausentes se usa nominal ilustrativa 12 m/s. La relación de transmisión de 90:1 incluida en `simulation` para máquinas con multiplicadora es un supuesto, no una especificación del fabricante. Los metadatos de movimiento coordinan las piezas auxiliares mediante relaciones firmadas, incluyendo el sentido de giro de las etapas. Esa cinemática es ilustrativa y no una medición de RPM del generador. El giro del anemómetro también es una animación ilustrativa del escenario fijo.
 
 En DFIG la electricidad del estator pasa al transformador y la rama del rotor atraviesa el convertidor. Los demás modelos muestran una ruta funcional de escala completa o una ruta abstracta cuando la arquitectura no está documentada. Las partículas ilustran la dirección, no paquetes físicos de energía ni valores de potencia distribuidos.
 
 ## Plan por etapas
 
-| Etapa                        | Resultado y criterio de salida                                                                              | Estado en esta base                                                        |
+| Etapa                        | Resultado y criterio de salida                                                                              | Estado de entrega                                                          |
 | ---------------------------- | ----------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
 | 1. Prototipo con Goldwind    | GLB sin multiplicadora, vista exterior/interior, rotor animado, ficha y cámara orbital                      | Implementado y probado en navegador                                        |
-| 2. Catálogo completo         | Nueve modelos/variantes, selector por JSON, separación de arquitectura, vacíos y discrepancias visibles     | Implementado con geometrías didácticas                                     |
+| 2. Catálogo completo         | Nueve modelos/variantes, selector por JSON, separación de arquitectura, vacíos y discrepancias visibles     | Implementado; nueva versión de interiores y acabado visual                 |
 | 3. Fidelidad técnica         | Planos o manuales autorizados por variante, alturas instaladas, curvas OEM, mapa por número de serie        | Pendiente de documentación; no inventar para cerrar vacíos                 |
 | 4. Optimización y validación | Draco, LOD, carga diferida; medir en Android de gama media y Safari iOS; reducir draw calls si es necesario | Compresión, LOD y carga diferida implementados; benchmark físico pendiente |
-| 5. Publicación               | Repositorio remoto, workflow exitoso, URL HTTPS pública sin registro                                        | Configuración lista; falta cuenta/repositorio de hosting                   |
+| 5. Publicación               | Repositorio remoto, workflow exitoso, URL HTTPS pública sin registro                                        | Destino indicado por el propietario; estado confirmado en verificacion.md  |
 
 ### Publicar
 
-1. Crear un repositorio de GitHub y subir el proyecto a la rama `main`, incluidos los GLB, decodificadores y el lockfile. No subir `node_modules`, `dist`, extracciones temporales ni documentos OEM completos.
-2. En **Settings → Pages**, seleccionar **GitHub Actions**. El workflow comprueba lint, esquema/GLB, fórmulas y build antes de publicar. Configura la ruta base a `/<nombre-repositorio>/`.
+1. Subir el proyecto al [repositorio indicado por el propietario](https://github.com/javierah306-tech/Crear-simulador-e-lico-3D), rama `main`, incluidos los GLB, decodificadores y el lockfile. No subir `node_modules`, `dist`, extracciones temporales, la carpeta `modelos chilenos` ni documentos OEM completos.
+2. La CI comprueba lint, esquema/GLB, fórmulas y build en cada subida. Para activar la publicación, en **Settings → Pages** seleccionar **GitHub Actions** y ejecutar el workflow manual **Publicar en GitHub Pages** desde **Actions**. El build de publicación configura la ruta base a `/<nombre-repositorio>/`.
 3. Verificar la URL publicada por el job `deploy`: carga de Draco, cambios de modelo, dos vistas, navegación móvil y ausencia de registro. Para un repositorio de sitio de usuario (`usuario.github.io`), cambiar `VITE_BASE_PATH` a `/`.
 
 Netlify: importar el repositorio; `netlify.toml` configura `pnpm build` y `dist`. Cloudflare Pages: usar el mismo comando y directorio, Node 24 y base `/`. La publicación requiere una cuenta de hosting para el propietario, pero el visitante no necesita cuenta. PWA y WebGPU son mejoras opcionales no implementadas.
+
+La mejora de acabado se describe en [mejora-visual.md](mejora-visual.md). Las pruebas y el estado remoto se registran en [verificacion.md](verificacion.md).
 
 ## Límites prácticos
 

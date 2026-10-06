@@ -1,8 +1,8 @@
 # Smartwind · Explorador eólico del Biobío
 
-Base funcional en español: React 19, TypeScript, Vite, Three.js/React Three Fiber, drei, Zustand, GSAP y Tailwind CSS. Incluye nueve modelos o variantes de la documentación regional, dieciocho GLB con Draco y nueve fuentes Blender.
+Simulador educativo 3D en español de nueve modelos o variantes presentes en la documentación del Biobío. La nueva versión renueva los interiores mecánicos, los materiales y la interfaz con una paleta de arena, verde y cobre. Funciona sin registro, servidor de datos ni claves de acceso.
 
-Dos acercamientos principales, cámara orbital, interior traslúcido, rotor animado, flujo de energía, selección de componentes, vista de explosión, ficha documental y comparación de modelos. Sin registro ni control de viento: escenario normal fijo de 8 m/s.
+El visitante puede alternar entre dos acercamientos principales: exterior a la altura de la góndola e interior traslúcido. La cámara orbital, la selección de piezas, la vista de explosión y el flujo de energía permiten explorar la máquina en operación normal. El viento permanece fijo en **8 m/s**; no hay reguladores de condiciones.
 
 ## Ejecutar
 
@@ -13,7 +13,7 @@ pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-Abrir la dirección local que imprime Vite. El sitio es estático y no necesita servidor de datos ni claves.
+Abrir la dirección local que imprime Vite. La carpeta de trabajo es `C:\Users\javie\OneDrive\Desktop\Lab Neiron\modelos 3D eolicos`.
 
 ```sh
 pnpm lint
@@ -23,31 +23,46 @@ pnpm build
 pnpm preview
 ```
 
-## Entregables
+## Qué incluye
 
-- [Tabla de modelos y proveedores](docs/modelos-extraidos.md), además de CSV con todos los campos y procedencia.
-- [Arquitectura, ecuaciones, plan por etapas y publicación](docs/arquitectura-y-plan.md).
-- [Esquema JSON](src/data/turbine.schema.json), [contratos TypeScript](src/data/types.ts) y un JSON por modelo en `src/data/models`.
-- Visor funcional en `src/components/TurbineScene.tsx`, UI en `src/App.tsx`.
-- Assets GLB comprimidos y fuentes originales en `assets/blender`.
-- CI/CD listo para GitHub Pages; configuración adicional para Netlify.
+- React, TypeScript, Vite, Three.js con React Three Fiber/drei, Zustand, GSAP y Tailwind CSS.
+- Nueve fuentes Blender editables y dieciocho GLB con Draco: geometría detallada para el interior y LOD reducido para el exterior.
+- Palas perfiladas, buje, apoyos, tren mecánico, generador, equipos eléctricos y estructura de la góndola, con partes animadas identificables.
+- Dos cámaras principales, interior traslúcido, vista de explosión, selección por ratón o botones, ficha técnica y catálogo comparativo.
+- Datos y supuestos separados en JSON, pruebas de las fórmulas y validación del contrato de los assets.
+- CI automática para validar y compilar cada subida; workflow manual de GitHub Pages y configuración alternativa para Netlify.
 
-## Fuentes y precauciones de interpretación
+## Documentación
 
-La extracción proviene de `02_PARQUES_COMPONENTES_BIOBIO.pdf` y del corpus local de fabricantes encontrado en la carpeta `modelos 3D eolicos/modelos chilenos`. Corte documental: 3 de octubre de 2026. No se afirma un inventario vigente por unidad. Los JSON distinguen dato instalado, referencia de familia y dato ausente. `simulation` contiene valores ilustrativos separados de la ficha. Las Peñas conserva la discrepancia de potencia; la configuración exacta de varias máquinas sigue pendiente. Las geometrías son esquemáticas, normalizadas y originales, no CAD de fabricantes.
+- [Tabla de modelos y proveedores](docs/modelos-extraidos.md), además de CSV con campos y procedencia.
+- [Arquitectura, ecuaciones, extensión y plan](docs/arquitectura-y-plan.md).
+- [Cambios de la nueva versión visual](docs/mejora-visual.md).
+- [Verificación y límites de la entrega](docs/verificacion.md).
+- [Esquema JSON](src/data/turbine.schema.json) y [contratos TypeScript](src/data/types.ts).
+- [Fuentes documentales](docs/fuentes.md).
 
-Los PDF/HTML completos no se distribuyen con el sitio; las referencias por campo permanecen en los JSON y la documentación. Consulta `docs/fuentes.md` para las rutas de lectura y la huella de los documentos usados.
+## Datos y alcance técnico
 
-## Modelado
+La fuente primaria es `02_PARQUES_COMPONENTES_BIOBIO.pdf`, contrastada con el corpus local de fabricantes en `modelos chilenos/`. Corte documental: 3 de octubre de 2026. Los JSON distinguen datos instalados, referencias de familia y campos ausentes. La ficha muestra **No documentado** cuando no existe evidencia. No se afirma un inventario vigente por unidad.
+
+`simulation` contiene los valores ilustrativos usados para calcular potencia, RPM y paso. Las Peñas conserva la discrepancia de potencia. Las geometrías, el detalle de engranajes, las relaciones de movimiento y la ubicación de los equipos son reconstrucciones didácticas originales; las imágenes recibidas inspiran el acabado y no acreditan una configuración instalada. Los modelos con transmisión sin documentar muestran una cadena funcional genérica y conservan esa incertidumbre en la ficha. Una ausencia de multiplicadora en esas geometrías no demuestra accionamiento directo.
+
+Los PDF/HTML completos y las imágenes de inspiración no se redistribuyen como assets. El código y los modelos originales usan licencia MIT.
+
+## Modelado y extensión
 
 ```sh
 # Windows: detecta Blender 5.2 en su ruta habitual.
 pnpm models
-# O definir BLENDER_PATH con el ejecutable de Blender antes de ejecutar.
+# También se puede definir BLENDER_PATH con el ejecutable de Blender.
 ```
 
-`scripts/create_models.py` genera los modelos educativos y exporta glTF con extras por componente y un clip de rotor a 12 RPM. Los assets ya están incluidos; Blender no es necesario para usar ni compilar el visor. `scripts/build_catalog.py` reproduce la curación documental; cambiar un JSON directamente es suficiente para la extensión y no requiere ejecutar ese generador. `scripts/generate_deliverables.py` actualiza tablas y esquema.
+`scripts/create_models.py` construye los assets originales, guarda fuentes `.blend` y exporta GLB con compresión Draco, etiquetas de componente y animación de rotor. Los assets están incluidos: Blender no es necesario para ejecutar ni compilar el visor.
 
-## Estado de publicación
+Para agregar una eólica basta un JSON que cumpla el esquema y un GLB compatible. El selector descubre los JSON automáticamente. `asset.lod` puede apuntar al mismo archivo si todavía no existe una versión reducida. Consulta el contrato en [arquitectura](docs/arquitectura-y-plan.md).
 
-El proyecto está preparado para una URL pública HTTPS en GitHub Pages, Netlify o Cloudflare Pages. No está publicado todavía: falta configurar una cuenta/repositorio remoto. Las pruebas de navegador realizadas en este entorno y los límites de rendimiento se registran en `docs/verificacion.md`.
+`scripts/build_catalog.py` reproduce la extracción curada y `scripts/generate_deliverables.py` genera tablas y esquema. No deben ejecutarse para sustituir datos desconocidos por valores inferidos del nombre de un modelo.
+
+## Repositorio y publicación
+
+Repositorio indicado por el propietario para esta versión: [Crear-simulador-e-lico-3D](https://github.com/javierah306-tech/Crear-simulador-e-lico-3D). El estado de la subida y del despliegue se registra en [verificación](docs/verificacion.md). Cada subida ejecuta la validación y el build. Para publicar la web, seleccionar **Settings → Pages → GitHub Actions** en el repositorio y ejecutar el workflow manual **Publicar en GitHub Pages** desde **Actions**. Subir el código y publicar una web son pasos distintos.

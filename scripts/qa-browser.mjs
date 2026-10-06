@@ -1,7 +1,13 @@
 import { createRequire } from 'node:module';
 import { mkdir, writeFile } from 'node:fs/promises';
+import { join } from 'node:path';
+import { homedir } from 'node:os';
 const require = createRequire(
-  'C:/Users/javie/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/package.json',
+  process.env.PLAYWRIGHT_PACKAGE ||
+    join(
+      homedir(),
+      '.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/package.json',
+    ),
 );
 const { chromium } = require('playwright');
 await mkdir('tmp/qa', { recursive: true });
@@ -19,19 +25,34 @@ page.on('pageerror', (e) => errors.push(String(e)));
 page.on('console', (m) => {
   if (m.type() === 'error') errors.push(m.text());
 });
-await page.goto('http://127.0.0.1:5173/', { waitUntil: 'networkidle' });
+await page.goto(process.env.QA_URL || 'http://127.0.0.1:5173/', { waitUntil: 'networkidle' });
 await page.waitForTimeout(3000);
 await page.screenshot({ path: 'tmp/qa/desktop.png', fullPage: true });
 await page.getByRole('button', { name: 'Vista interior', exact: true }).click();
 await page.waitForTimeout(1600);
 await page.screenshot({ path: 'tmp/qa/interior.png', fullPage: true });
 const canvas = page.locator('canvas');
-const imageA = await canvas.screenshot();
+const snapshotMechanism = async () => {
+  const b = await canvas.boundingBox();
+  return page.screenshot({
+    clip: {
+      x: b.x + b.width * 0.2,
+      y: b.y + b.height * 0.26,
+      width: b.width * 0.58,
+      height: b.height * 0.48,
+    },
+  });
+};
+const imageA = await snapshotMechanism();
 await page.waitForTimeout(700);
-const imageB = await canvas.screenshot();
+const imageB = await snapshotMechanism();
 if (imageA.equals(imageB)) throw Error('El rotor no anima.');
 await page.getByRole('button', { name: 'Pausar animación', exact: true }).click();
-await page.waitForTimeout(400);
+await page.waitForTimeout(1200);
+const pausedA = await snapshotMechanism();
+await page.waitForTimeout(500);
+const pausedB = await snapshotMechanism();
+if (!pausedA.equals(pausedB)) throw Error('La animación no se mantiene inmóvil en pausa.');
 const box = await canvas.boundingBox();
 await page.mouse.click(box.x + box.width * 0.44, box.y + box.height * 0.53);
 await page.getByRole('region', { name: /Información de/ }).waitFor({ timeout: 5000 });
@@ -83,4 +104,4 @@ await writeFile(
 );
 await browser.close();
 if (errors.length) throw Error(errors.join('\n'));
-console.log('QA inicial OK: exterior, interior, selección, explosión, ficha, catálogo y móvil.');
+console.log('QA OK: exterior, interior, selección, explosión, ficha, catálogo y móvil.');

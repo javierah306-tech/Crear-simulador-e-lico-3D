@@ -15,6 +15,9 @@ import {
   Gauge,
   Compass,
   Menu,
+  Leaf,
+  ArrowRight,
+  Radio,
 } from 'lucide-react';
 import { models, architecture } from './data/catalog';
 import { components } from './data/components';
@@ -43,6 +46,31 @@ class ViewerBoundary extends Component<{ children: ReactNode }, { error: boolean
   }
 }
 
+function ModelGlyph({ direct }: { direct: boolean }) {
+  return (
+    <svg viewBox="0 0 42 42" fill="none" aria-hidden="true">
+      <path d="M21 23v13M16 36h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <path
+        d="m21 20-1.2-14c-.1-1.2 1.8-1.2 1.9 0L23 18.6M19.5 21.4 7.4 27.1c-1.1.5-2-1.1-1-1.8L18.8 18.7M22.5 20.6l10.3 9.2c.9.8-.4 2.1-1.3 1.4L20.4 23"
+        fill="currentColor"
+        fillOpacity=".14"
+        stroke="currentColor"
+        strokeWidth="1.3"
+        strokeLinejoin="round"
+      />
+      <circle
+        cx="21"
+        cy="21"
+        r={direct ? 3.9 : 2.8}
+        fill="currentColor"
+        fillOpacity=".12"
+        stroke="currentColor"
+        strokeWidth="1.3"
+      />
+      <circle cx="21" cy="21" r=".8" fill="currentColor" />
+    </svg>
+  );
+}
 function componentIds(model: TurbineModel): ComponentId[] {
   const basic: ComponentId[] = ['blades', 'hub', 'rotor', 'shaft'];
   if (model.specs.gearbox.value === true) basic.push('gearbox');
@@ -67,7 +95,7 @@ function ComponentPanel({ id, model }: { id: ComponentId; model: TurbineModel })
   return (
     <div className="part-panel" role="region" aria-label={'Información de ' + part.name}>
       <div className="part-top">
-        <span className="eyebrow">COMPONENTE SELECCIONADO</span>
+        <span className="eyebrow">ANATOMÍA / DETALLE</span>
         <button
           aria-label="Cerrar componente"
           className="icon-button"
@@ -88,10 +116,10 @@ function ComponentPanel({ id, model }: { id: ComponentId; model: TurbineModel })
         </div>
       )}
       <p className="small muted">
-        Forma y ubicación didácticas.{' '}
+        Detalle mecánico ilustrativo.{' '}
         {model.specs.gearbox.value === null
-          ? 'Arquitectura interna pendiente de confirmar.'
-          : 'La geometría no corresponde a planos de una unidad instalada.'}
+          ? 'La arquitectura instalada está pendiente de confirmar.'
+          : 'Forma, escala y ubicación didácticas; no son planos de fabricación.'}
       </p>
     </div>
   );
@@ -171,10 +199,10 @@ function App() {
           aria-label="Smartwind, explorador"
         >
           <span className="brand-symbol">
-            <Wind size={24} />
+            <Leaf size={23} strokeWidth={1.7} />
           </span>
           <span>
-            smartwind<span className="brand-sub">EXPLORADOR EÓLICO</span>
+            smartwind<span className="brand-sub">ENERGÍA QUE SE EXPLORA</span>
           </span>
         </button>
         <nav aria-label="Navegación principal">
@@ -192,8 +220,9 @@ function App() {
           </button>
         </nav>
         <div className="region">
-          <MapPin size={16} />
+          <span className="region-dot" />
           <span>Biobío, Chile</span>
+          <span className="open-access">ACCESO LIBRE</span>
         </div>
       </header>
       <main id="main">
@@ -206,12 +235,12 @@ function App() {
               aria-label="Selector de aerogeneradores"
             >
               <div className="sidebar-heading">
-                <span className="eyebrow">ELIGE UNA TECNOLOGÍA</span>
+                <span className="eyebrow">COLECCIÓN BIOBÍO</span>
                 <h2>
                   Aerogeneradores <span>{models.length.toString().padStart(2, '0')}</span>
                 </h2>
               </div>
-              <p className="sidebar-caption">Modelos documentados en la región</p>
+              <p className="sidebar-caption">Nueve maneras de transformar el viento.</p>
               <div className="model-list">
                 {models.map((m, i) => (
                   <button
@@ -223,7 +252,10 @@ function App() {
                     }}
                     aria-pressed={m.id === model.id}
                   >
-                    <span className="model-number">{(i + 1).toString().padStart(2, '0')}</span>
+                    <span className="model-symbol">
+                      <ModelGlyph direct={m.specs.gearbox.value === false} />
+                      <span className="model-number">{(i + 1).toString().padStart(2, '0')}</span>
+                    </span>
                     <span className="model-copy">
                       <span className="maker">{m.manufacturer}</span>
                       <strong>{m.model}</strong>
@@ -244,17 +276,19 @@ function App() {
                 ))}
               </div>
               <div className="sidebar-footer">
-                <Info size={18} />
+                <Leaf size={20} strokeWidth={1.5} />
                 <p>
-                  Una mirada al interior de la energía eólica.
-                  <span>Abierto, educativo y sin registro.</span>
+                  Entender la energía es parte del cambio.
+                  <span>Una experiencia educativa abierta.</span>
                 </p>
               </div>
             </aside>
             <section className="viewer-workspace" aria-label="Simulador 3D">
               <div className="viewer-heading">
                 <div>
-                  <span className="eyebrow">ANATOMÍA DEL AEROGENERADOR</span>
+                  <span className="eyebrow viewer-eyebrow">
+                    EL VIENTO, POR DENTRO <span> / </span> EXPLORADOR 3D
+                  </span>
                   <h1>
                     {model.manufacturer} <span>{model.model.split(' · ')[0]}</span>
                   </h1>
@@ -265,12 +299,13 @@ function App() {
                   </p>
                 </div>
                 <button className="outline-button sheet-button" onClick={() => setSheet(true)}>
-                  <Info size={16} />
+                  <Info size={16} strokeWidth={1.6} />
                   Ficha técnica
                 </button>
                 <button
                   className="icon-button mobile-selector"
-                  aria-label="Mostrar modelos"
+                  aria-label={mobileMenu ? 'Ocultar modelos' : 'Mostrar modelos'}
+                  aria-expanded={mobileMenu}
                   onClick={() => setMobileMenu(!mobileMenu)}
                 >
                   <Menu />
@@ -294,9 +329,13 @@ function App() {
                       Vista interior
                     </button>
                   </div>
-                  <span className="operation-label">
-                    <span />
-                    OPERACIÓN NORMAL
+                  <span className={'operation-label ' + (state.playing ? 'is-live' : 'is-paused')}>
+                    <span className="live-dot" />
+                    <span className="operation-copy">
+                      <strong>{state.playing ? 'EN VIVO' : 'EN PAUSA'}</strong>
+                      <small>Operación normal</small>
+                    </span>
+                    <Radio size={17} strokeWidth={1.5} aria-hidden="true" />
                   </span>
                 </div>
                 <ViewerBoundary key={model.id}>
@@ -304,6 +343,10 @@ function App() {
                     <TurbineScene model={model} />
                   </Suspense>
                 </ViewerBoundary>
+                <div className="studio-label" aria-hidden="true">
+                  <span className="studio-line" />
+                  <span>{state.exploded ? 'VISTA DESPIEZADA' : 'ESTUDIO DE COMPONENTES'}</span>
+                </div>
                 <div className="scene-caption">
                   <span className="eyebrow">
                     {state.view === 'exterior'
@@ -312,8 +355,8 @@ function App() {
                   </span>
                   <span>
                     {state.view === 'exterior'
-                      ? 'Del viento al movimiento.'
-                      : 'Del movimiento a la electricidad.'}
+                      ? 'El viento se convierte en movimiento.'
+                      : 'La ingeniería detrás de la energía.'}
                   </span>
                 </div>
                 <div className="camera-tools">
@@ -353,6 +396,10 @@ function App() {
                 </button>
               </div>
               <div className="readouts" aria-label="Estimaciones bajo un viento fijo">
+                <div className="readouts-heading">
+                  <span className="eyebrow">ESCENARIO NORMAL</span>
+                  <span>Estimaciones didácticas · viento fijo</span>
+                </div>
                 <div>
                   <span className="metric-label">
                     <Wind size={16} />
@@ -362,9 +409,11 @@ function App() {
                     {data.wind.toLocaleString('es-CL')}
                     <small>m/s</small>
                   </strong>
-                  <span className="metric-note">Condición fija</span>
+                  <span className="metric-note">
+                    <span className="tiny-dot" /> Condición fija
+                  </span>
                 </div>
-                <div>
+                <div className="power-readout">
                   <span className="metric-label">
                     <Zap size={16} />
                     Potencia estimada
@@ -402,10 +451,33 @@ function App() {
                   </span>
                 </div>
               </div>
+              <div className="energy-story" aria-label="Transformación de la energía">
+                <span className="eyebrow">DE LA BRISA A LA RED</span>
+                <div className="energy-steps">
+                  <span>
+                    <Wind size={16} /> Viento
+                  </span>
+                  <ArrowRight size={13} />
+                  <span>Rotor</span>
+                  <ArrowRight size={13} />
+                  <span>Generador</span>
+                  <ArrowRight size={13} />
+                  <span>
+                    <Zap size={15} /> Red
+                  </span>
+                </div>
+                <span className="story-note">
+                  {model.specs.gearbox.value === false
+                    ? 'Accionamiento directo'
+                    : model.specs.gearbox.value === true
+                      ? 'Tren con multiplicadora'
+                      : 'Arquitectura por confirmar'}
+                </span>
+              </div>
               <div className="components-section">
                 <div className="components-heading">
-                  <h2>Explora los componentes</h2>
-                  <p>Selecciona una pieza en el modelo o en la lista.</p>
+                  <h2>Cada pieza tiene una historia.</h2>
+                  <p>Toca una pieza o elige un componente para descubrir su función.</p>
                 </div>
                 <div className="component-list">
                   {ids.map((id) => (
@@ -437,7 +509,7 @@ function App() {
                 </div>
               </div>
               <footer className="workspace-footer">
-                <span>Representación didáctica · Datos del informe y referencias de familia</span>
+                <span>Geometría ilustrativa · Datos del informe y referencias de familia</span>
                 <button className="text-button" onClick={() => setSheet(true)}>
                   Consultar fuentes y supuestos
                 </button>
