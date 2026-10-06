@@ -30,7 +30,7 @@ pnpm preview
 - Palas perfiladas, buje, apoyos, tren mecánico, generador, equipos eléctricos y estructura de la góndola, con partes animadas identificables.
 - Dos cámaras principales, interior traslúcido, vista de explosión, selección por ratón o botones, ficha técnica y catálogo comparativo.
 - Datos y supuestos separados en JSON, pruebas de las fórmulas y validación del contrato de los assets.
-- CI automática para validar y compilar cada subida; workflow manual de GitHub Pages y configuración alternativa para Netlify.
+- CI automática que valida, compila y despliega GitHub Pages al subir a `main`; validación de pull requests y configuración alternativa para Netlify.
 
 ## Documentación
 
@@ -65,4 +65,8 @@ Para agregar una eólica basta un JSON que cumpla el esquema y un GLB compatible
 
 ## Repositorio y publicación
 
-Repositorio indicado por el propietario para esta versión: [Crear-simulador-e-lico-3D](https://github.com/javierah306-tech/Crear-simulador-e-lico-3D). El estado de la subida y del despliegue se registra en [verificación](docs/verificacion.md). Cada subida ejecuta la validación y el build. Para publicar la web, seleccionar **Settings → Pages → GitHub Actions** en el repositorio y ejecutar el workflow manual **Publicar en GitHub Pages** desde **Actions**. Subir el código y publicar una web son pasos distintos.
+La nueva versión está subida a [Crear-simulador-e-lico-3D](https://github.com/javierah306-tech/Crear-simulador-e-lico-3D), rama `main`. GitHub Pages está configurado con GitHub Actions y HTTPS; el primer despliegue de la nueva versión está en curso.
+
+Dirección de la aplicación: [Smartwind · Explorador eólico](https://javierah306-tech.github.io/Crear-simulador-e-lico-3D/). La disponibilidad pública se confirma en [verificación](docs/verificacion.md).
+
+Cada subida a `main` ejecuta **Publicar en GitHub Pages**: valida código, datos y simulación, compila el sitio y lo despliega. También puede ejecutarse manualmente desde **Actions**. Las pull requests ejecutan validación sin despliegue. No se requiere registro para visitar la aplicación.

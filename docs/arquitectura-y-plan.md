@@ -32,7 +32,7 @@ scripts/
   generate_deliverables.py        tablas y esquema
   check-data.ts                   JSON, contrato GLB, animación y LOD
 tests/simulation.test.ts          invariantes de curva y umbrales
-.github/workflows/               CI de validación y despliegue manual Pages
+.github/workflows/               validación PR y despliegue automático Pages
 docs/                            extracción, arquitectura, fuentes y plan
 ```
 
@@ -83,8 +83,8 @@ En DFIG la electricidad del estator pasa al transformador y la rama del rotor at
 ### Publicar
 
 1. Subir el proyecto al [repositorio indicado por el propietario](https://github.com/javierah306-tech/Crear-simulador-e-lico-3D), rama `main`, incluidos los GLB, decodificadores y el lockfile. No subir `node_modules`, `dist`, extracciones temporales, la carpeta `modelos chilenos` ni documentos OEM completos.
-2. La CI comprueba lint, esquema/GLB, fórmulas y build en cada subida. Para activar la publicación, en **Settings → Pages** seleccionar **GitHub Actions** y ejecutar el workflow manual **Publicar en GitHub Pages** desde **Actions**. El build de publicación configura la ruta base a `/<nombre-repositorio>/`.
-3. Verificar la URL publicada por el job `deploy`: carga de Draco, cambios de modelo, dos vistas, navegación móvil y ausencia de registro. Para un repositorio de sitio de usuario (`usuario.github.io`), cambiar `VITE_BASE_PATH` a `/`.
+2. GitHub Pages ya está configurado con **GitHub Actions** y HTTPS en el repositorio. Cada subida a `main` ejecuta **Publicar en GitHub Pages**, con lint, esquema/GLB, fórmulas, build y despliegue. También se puede ejecutar manualmente desde **Actions**. El build de publicación configura la ruta base a `/<nombre-repositorio>/`. Las pull requests solo ejecutan validación.
+3. Verificar la [URL del sitio](https://javierah306-tech.github.io/Crear-simulador-e-lico-3D/), publicada por el job `deploy`: carga de Draco, cambios de modelo, dos vistas, navegación móvil y ausencia de registro. Para un repositorio de sitio de usuario (`usuario.github.io`), cambiar `VITE_BASE_PATH` a `/`.
 
 Netlify: importar el repositorio; `netlify.toml` configura `pnpm build` y `dist`. Cloudflare Pages: usar el mismo comando y directorio, Node 24 y base `/`. La publicación requiere una cuenta de hosting para el propietario, pero el visitante no necesita cuenta. PWA y WebGPU son mejoras opcionales no implementadas.
 

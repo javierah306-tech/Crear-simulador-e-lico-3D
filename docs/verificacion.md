@@ -16,10 +16,10 @@ Actualización del 5 de octubre de 2026. Esta página registra evidencias de la 
 | Interacción   | Raycasting, botones, explosión, pausa, ficha y catálogo    | Correcto                                   |
 | Responsive    | Escritorio y móvil 390 × 844 sin desbordamiento horizontal | Correcto: cámara adaptada a retrato        |
 | Condiciones   | Ausencia de reguladores de viento                          | Correcto: sin controles de rango           |
-| GitHub        | Subida al repositorio indicado                             | Pendiente de confirmación remota           |
-| Sitio público | Workflow y URL HTTPS accesible                             | Pendiente de confirmación remota           |
+| GitHub        | Subida al repositorio indicado, rama main                  | Correcto: verificado remotamente           |
+| Sitio público | GitHub Pages configurado con Actions y HTTPS               | Configurado; despliegue inicial en curso   |
 
-El repositorio de destino es [Crear-simulador-e-lico-3D](https://github.com/javierah306-tech/Crear-simulador-e-lico-3D). No se considera un despliegue confirmado hasta comprobar el workflow y la URL pública.
+La nueva versión está subida y verificada en [Crear-simulador-e-lico-3D](https://github.com/javierah306-tech/Crear-simulador-e-lico-3D), rama `main`. Primer commit remoto de esta versión: `66de6667634c4a620d31eb422f2b2bd4e52bb0c6`. GitHub Pages está configurado con Actions y HTTPS obligatorio. El despliegue inicial está en curso; todavía no se declara verificada la [URL pública](https://javierah306-tech.github.io/Crear-simulador-e-lico-3D/).
 
 ## Compilación y simulación
 
@@ -34,6 +34,8 @@ La revisión completa en Microsoft Edge con WebGL recorrió los nueve modelos, e
 Las capturas de escritorio y de móvil a 390 × 844 permiten revisar encuadre y jerarquía visual. En retrato se ajustó la distancia inicial para conservar la máquina dentro del visor. La página no presenta desbordamiento horizontal y no contiene entradas de rango para alterar condiciones. Se revisó el contraste de las métricas sobre la paleta clara.
 
 La animación auxiliar comparte el reloj del mixer glTF para mantener sincronizados los mecanismos. Al pausar, el Canvas trabaja por demanda; la cámara y las interacciones continúan disponibles sin dibujar constantemente un rotor detenido. El flujo de energía ilustra la dirección funcional y no representa telemetría.
+
+La revisión de producción usó la ruta base `/Crear-simulador-e-lico-3D/`, cargó los nueve modelos y contrastó la región central de los mecanismos: cambió durante la animación y permaneció idéntica al pausar. Los assets V110 definitivos coinciden por SHA con las copias de `dist`. No se registraron errores de consola. Esta prueba local con la ruta del repositorio verifica el build; la revisión de la URL pública se registra por separado al terminar el despliegue.
 
 ## Assets exportados
 
