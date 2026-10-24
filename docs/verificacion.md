@@ -15,7 +15,7 @@ Revisión: 24 de octubre de 2026. Cinco modelos activos, con identidad geométri
 | Interacción | Movimiento, estabilidad en pausa, raycasting, selección por botones, explosión, ficha y catálogo aprobados                                 |
 | Móvil       | 390 × 844 sin desbordamiento horizontal; controles de cámara y ficha disponibles                                                           |
 | Condiciones | Viento fijo de 8 m/s; sin reguladores de condiciones                                                                                       |
-| Publicación | Pendiente de actualización de GitHub Pages para esta revisión                                                                              |
+| Publicación | Publicada por CI; HTTPS y revisión pública aprobadas                                                                                       |
 
 La revisión local de producción usó el prefijo `/Crear-simulador-e-lico-3D/`, Edge y WebGL por software. No hubo errores de consola. Se inspeccionaron las capturas de los cinco modelos y los paisajes; los resultados temporales están en `tmp/qa`, ignorado por Git. Los GLB se solicitan con versión de recurso para evitar reutilizar geometrías antiguas en caché.
 
@@ -40,3 +40,9 @@ Los siete paisajes interpretan el contexto rural y bioma de las comunas document
 Se conserva la discrepancia de variante/potencia de Las Peñas. La transmisión Envision 118:1 y nominal 1.680 RPM vienen de una tabla de diseño preliminar; la ley de control usada para estimar RPM es un supuesto explícito. Las demás relaciones 90:1 permanecen ilustrativas.
 
 No se han certificado FPS en teléfonos físicos de gama media ni Safari iOS. La prueba de escritorio con WebGL por software confirma funcionalidad, no garantiza rendimiento de todos los dispositivos.
+
+## Publicación verificada
+
+[Aplicación HTTPS](https://javierah306-tech.github.io/Crear-simulador-e-lico-3D/) y [workflow aprobado](https://github.com/javierah306-tech/Crear-simulador-e-lico-3D/actions/runs/40136187636), commit de implementación `f31cfdda6da6a36ba0f1d3926cc32970dee15f15`.
+
+La revisión se repitió sobre la URL pública: cinco modelos, tres vistas y siete ubicaciones, incluida la selección de Los Olmos, Alena y Mesamavida. Movimiento, pausa, selección, explosión, ficha, catálogo y móvil aprobaron sin errores de consola. Los diez GLB públicos coinciden por SHA-256 con los archivos locales finales. GitHub Actions aprobó lint, validación de datos y assets, seis pruebas de simulación, build y despliegue.
