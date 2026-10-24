@@ -119,6 +119,16 @@ function inspectAsset(path: string, model: TurbineModel) {
       'La arquitectura Nordex debe conservar sus tres etapas documentadas.',
     );
   }
+  // Guo et al. (2017): G114 four-point support. Nordex Delta4000 OEM: three-point.
+  // The bearing locations remain illustrative, but their documented count must agree.
+  if (model.manufacturer === 'Nordex' || model.manufacturer === 'Gamesa') {
+    const bearings = asset.nodes.filter((node) => /^MainBearing_\d+$/.test(node.name ?? ''));
+    assert.equal(
+      bearings.length,
+      model.manufacturer === 'Nordex' ? 1 : 2,
+      `Número de apoyos principales contrario a la documentación: ${path}`,
+    );
+  }
   const rotorRatio = asset.nodes.find((node) => node.name === 'GeneratorRotor')?.extras
     ?.motionRatio;
   assert.equal(
@@ -223,6 +233,26 @@ for (const file of readdirSync('src/data/models').filter((f) => f.endsWith('.jso
     scenario.cutInMS < scenario.ratedWindMS && scenario.ratedWindMS < scenario.cutOutMS,
     `Umbrales incoherentes: ${model.id}`,
   );
+  assert.equal(
+    new Set(model.landscapes.map((site) => site.id)).size,
+    model.landscapes.length,
+    `Sitios duplicados en ${model.id}`,
+  );
+  assert.deepEqual(
+    model.landscapes.map((site) => site.parkName).sort(),
+    model.parks.map((park) => park.name).sort(),
+    `Falta paisaje de un parque en ${model.id}`,
+  );
+  for (const site of model.landscapes) {
+    assert(
+      site.sources.length >= 2 && site.sources.every((source) => source.url.startsWith('https://')),
+      `Falta procedencia del paisaje ${site.id}`,
+    );
+    assert(
+      site.region === 'Región del Biobío' && site.municipality.length > 0,
+      `Ubicación incompleta de ${site.id}`,
+    );
+  }
   const detailed = inspectAsset('public/' + model.asset.glb, model);
   const reduced =
     model.asset.lod === model.asset.glb

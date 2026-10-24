@@ -52,6 +52,7 @@ export interface EngineeringReference {
 export interface EngineeringSpec {
   reviewDate: string;
   geometryScope: string;
+  identity: string;
   layoutCode: 'direct' | 'one-planetary-two-parallel' | 'two-planetary-one-parallel';
   layout: string;
   pitchDrive: Fact<string>;
@@ -60,6 +61,19 @@ export interface EngineeringSpec {
   generatorSpeedRPM: Fact<number>;
   transformer: Fact<string>;
   references: EngineeringReference[];
+}
+export interface LandscapeSite {
+  id: string;
+  parkName: string;
+  municipality: string;
+  region: string;
+  preset:
+    'valley-crops' | 'alluvial-valley' | 'coastal-forestry' | 'rural-mosaic' | 'interior-hills';
+  biome: string;
+  description: string;
+  seed: number;
+  sitingNote: string;
+  sources: { title: string; url: string; publisher: string }[];
 }
 export interface TurbineModel {
   id: string;
@@ -71,5 +85,6 @@ export interface TurbineModel {
   notes: string[];
   simulation: SimulationSpec;
   engineering: EngineeringSpec;
+  landscapes: LandscapeSite[];
   asset: { glb: string; lod: string; schematic: boolean };
 }

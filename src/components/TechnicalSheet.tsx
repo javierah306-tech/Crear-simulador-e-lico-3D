@@ -71,6 +71,7 @@ export function TechnicalSheet({ model }: { model: TurbineModel }) {
       <section className="engineering-sheet" aria-label="Estructura electromecánica documentada">
         <h4>Estructura electromecánica</h4>
         <p>{model.engineering.layout}</p>
+        <p>{model.engineering.identity}</p>
         <dl>
           {(
             [

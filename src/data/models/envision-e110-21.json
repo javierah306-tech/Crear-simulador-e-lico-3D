@@ -130,7 +130,7 @@
   },
   "engineering": {
     "reviewDate": "2026-10-24",
-    "geometryScope": "Reconstrucción técnica documentada. Sin planos OEM acotados: dimensiones internas, dientes, bobinados y elementos de acabado son ilustrativos.",
+    "geometryScope": "Reconstrucción por modelo, con silueta y rasgos contrastados en fuentes. Cotas internas, ubicación exacta de auxiliares y acabados sin planos se interpretan; no es un gemelo de una unidad instalada.",
     "layoutCode": "one-planetary-two-parallel",
     "layout": "Tres etapas; corte compatible PEAB con etapa planetaria y dos ejes paralelos",
     "pitchDrive": {
@@ -184,7 +184,45 @@
         "publisher": "Envision",
         "url": "https://www.prnewswire.com/news-releases/envision-confirma-orden-por-105mw-de-petroquim-para-su-primer-parque-eolico-en-chile-526335301.html",
         "pages": "Comunicado 2015"
+      },
+      {
+        "id": "ENPHOTO",
+        "title": "Fotografía del E110 de La Esperanza",
+        "publisher": "Tecnorenova",
+        "url": "https://tecnorenova.com/proyecto/la-esperanza-chile/",
+        "pages": "Galería de montaje"
       }
-    ]
-  }
+    ],
+    "identity": "Caja alargada de techo plano según fotografía E110 de La Esperanza; bancada PEAB, escalonamiento vertical y generador refrigerado por aire. Proporciones internas interpretadas del corte de familia."
+  },
+  "landscapes": [
+    {
+      "id": "la-esperanza",
+      "parkName": "La Esperanza",
+      "municipality": "Negrete",
+      "region": "Región del Biobío",
+      "preset": "alluvial-valley",
+      "biome": "Depresión intermedia · paisaje agrícola",
+      "description": "Campos, cercos vegetales y grupos de árboles como los visibles en la fotografía de montaje de La Esperanza.",
+      "seed": 23,
+      "sitingNote": "Paisaje representativo del entorno documentado. Relieve, parcelas, árboles y posición de turbinas ilustrativos; no es una restitución topográfica ni ubicación de una unidad real.",
+      "sources": [
+        {
+          "title": "Montaje y fotografía de La Esperanza",
+          "url": "https://tecnorenova.com/proyecto/la-esperanza-chile/",
+          "publisher": "Tecnorenova"
+        },
+        {
+          "title": "Localización Negrete del proyecto",
+          "url": "https://www.prnewswire.com/news-releases/envision-confirma-orden-por-105mw-de-petroquim-para-su-primer-parque-eolico-en-chile-526335301.html",
+          "publisher": "Envision"
+        },
+        {
+          "title": "Referencia agroclimática del valle Mulchén–Negrete",
+          "url": "https://climatologia.meteochile.gob.cl/application/informacion/fichaDeEstacion/370071",
+          "publisher": "Dirección Meteorológica de Chile"
+        }
+      ]
+    }
+  ]
 }

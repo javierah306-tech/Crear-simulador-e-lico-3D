@@ -1,54 +1,55 @@
-# Investigación y reconstrucción técnica de cinco modelos
+# Investigación de identidad mecánica y paisaje · versión 0.4.0
 
-Revisión: 24 de octubre de 2026. Se conservan exactamente Goldwind GW87/1500, Envision EN110-2.1, Gamesa G114 (referencia de familia 2,0 MW), Nordex N149/4.X y Vestas V110-2.0 MW. Las otras cuatro variantes se retiraron del catálogo, JSON, GLB y fuentes Blender activas. Los documentos de entrada originales se conservan.
+Revisión: 24 de octubre de 2026. Cinco modelos activos, uno por fabricante. La corrección sustituye la envolvente y disposición común de los cuatro modelos con multiplicadora por perfiles de geometría propios. Las referencias de una misma arquitectura conservan sus similitudes técnicas reales.
 
-## Qué se ha encontrado y cómo se utiliza
+## Diferencias que se representan
 
-| Modelo   | Base contrastada                                                                      | Aplicación en la reconstrucción                                                                                 | Límite                                                                                   |
-| -------- | ------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| Goldwind | Corte OEM 1.5 MW PMDD y especificaciones                                              | Generador anular PMSG directo, paso por correa, refrigeración pasiva, grúa auxiliar                             | Sin cotas internas por número de serie                                                   |
-| Envision | Coener/Coordinador, tabla 3 p. PDF 8; esquema Winergy p. 11; comunicado Envision      | DFIG, transmisión 118:1, tres etapas, paso eléctrico AC, tres palas, 110 m; referencia contratada de buje 100 m | Tabla de diseño preliminar y esquema de familia, no as-built de cada unidad              |
-| Gamesa   | Folleto original G114-2.0 y presentación OEM de plataforma archivados por reguladores | DFIG, 114 m, una etapa planetaria y dos paralelas; paso hidráulico                                              | La referencia 2,0 MW no resuelve la discrepancia de Las Peñas (cuatro unidades / 8,4 MW) |
-| Nordex   | N149/4.X, página oficial                                                              | Dos etapas planetarias y una cilíndrica; DFIG refrigerado líquido/aire                                          | Relación total, dientes y cotas internas sin documentar                                  |
-| Vestas   | Folleto OEM 2 MW, p. PDF 6 y página V110                                              | Una etapa planetaria y dos helicoidales, cilindros de paso, DFIG con anillos rozantes, envolvente y CoolerTop   | Cotas internas y configuración de torre instalada pendientes                             |
+| Modelo                  | Exterior contrastado                                                                     | Interior diferenciado                                                                                                                                  | Alcance de la evidencia                                                                       |
+| ----------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------- |
+| Goldwind GW87/1500      | Frente voluminoso alrededor del generador anular, cola más estrecha                      | PMSG anular directo, sin multiplicadora; paso por correa y refrigeración pasiva                                                                        | Corte y folleto OEM de familia 1,5 MW                                                         |
+| Envision EN110-2.1      | Cuerpo rectangular, cubierta plana, rotulación y franjas de señalización de La Esperanza | PEAB de referencia con ejes escalonados, DFIG elevado refrigerado por aire, paso eléctrico AC y supercondensadores; relación de diseño 118:1           | Informe preliminar Coener y dibujo de familia Winergy; fotografía del instalador en el parque |
+| Gamesa G114             | Cápsula alargada de extremos y sección más redondeados, buje corto                       | Dos apoyos principales y bastidor delantero de fundición; una planetaria y dos etapas paralelas; paso hidráulico                                       | Folleto G114-2.0, presentación OEM y estudio NREL/Wind Energy sobre soportes                  |
+| Nordex N149 / Delta4000 | Cuerpo ancho y angular, cola roja y banco de radiadores posterior de la referencia N149  | Un apoyo principal y dos brazos de reacción: suspensión de tres puntos; dos planetarias y una cilíndrica; DFIG con refrigeración líquida/aire          | Página, fotografía y folleto Delta4000 del fabricante                                         |
+| Vestas V110-2.0         | Envolvente alargada con módulo CoolerTop sobre la cubierta y nariz más larga             | Módulo delantero compacto, una planetaria y dos helicoidales, DFIG con anillos y escobillas, conexiones de refrigeración al techo y paso por cilindros | Folleto OEM 2 MW, página PDF 6 y ficha V110                                                   |
 
-## Fuentes primarias enlazadas
+Cada modelo tiene un perfil de longitudes, secciones, apoyos, ejes, tamaño/altura de generador y disposición de auxiliares en `scripts/model_identities.py`. La carcasa deja ver su volumen en la inspección traslúcida. Los pedestales unen el generador a la plataforma; las escobillas y pinzas de freno permanecen estacionarias. Los GLB incluyen anclajes propios para el flujo de energía.
 
-### Envision
+## Fuentes primarias para forma y mecánica
 
-- [Informe técnico La Esperanza, Rev. 1](https://www.coordinador.cl/wp-content/uploads/2019/11/19-008-544-PE-La-Esperanza-Informe-detenci%C3%B3n-y-partida-04Nov19-Rev1.pdf). Coener / Coordinador Eléctrico Nacional; 6–8.
-- [Up-tower repair solutions: PEAB 4456,8 para E110 2,1 MW](https://www.flender.com/media-download/media-direct/201905-Winergy-uptower-repair-solutions.pdf). Flender / Winergy; 11.
-- [Pedido de cinco EN110-2.1 MW a 100 m](https://www.prnewswire.com/news-releases/envision-confirma-orden-por-105mw-de-petroquim-para-su-primer-parque-eolico-en-chile-526335301.html). Envision; Comunicado 2015.
+- [Goldwind 1.5 MW PMDD](https://www.goldwindamericas.com/sites/default/files/1.5%20MW%20PMDD%20Turbine%20-%20English.pdf): corte funcional y especificaciones, páginas PDF 3–6 del corpus local.
+- [Coener / Coordinador: La Esperanza](https://www.coordinador.cl/wp-content/uploads/2019/11/19-008-544-PE-La-Esperanza-Informe-detenci%C3%B3n-y-partida-04Nov19-Rev1.pdf): tabla de diseño preliminar, página PDF 8. DFIG, tres etapas, 118:1, 1.680 RPM nominales, 690 V, 110 m de rotor y paso eléctrico. No acredita planos as-built.
+- [Flender / Winergy, soluciones de reparación](https://www.flender.com/media-download/media-direct/201905-Winergy-uptower-repair-solutions.pdf): dibujo PEAB 4456.8 para E110 2,1 MW, página PDF 11. Referencia de familia; no acredita proveedor por número de serie chileno.
+- [Tecnorenova: montaje de La Esperanza](https://tecnorenova.com/proyecto/la-esperanza-chile/): fotografías de las cinco Envision instaladas. Se observaron cubierta, proporciones, franjas rojas y paisaje agrícola. No se usan las fotografías como texturas.
+- [Comunicado de Envision: pedido EN110-2.1](https://www.prnewswire.com/news-releases/envision-confirma-orden-por-105mw-de-petroquim-para-su-primer-parque-eolico-en-chile-526335301.html): pedido para Negrete y referencia de buje contratado de 100 m.
+- [Gamesa: folleto G114-2.0 archivado en NY DPS](https://documents.dps.ny.gov/public/common/viewdoc.aspx?docrefid=%7Bf41cd6af-1b53-42e6-b748-fd1e2b2bcb72%7D): primeras páginas, fotografía y datos de familia.
+- [Gamesa: plataforma 2 MW, expediente Corrèze](https://www.correze.gouv.fr/index.php/content/download/19153/130715/file/29-1%20-%20Reponse%20demande%20complement_CORREZE1%20Complet.pdf): DFIG, paso hidráulico y transmisión.
+- [Guo et al., Wind Energy / NREL, DOI 10.1002/we.2022](https://www.osti.gov/servlets/purl/1341391): describe G114 entre las transmisiones con dos apoyos principales, configuración de cuatro puntos.
+- [Nordex: N149/4.X](https://www.nordex-online.com/en/product/n149-4-0-4-5/): dos planetarias y una etapa cilíndrica; generador líquido/aire. La fotografía oficial N149 de Wennerstorf orienta la forma, cola roja y radiadores; ese acabado no se certifica por unidad chilena.
+- [Nordex: folleto Delta4000 en NY DPS](https://documents.dps.ny.gov/public/Common/ViewDoc.aspx?DocRefId=%7B6C30878F-4ECA-4F21-9D70-2CA02EDD83DF%7D): suspensión de tres puntos, con un apoyo principal y dos apoyos de reacción de la multiplicadora.
+- [Vestas: V110-2.0 y folleto 2 MW](https://www.vestas.com/en/energy-solutions/onshore-wind-turbines/2-mw-platform/V110-2-0-mw): página PDF 6 del folleto local: envolvente de transporte de 10,4 × 3,5 × 4 m; 5,4 m con CoolerTop; una planetaria y dos helicoidales, DFIG y tres cilindros de paso. La disposición exacta de rodamientos del GLB sigue siendo interpretada.
 
-### Gamesa
+## Parques, comunas y biomas representativos
 
-- [G114-2.0 MW: folleto original del fabricante](https://documents.dps.ny.gov/public/common/viewdoc.aspx?docrefid=%7Bf41cd6af-1b53-42e6-b748-fd1e2b2bcb72%7D). Gamesa, copia pública en NY DPS; 1–2.
-- [Presentación Gamesa 2.0 MW: transmisión, DFIM y paso hidráulico](https://www.correze.gouv.fr/index.php/content/download/19153/130715/file/29-1%20-%20Reponse%20demande%20complement_CORREZE1%20Complet.pdf). Gamesa, expediente Prefectura Corrèze; Láminas de plataforma y G114.
+Se agregan siete ubicaciones para los cinco modelos. Las fuentes identifican los parques y el contexto territorial; **no se dispone de DEM, parcelas georreferenciadas ni coordenadas de cada máquina**. El relieve, camino, árboles y turbinas vecinas son una composición didáctica. La interfaz muestra este alcance junto a las fuentes.
 
-### Goldwind
+| Modelo   | Parque / comuna                | Paisaje representado                                            | Fuentes primarias                                                                                                                                                                                                                                                |
+| -------- | ------------------------------ | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Goldwind | Cuel / Los Ángeles             | Valle central agrícola, praderas y cortinas arboladas           | [Innergex](https://www.innergex.com/es/plantas/cuel), [memoria del plan regulador comunal](https://www.losangeles.cl/wp-content/uploads/2021/05/N38b-01-2011-MEMORIA_EXPLICATIVA_PLAN-REGULADOR-COMUNAL-DE-LOS-ANGELES.pdf)                                      |
+| Envision | La Esperanza / Negrete         | Valle de relieve bajo, cultivos y arbolado de borde             | [Envision](https://www.prnewswire.com/news-releases/envision-confirma-orden-por-105mw-de-petroquim-para-su-primer-parque-eolico-en-chile-526335301.html), [fotografías del instalador](https://tecnorenova.com/proyecto/la-esperanza-chile/)                     |
+| Gamesa   | Las Peñas / Arauco             | Lomas bajas, influencia costera y mosaico forestal/agropecuario | [SMA](https://snifa.sma.gob.cl/UnidadFiscalizable/Ficha/10832), [CIREN / SIT Rural: recursos naturales de Arauco](https://www.sitrural.cl/wp-content/uploads/2022/05/Arauco_rrnn.pdf)                                                                            |
+| Nordex   | Los Olmos / Mulchén            | Lomas y mosaico agroforestal de la zona interior                | [AES Andes](https://www.aesandes.com/es/blog/aes-chile-puts-operation-los-olmos-wind-farm), [PLADECO Mulchén](https://www.munimulchen.cl/wp-content/uploads/2023/02/PLADECO-RE-2022-2027-v2-2.pdf)                                                               |
+| Nordex   | Alena / Los Ángeles            | Predios agrícolas del valle central                             | [SMA](https://snifa.sma.gob.cl/UnidadFiscalizable/Ficha/10825), [plan regulador Los Ángeles](https://www.losangeles.cl/wp-content/uploads/2021/05/N38b-01-2011-MEMORIA_EXPLICATIVA_PLAN-REGULADOR-COMUNAL-DE-LOS-ANGELES.pdf)                                    |
+| Nordex   | Mesamavida / Los Ángeles       | Mosaico agrícola, praderas y masas forestales                   | [SMA: seguimiento de flora](https://snifa.sma.gob.cl/SeguimientoAmbiental/Ficha/1031158), [plan regulador Los Ángeles](https://www.losangeles.cl/wp-content/uploads/2021/05/N38b-01-2011-MEMORIA_EXPLICATIVA_PLAN-REGULADOR-COMUNAL-DE-LOS-ANGELES.pdf)          |
+| Vestas   | Los Buenos Aires / Los Ángeles | Matriz agrícola y forestal de relieve suave                     | [Enel](https://www.enel.cl/es/conoce-enel/nuestras-centrales/parque-eolico-los-buenos-aires.html), [plan regulador Los Ángeles](https://www.losangeles.cl/wp-content/uploads/2021/05/N38b-01-2011-MEMORIA_EXPLICATIVA_PLAN-REGULADOR-COMUNAL-DE-LOS-ANGELES.pdf) |
 
-- [Goldwind 1.5 MW PMDD: corte funcional y especificaciones](https://www.goldwindamericas.com/sites/default/files/1.5%20MW%20PMDD%20Turbine%20-%20English.pdf). Goldwind; 3–6.
+Los Buenos Aires se ubica en **Los Ángeles**, según su operador. No se asignan biomas artificialmente distintos a parques que comparten el valle central. Arauco tiene mayor presencia forestal e influencia costera; esto no implica situar el mar al lado de una turbina ni recrear una parcela exacta. Tampoco se transfiere bosque andino de araucarias al emplazamiento de Mulchén.
 
-### Nordex
+## Datos pendientes y supuestos
 
-- [N149/4.X: etapas de transmisión y generador](https://www.nordex-online.com/es/product/n149-4-0-4-5/?noredirect=es-ES). Nordex; Datos técnicos web.
+No se localizaron planos OEM acotados completos de las cinco variantes instaladas. Las formas se reconstruyen con las fotografías y dibujos disponibles; las dimensiones internas, ubicación de equipos eléctricos, dientes, auxiliares y acabados no acreditados se interpretan. No son CAD de fabricación ni gemelos certificados.
 
-### Vestas
+La relación Envision de 118:1 y sus 1.680 RPM proceden de la tabla preliminar. La TSR constante derivada sigue siendo una aproximación de control explícita. Para las otras multiplicadoras, 90:1 permanece como supuesto. El reparto por etapas y los dientes son ilustrativos incluso cuando se conoce la relación total. El diámetro de rotor se representa con escala visual común; una altura ausente usa 100 m en la simulación.
 
-- [V110-2.0 MW y folleto 2 MW conservado en el corpus](https://www.vestas.com/en/energy-solutions/onshore-wind-turbines/2-mw-platform/V110-2-0-mw). Vestas; Ficha V110: PDF 6.
+Gamesa conserva la discrepancia de Las Peñas: cuatro unidades y 8,4 MW no resuelven por sí solos la variante instalada. Se representa la familia G114-2.0 sin cambiar silenciosamente el dato del informe. Se conserva también la discrepancia Envision de 0,6 kV en texto frente a 690 V en tabla; 2.200 kW del sistema eléctrico no sustituyen los 2,1 MW nominales del aerogenerador.
 
-## Precisión y vacíos que se conservan
-
-Se revisaron dibujos funcionales, un corte de transmisión y especificaciones OEM; no se localizaron planos acotados completos para las cinco máquinas. Los GLB son reconstrucciones documentadas, con datos de familia distinguidos de datos de parque. No son archivos CAD de fabricación ni gemelos certificados.
-
-La relación 118:1 de Envision está en su tabla de diseño. Para las otras multiplicadoras se conserva 90:1 como supuesto explícito; no se selecciona una de las relaciones comerciales Gamesa sin acreditar variante y frecuencia. El número de dientes y el reparto por etapas son ilustrativos incluso cuando la relación total está documentada.
-
-El diámetro de los rotores se representa con un factor visual común; las alturas no documentadas usan el supuesto de 100 m. Los componentes internos se han normalizado para su lectura didáctica; no deben medirse como planos de montaje.
-
-Se conserva la discrepancia del informe Envision: texto 0,6 kV/23 kV y tabla de 690 V. El nominal del aerogenerador es 2,1 MW; los 2.200 kW de la tabla corresponden al sistema eléctrico, no sustituyen la potencia nominal.
-
-## Acabados originales
-
-Bordes biselados, juntas y tornillería de paneles, trampillas y asas, placas educativas, rotulación vectorial, ventilación, juntas de elastómero y materiales de pintura, acero y cobre. Los DFIG incorporan bobinado y anillos rozantes con escobillas estacionarias. Estas piezas cosméticas no completan datos técnicos ausentes. Las ilustraciones y los PDF OEM no se redistribuyen como texturas o assets.
-
-La animación de Envision se ancla al punto de diseño: 1.680 RPM de generador, relación 118:1 y viento nominal 9,5 m/s. La TSR resultante se usa constante hasta nominal como aproximación explícita; no se reproduce un controlador propietario.
+Las fuentes y el alcance se guardan en `engineering.references`, `engineering.identity` y `landscapes[].sources`. No se redistribuyen PDF ni fotografías OEM como recursos gráficos.

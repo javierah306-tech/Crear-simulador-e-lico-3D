@@ -157,7 +157,7 @@
   },
   "engineering": {
     "reviewDate": "2026-10-24",
-    "geometryScope": "Reconstrucción técnica documentada. Sin planos OEM acotados: dimensiones internas, dientes, bobinados y elementos de acabado son ilustrativos.",
+    "geometryScope": "Reconstrucción por modelo, con silueta y rasgos contrastados en fuentes. Cotas internas, ubicación exacta de auxiliares y acabados sin planos se interpretan; no es un gemelo de una unidad instalada.",
     "layoutCode": "two-planetary-one-parallel",
     "layout": "Dos etapas planetarias y una paralela",
     "pitchDrive": {
@@ -197,7 +197,93 @@
         "publisher": "Nordex",
         "url": "https://www.nordex-online.com/es/product/n149-4-0-4-5/?noredirect=es-ES",
         "pages": "Datos técnicos web"
+      },
+      {
+        "id": "ND4",
+        "title": "Delta4000: suspensión de tres puntos",
+        "publisher": "Nordex, documento público NY DPS",
+        "url": "https://documents.dps.ny.gov/public/Common/ViewDoc.aspx?DocRefId=%7B6C30878F-4ECA-4F21-9D70-2CA02EDD83DF%7D",
+        "pages": "4"
+      },
+      {
+        "id": "NPHOTO",
+        "title": "Fotografía oficial N149 Wennerstorf: carcasa y refrigeración",
+        "publisher": "Nordex",
+        "url": "https://www.nordex-online.com/en/product/n149-4-0-4-5/",
+        "pages": "Galería"
       }
-    ]
-  }
+    ],
+    "identity": "Envolvente rectangular ancha, cola de referencia roja y paneles de refrigeración traseros según fotografía oficial N149; suspensión de tres puntos y dos etapas planetarias."
+  },
+  "landscapes": [
+    {
+      "id": "los-olmos",
+      "parkName": "Los Olmos",
+      "municipality": "Mulchén",
+      "region": "Región del Biobío",
+      "preset": "interior-hills",
+      "biome": "Mulchén · mosaico agroforestal",
+      "description": "Lomas suaves, praderas y masas arboladas como interpretación del paisaje rural de Mulchén.",
+      "seed": 61,
+      "sitingNote": "Paisaje representativo del entorno documentado. Relieve, parcelas, árboles y posición de turbinas ilustrativos; no es una restitución topográfica ni ubicación de una unidad real.",
+      "sources": [
+        {
+          "title": "Ubicación y operación de Los Olmos",
+          "url": "https://www.aesandes.com/es/blog/aes-chile-puts-operation-los-olmos-wind-farm",
+          "publisher": "AES Andes"
+        },
+        {
+          "title": "Plan comunal de desarrollo de Mulchén",
+          "url": "https://www.munimulchen.cl/wp-content/uploads/2023/02/PLADECO-RE-2022-2027-v2-2.pdf",
+          "publisher": "Municipalidad de Mulchén"
+        }
+      ]
+    },
+    {
+      "id": "alena",
+      "parkName": "Alena",
+      "municipality": "Los Ángeles",
+      "region": "Región del Biobío",
+      "preset": "valley-crops",
+      "biome": "Valle central · predios agrícolas",
+      "description": "Campos y bordes de vegetación en el paisaje rural de Los Ángeles. Composición representativa del entorno comunal.",
+      "seed": 73,
+      "sitingNote": "Paisaje representativo del entorno documentado. Relieve, parcelas, árboles y posición de turbinas ilustrativos; no es una restitución topográfica ni ubicación de una unidad real.",
+      "sources": [
+        {
+          "title": "Unidad fiscalizable Alena",
+          "url": "https://snifa.sma.gob.cl/UnidadFiscalizable/Ficha/10825",
+          "publisher": "Superintendencia del Medio Ambiente"
+        },
+        {
+          "title": "Suelos y paisaje agrícola comunal",
+          "url": "https://www.losangeles.cl/wp-content/uploads/2021/05/N38b-01-2011-MEMORIA_EXPLICATIVA_PLAN-REGULADOR-COMUNAL-DE-LOS-ANGELES.pdf",
+          "publisher": "Municipalidad de Los Ángeles"
+        }
+      ]
+    },
+    {
+      "id": "mesamavida",
+      "parkName": "Mesamavida",
+      "municipality": "Los Ángeles",
+      "region": "Región del Biobío",
+      "preset": "rural-mosaic",
+      "biome": "Los Ángeles · mosaico agrícola y forestal",
+      "description": "Praderas y predios agrícolas con cortinas y masas forestales; la fuente de seguimiento identifica el parque en Los Ángeles.",
+      "seed": 89,
+      "sitingNote": "Paisaje representativo del entorno documentado. Relieve, parcelas, árboles y posición de turbinas ilustrativos; no es una restitución topográfica ni ubicación de una unidad real.",
+      "sources": [
+        {
+          "title": "Seguimiento de flora y vegetación Mesamavida",
+          "url": "https://snifa.sma.gob.cl/SeguimientoAmbiental/Ficha/1031158",
+          "publisher": "Superintendencia del Medio Ambiente"
+        },
+        {
+          "title": "Contexto de suelos y paisaje comunal",
+          "url": "https://www.losangeles.cl/wp-content/uploads/2021/05/N38b-01-2011-MEMORIA_EXPLICATIVA_PLAN-REGULADOR-COMUNAL-DE-LOS-ANGELES.pdf",
+          "publisher": "Municipalidad de Los Ángeles"
+        }
+      ]
+    }
+  ]
 }

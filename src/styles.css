@@ -1683,3 +1683,142 @@ p {
   font-size: 13px;
   line-height: 1.8;
 }
+
+.park-context {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr auto;
+  gap: 22px;
+  align-items: center;
+  margin-top: 16px;
+  padding: 22px 24px;
+  background: #fffdf6;
+  border: 1px solid #d9e0ce;
+  border-radius: 16px;
+}
+.park-context-heading {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  color: #557445;
+}
+.park-context-heading h2 {
+  font-size: 19px;
+  letter-spacing: -0.5px;
+  margin: 7px 0 0;
+  color: #254a3b;
+}
+.park-context-heading h2 small {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0;
+  margin-top: 5px;
+  color: #69795d;
+}
+.park-context-copy strong {
+  font-size: 12px;
+  font-weight: 600;
+  color: #49683f;
+}
+.park-context-copy p {
+  font-size: 11px;
+  color: #657456;
+  line-height: 1.7;
+  margin: 6px 0 0;
+}
+.park-context-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: stretch;
+}
+.park-context-actions label {
+  font-size: 10px;
+  color: #657456;
+}
+.park-context-actions select {
+  display: block;
+  width: 100%;
+  margin-top: 5px;
+  background: #f7f8ed;
+  border: 1px solid #d7dfc8;
+  border-radius: 8px;
+  padding: 8px;
+  color: #254a3b;
+  font: inherit;
+  font-size: 12px;
+}
+.park-context-sources {
+  grid-column: 1/-1;
+  border-top: 1px solid #e1e6d6;
+  padding-top: 12px;
+}
+.park-context-sources summary {
+  font-size: 10px;
+  color: #6a7e5d;
+  cursor: pointer;
+}
+.park-context-sources p,
+.park-context-sources li {
+  font-size: 11px;
+  line-height: 1.7;
+  color: #657456;
+}
+.park-context-sources a {
+  color: #305c42;
+  text-underline-offset: 3px;
+}
+.park-context-sources small {
+  display: block;
+  font-size: 10px;
+  color: #738069;
+}
+@media (max-width: 900px) {
+  .park-context {
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+  }
+  .park-context-copy {
+    grid-column: 1/-1;
+    grid-row: 2;
+  }
+  .park-context-actions {
+    grid-column: 2;
+    grid-row: 1;
+  }
+}
+@media (max-width: 600px) {
+  .park-context {
+    padding: 17px 15px;
+    gap: 14px;
+  }
+  .park-context .eyebrow {
+    font-size: 7px;
+    letter-spacing: 1px;
+  }
+  .park-context-heading {
+    gap: 7px;
+  }
+  .park-context-heading h2 {
+    font-size: 17px;
+  }
+  .park-context-actions .outline-button {
+    font-size: 10px;
+    padding: 10px;
+  }
+  .view-switch button {
+    padding: 8px 6px;
+    font-size: 8px;
+    gap: 3px;
+  }
+  .view-switch button svg {
+    width: 11px;
+  }
+  .operation-label {
+    padding: 8px 6px;
+    gap: 5px;
+  }
+  .operation-copy small {
+    font-size: 6px;
+  }
+}

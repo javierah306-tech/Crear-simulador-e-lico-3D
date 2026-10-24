@@ -27,7 +27,8 @@
     "file": "vestas_4mw.pdf",
     "original": "C:\\Users\\javie\\OneDrive\\Desktop\\Lab Neiron\\modelos 3D eolicos\\modelos chilenos\\fabricantes\\vestas_4mw.pdf",
     "sha256": "649fa42a390a7ebea29b213382179933b39f402938c98bdb33ede95464be033f",
-    "used": true
+    "used": false,
+    "note": "Consulta histórica; no se aplica al V110 de la selección activa."
   },
   {
     "file": "vestas_v110.html",
@@ -39,7 +40,8 @@
     "file": "vestas_v112_lca_2011.pdf",
     "original": "C:\\Users\\javie\\OneDrive\\Desktop\\Lab Neiron\\modelos 3D eolicos\\modelos chilenos\\fabricantes\\vestas_v112_lca_2011.pdf",
     "sha256": "e4a1cc202c8136e392f77df40b97fa1411ac8378bb194e78a26156452f9e062a",
-    "used": true
+    "used": false,
+    "note": "Consulta histórica; no se aplica al V110 de la selección activa."
   },
   {
     "file": "vestas_v150.html",
@@ -62,5 +64,173 @@
     "used": true,
     "title": "Coener/Coordinador, tablas pp. PDF 6–8",
     "sha256": "8af01dfd216cb0cc2dddbbebdbdb635b5c4186363a9d053bfb920980bb58e39a"
+  },
+  {
+    "title": "Pedido de cinco EN110-2.1 MW a 100 m",
+    "url": "https://www.prnewswire.com/news-releases/envision-confirma-orden-por-105mw-de-petroquim-para-su-primer-parque-eolico-en-chile-526335301.html",
+    "publisher": "Envision",
+    "reviewed": "2026-10-24",
+    "used": true,
+    "scope": "Familia o contexto de paisaje; ver JSON e investigación técnica."
+  },
+  {
+    "title": "Fotografía del E110 de La Esperanza",
+    "url": "https://tecnorenova.com/proyecto/la-esperanza-chile/",
+    "publisher": "Tecnorenova",
+    "reviewed": "2026-10-24",
+    "used": true,
+    "scope": "Familia o contexto de paisaje; ver JSON e investigación técnica."
+  },
+  {
+    "title": "Referencia agroclimática del valle Mulchén–Negrete",
+    "url": "https://climatologia.meteochile.gob.cl/application/informacion/fichaDeEstacion/370071",
+    "publisher": "Dirección Meteorológica de Chile",
+    "reviewed": "2026-10-24",
+    "used": true,
+    "scope": "Familia o contexto de paisaje; ver JSON e investigación técnica."
+  },
+  {
+    "title": "G114-2.0 MW: folleto original del fabricante",
+    "url": "https://documents.dps.ny.gov/public/common/viewdoc.aspx?docrefid=%7Bf41cd6af-1b53-42e6-b748-fd1e2b2bcb72%7D",
+    "publisher": "Gamesa, copia pública en NY DPS",
+    "reviewed": "2026-10-24",
+    "used": true,
+    "scope": "Familia o contexto de paisaje; ver JSON e investigación técnica."
+  },
+  {
+    "title": "Presentación Gamesa 2.0 MW: transmisión, DFIM y paso hidráulico",
+    "url": "https://www.correze.gouv.fr/index.php/content/download/19153/130715/file/29-1%20-%20Reponse%20demande%20complement_CORREZE1%20Complet.pdf",
+    "publisher": "Gamesa, expediente Prefectura Corrèze",
+    "reviewed": "2026-10-24",
+    "used": true,
+    "scope": "Familia o contexto de paisaje; ver JSON e investigación técnica."
+  },
+  {
+    "title": "Three-point and four-point drivetrain configurations",
+    "url": "https://www.osti.gov/servlets/purl/1341391",
+    "publisher": "Guo et al., NREL / Wind Energy",
+    "reviewed": "2026-10-24",
+    "used": true,
+    "scope": "Familia o contexto de paisaje; ver JSON e investigación técnica."
+  },
+  {
+    "title": "Ficha oficial Parque Eólico Las Peñas",
+    "url": "https://snifa.sma.gob.cl/UnidadFiscalizable/Ficha/10832",
+    "publisher": "Superintendencia del Medio Ambiente",
+    "reviewed": "2026-10-24",
+    "used": true,
+    "scope": "Familia o contexto de paisaje; ver JSON e investigación técnica."
+  },
+  {
+    "title": "Recursos naturales de Arauco, 2021",
+    "url": "https://www.sitrural.cl/wp-content/uploads/2022/05/Arauco_rrnn.pdf",
+    "publisher": "CIREN / SIT Rural",
+    "reviewed": "2026-10-24",
+    "used": true,
+    "scope": "Familia o contexto de paisaje; ver JSON e investigación técnica."
+  },
+  {
+    "title": "Goldwind 1.5 MW PMDD: corte funcional y especificaciones",
+    "url": "https://www.goldwindamericas.com/sites/default/files/1.5%20MW%20PMDD%20Turbine%20-%20English.pdf",
+    "publisher": "Goldwind",
+    "reviewed": "2026-10-24",
+    "used": true,
+    "scope": "Familia o contexto de paisaje; ver JSON e investigación técnica."
+  },
+  {
+    "title": "Cuel: instalación y modelo Goldwind",
+    "url": "https://www.innergex.com/es/plantas/cuel",
+    "publisher": "Innergex",
+    "reviewed": "2026-10-24",
+    "used": true,
+    "scope": "Familia o contexto de paisaje; ver JSON e investigación técnica."
+  },
+  {
+    "title": "Visita de comunidades a Cuel",
+    "url": "https://www.mainstreamrp.com/news/communities-visit-cuel-wind-farm-in-chile/",
+    "publisher": "Mainstream",
+    "reviewed": "2026-10-24",
+    "used": true,
+    "scope": "Familia o contexto de paisaje; ver JSON e investigación técnica."
+  },
+  {
+    "title": "Suelos y paisaje agrícola comunal",
+    "url": "https://www.losangeles.cl/wp-content/uploads/2021/05/N38b-01-2011-MEMORIA_EXPLICATIVA_PLAN-REGULADOR-COMUNAL-DE-LOS-ANGELES.pdf",
+    "publisher": "Municipalidad de Los Ángeles",
+    "reviewed": "2026-10-24",
+    "used": true,
+    "scope": "Familia o contexto de paisaje; ver JSON e investigación técnica."
+  },
+  {
+    "title": "N149/4.X: etapas de transmisión y generador",
+    "url": "https://www.nordex-online.com/es/product/n149-4-0-4-5/?noredirect=es-ES",
+    "publisher": "Nordex",
+    "reviewed": "2026-10-24",
+    "used": true,
+    "scope": "Familia o contexto de paisaje; ver JSON e investigación técnica."
+  },
+  {
+    "title": "Delta4000: suspensión de tres puntos",
+    "url": "https://documents.dps.ny.gov/public/Common/ViewDoc.aspx?DocRefId=%7B6C30878F-4ECA-4F21-9D70-2CA02EDD83DF%7D",
+    "publisher": "Nordex, documento público NY DPS",
+    "reviewed": "2026-10-24",
+    "used": true,
+    "scope": "Familia o contexto de paisaje; ver JSON e investigación técnica."
+  },
+  {
+    "title": "Fotografía oficial N149 Wennerstorf: carcasa y refrigeración",
+    "url": "https://www.nordex-online.com/en/product/n149-4-0-4-5/",
+    "publisher": "Nordex",
+    "reviewed": "2026-10-24",
+    "used": true,
+    "scope": "Familia o contexto de paisaje; ver JSON e investigación técnica."
+  },
+  {
+    "title": "Ubicación y operación de Los Olmos",
+    "url": "https://www.aesandes.com/es/blog/aes-chile-puts-operation-los-olmos-wind-farm",
+    "publisher": "AES Andes",
+    "reviewed": "2026-10-24",
+    "used": true,
+    "scope": "Familia o contexto de paisaje; ver JSON e investigación técnica."
+  },
+  {
+    "title": "Plan comunal de desarrollo de Mulchén",
+    "url": "https://www.munimulchen.cl/wp-content/uploads/2023/02/PLADECO-RE-2022-2027-v2-2.pdf",
+    "publisher": "Municipalidad de Mulchén",
+    "reviewed": "2026-10-24",
+    "used": true,
+    "scope": "Familia o contexto de paisaje; ver JSON e investigación técnica."
+  },
+  {
+    "title": "Unidad fiscalizable Alena",
+    "url": "https://snifa.sma.gob.cl/UnidadFiscalizable/Ficha/10825",
+    "publisher": "Superintendencia del Medio Ambiente",
+    "reviewed": "2026-10-24",
+    "used": true,
+    "scope": "Familia o contexto de paisaje; ver JSON e investigación técnica."
+  },
+  {
+    "title": "Seguimiento de flora y vegetación Mesamavida",
+    "url": "https://snifa.sma.gob.cl/SeguimientoAmbiental/Ficha/1031158",
+    "publisher": "Superintendencia del Medio Ambiente",
+    "reviewed": "2026-10-24",
+    "used": true,
+    "scope": "Familia o contexto de paisaje; ver JSON e investigación técnica."
+  },
+  {
+    "title": "V110-2.0 MW y folleto 2 MW conservado en el corpus",
+    "url": "https://www.vestas.com/en/energy-solutions/onshore-wind-turbines/2-mw-platform/V110-2-0-mw",
+    "publisher": "Vestas",
+    "reviewed": "2026-10-24",
+    "used": true,
+    "scope": "Familia o contexto de paisaje; ver JSON e investigación técnica."
+  },
+  {
+    "title": "Parque eólico Los Buenos Aires",
+    "url": "https://www.enel.cl/es/conoce-enel/nuestras-centrales/parque-eolico-los-buenos-aires.html",
+    "publisher": "Enel Green Power",
+    "reviewed": "2026-10-24",
+    "used": true,
+    "scope": "Familia o contexto de paisaje; ver JSON e investigación técnica."
   }
 ]

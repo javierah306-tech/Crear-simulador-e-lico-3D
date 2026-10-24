@@ -132,7 +132,7 @@
   },
   "engineering": {
     "reviewDate": "2026-10-24",
-    "geometryScope": "Reconstrucción técnica documentada. Sin planos OEM acotados: dimensiones internas, dientes, bobinados y elementos de acabado son ilustrativos.",
+    "geometryScope": "Reconstrucción por modelo, con silueta y rasgos contrastados en fuentes. Cotas internas, ubicación exacta de auxiliares y acabados sin planos se interpretan; no es un gemelo de una unidad instalada.",
     "layoutCode": "one-planetary-two-parallel",
     "layout": "Una etapa planetaria y dos de ejes paralelos",
     "pitchDrive": {
@@ -179,7 +179,40 @@
         "publisher": "Gamesa, expediente Prefectura Corrèze",
         "url": "https://www.correze.gouv.fr/index.php/content/download/19153/130715/file/29-1%20-%20Reponse%20demande%20complement_CORREZE1%20Complet.pdf",
         "pages": "Láminas de plataforma y G114"
+      },
+      {
+        "id": "NREL4",
+        "title": "Three-point and four-point drivetrain configurations",
+        "publisher": "Guo et al., NREL / Wind Energy",
+        "url": "https://www.osti.gov/servlets/purl/1341391",
+        "pages": "Introducción, p. 1"
       }
-    ]
-  }
+    ],
+    "identity": "Carcasa suave y alargada del folleto G114; dos apoyos principales según Guo et al.; bancada fundida, paso hidráulico y transmisión de una planetaria y dos paralelas."
+  },
+  "landscapes": [
+    {
+      "id": "las-penas",
+      "parkName": "Las Peñas",
+      "municipality": "Arauco",
+      "region": "Región del Biobío",
+      "preset": "coastal-forestry",
+      "biome": "Arauco · influencia costera y mosaico forestal",
+      "description": "Praderas, lomas bajas y masas arboladas representan el paisaje templado de influencia mediterránea y costera de la comuna.",
+      "seed": 37,
+      "sitingNote": "Paisaje representativo del entorno documentado. Relieve, parcelas, árboles y posición de turbinas ilustrativos; no es una restitución topográfica ni ubicación de una unidad real.",
+      "sources": [
+        {
+          "title": "Ficha oficial Parque Eólico Las Peñas",
+          "url": "https://snifa.sma.gob.cl/UnidadFiscalizable/Ficha/10832",
+          "publisher": "Superintendencia del Medio Ambiente"
+        },
+        {
+          "title": "Recursos naturales de Arauco, 2021",
+          "url": "https://www.sitrural.cl/wp-content/uploads/2022/05/Arauco_rrnn.pdf",
+          "publisher": "CIREN / SIT Rural"
+        }
+      ]
+    }
+  ]
 }

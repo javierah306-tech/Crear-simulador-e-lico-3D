@@ -90,10 +90,34 @@ const cards = page.locator('.model-card');
 for (let i = 0; i < 5; i++) {
   await cards.nth(i).click();
   await page.getByRole('button', { name: 'Vista exterior', exact: true }).click();
-  await page.waitForTimeout(500);
+  await page.waitForTimeout(1400);
+  await page.locator('.viewport').screenshot({ path: `tmp/qa/exterior-${i}.png` });
   await page.getByRole('button', { name: 'Vista interior', exact: true }).click();
   await page.waitForTimeout(1200);
   await page.locator('.viewport').screenshot({ path: `tmp/qa/model-${i}.png` });
+  await page.getByRole('button', { name: 'Vista del parque', exact: true }).click();
+  await page.waitForTimeout(1500);
+  await page.locator('.viewport').screenshot({ path: `tmp/qa/park-${i}.png` });
+  const context = page.getByRole('region', { name: 'Paisaje y ubicación del parque' });
+  if (!(await context.textContent()).includes('Fuentes y alcance'))
+    throw Error('Falta procedencia del paisaje en modelo ' + i);
+  if (i === 3) {
+    const sites = page.getByRole('combobox', { name: 'Parque eólico' });
+    if ((await sites.locator('option').count()) !== 3) throw Error('Faltan parques Nordex.');
+    for (const [id, park, municipality] of [
+      ['los-olmos', 'Los Olmos', 'Mulchén'],
+      ['alena', 'Alena', 'Los Ángeles'],
+      ['mesamavida', 'Mesamavida', 'Los Ángeles'],
+    ]) {
+      await sites.selectOption(id);
+      await page.waitForTimeout(1500);
+      const heading = await page.locator('.viewer-heading').textContent();
+      if (!heading.includes(park) || !heading.includes(municipality))
+        throw Error('Ubicación incorrecta de ' + id);
+      await page.locator('.viewport').screenshot({ path: `tmp/qa/park-${id}.png` });
+    }
+  }
+
   if (await page.getByText('No se pudo cargar la vista 3D', { exact: true }).count())
     throw Error('Error de GLB en modelo ' + i);
 }
@@ -101,8 +125,14 @@ await cards.first().click();
 await page.getByRole('button', { name: 'Vista exterior', exact: true }).click();
 await writeFile(
   'tmp/qa/results.json',
-  JSON.stringify({ errors, rows, viewport: '390×844,1440×1050' }, null, 2),
+  JSON.stringify(
+    { errors, rows, models: 5, cameraModes: 3, parkSites: 7, viewport: '390×844,1440×1050' },
+    null,
+    2,
+  ),
 );
 await browser.close();
 if (errors.length) throw Error(errors.join('\n'));
-console.log('QA OK: exterior, interior, selección, explosión, ficha, catálogo y móvil.');
+console.log(
+  'QA OK: cinco modelos, tres vistas, siete parques, selección, explosión, pausa, ficha, catálogo y móvil.',
+);

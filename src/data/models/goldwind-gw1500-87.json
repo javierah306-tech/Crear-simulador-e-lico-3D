@@ -129,7 +129,7 @@
   },
   "engineering": {
     "reviewDate": "2026-10-24",
-    "geometryScope": "Reconstrucción técnica documentada. Sin planos OEM acotados: dimensiones internas, dientes, bobinados y elementos de acabado son ilustrativos.",
+    "geometryScope": "Reconstrucción por modelo, con silueta y rasgos contrastados en fuentes. Cotas internas, ubicación exacta de auxiliares y acabados sin planos se interpretan; no es un gemelo de una unidad instalada.",
     "layoutCode": "direct",
     "layout": "Accionamiento directo; generador síncrono de imanes permanentes",
     "pitchDrive": {
@@ -170,6 +170,37 @@
         "url": "https://www.goldwindamericas.com/sites/default/files/1.5%20MW%20PMDD%20Turbine%20-%20English.pdf",
         "pages": "3–6"
       }
-    ]
-  }
+    ],
+    "identity": "Envolvente abombada de PMDD, generador anular directo y paso por correa; referencias de familia Goldwind."
+  },
+  "landscapes": [
+    {
+      "id": "cuel",
+      "parkName": "Cuel",
+      "municipality": "Los Ángeles",
+      "region": "Región del Biobío",
+      "preset": "valley-crops",
+      "biome": "Valle central · mosaico agrícola",
+      "description": "Parcelas abiertas, praderas y cortinas de árboles en el paisaje rural de Los Ángeles.",
+      "seed": 11,
+      "sitingNote": "Paisaje representativo del entorno documentado. Relieve, parcelas, árboles y posición de turbinas ilustrativos; no es una restitución topográfica ni ubicación de una unidad real.",
+      "sources": [
+        {
+          "title": "Cuel: instalación y modelo Goldwind",
+          "url": "https://www.innergex.com/es/plantas/cuel",
+          "publisher": "Innergex"
+        },
+        {
+          "title": "Visita de comunidades a Cuel",
+          "url": "https://www.mainstreamrp.com/news/communities-visit-cuel-wind-farm-in-chile/",
+          "publisher": "Mainstream"
+        },
+        {
+          "title": "Suelos y paisaje agrícola comunal",
+          "url": "https://www.losangeles.cl/wp-content/uploads/2021/05/N38b-01-2011-MEMORIA_EXPLICATIVA_PLAN-REGULADOR-COMUNAL-DE-LOS-ANGELES.pdf",
+          "publisher": "Municipalidad de Los Ángeles"
+        }
+      ]
+    }
+  ]
 }

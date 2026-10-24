@@ -171,6 +171,7 @@ function SheetModal({ model, close }: { model: TurbineModel; close: () => void }
 function App() {
   const state = useSimulator();
   const model = models.find((m) => m.id === state.modelId) || models[0];
+  const site = model.landscapes.find((site) => site.id === state.siteId) ?? model.landscapes[0];
   const [sheet, setSheet] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
   const data = normalOperation(model.simulation);
@@ -294,7 +295,7 @@ function App() {
                   </h1>
                   <p>
                     <MapPin size={14} />
-                    {model.parks.map((p) => p.name).join(' · ')}
+                    {site.parkName} · {site.municipality}
                     <span className="location-divider" /> {architecture(model)}
                   </p>
                 </div>
@@ -328,6 +329,14 @@ function App() {
                       <Box size={16} />
                       Vista interior
                     </button>
+                    <button
+                      aria-label="Vista del parque"
+                      className={state.view === 'park' ? 'active' : ''}
+                      onClick={() => state.setView('park')}
+                    >
+                      <MapPin size={16} />
+                      Parque
+                    </button>
                   </div>
                   <span className={'operation-label ' + (state.playing ? 'is-live' : 'is-paused')}>
                     <span className="live-dot" />
@@ -349,14 +358,18 @@ function App() {
                 </div>
                 <div className="scene-caption">
                   <span className="eyebrow">
-                    {state.view === 'exterior'
-                      ? '01 / VISTA DE GÓNDOLA Y ROTOR'
-                      : '02 / INTERIOR TRASLÚCIDO'}
+                    {state.view === 'park'
+                      ? '03 / PARQUE Y PAISAJE'
+                      : state.view === 'exterior'
+                        ? '01 / VISTA DE GÓNDOLA Y ROTOR'
+                        : '02 / INTERIOR TRASLÚCIDO'}
                   </span>
                   <span>
-                    {state.view === 'exterior'
-                      ? 'El viento se convierte en movimiento.'
-                      : 'La ingeniería detrás de la energía.'}
+                    {state.view === 'park'
+                      ? site.biome
+                      : state.view === 'exterior'
+                        ? 'El viento se convierte en movimiento.'
+                        : 'La ingeniería detrás de la energía.'}
                   </span>
                 </div>
                 <div className="camera-tools">
@@ -395,6 +408,57 @@ function App() {
                   <ChevronRight size={18} />
                 </button>
               </div>
+              <section className="park-context" aria-label="Paisaje y ubicación del parque">
+                <div className="park-context-heading">
+                  <MapPin size={20} />
+                  <div>
+                    <span className="eyebrow">BIOBÍO / CONTEXTO TERRITORIAL</span>
+                    <h2>
+                      {site.parkName}
+                      <small>{site.municipality}</small>
+                    </h2>
+                  </div>
+                </div>
+                <div className="park-context-copy">
+                  <strong>{site.biome}</strong>
+                  <p>{site.description}</p>
+                </div>
+                <div className="park-context-actions">
+                  {model.landscapes.length > 1 && (
+                    <label>
+                      Parque eólico
+                      <select
+                        aria-label="Parque eólico"
+                        value={site.id}
+                        onChange={(event) => state.setSite(event.target.value)}
+                      >
+                        {model.landscapes.map((item) => (
+                          <option key={item.id} value={item.id}>
+                            {item.parkName}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                  )}
+                  <button className="outline-button" onClick={() => state.setView('park')}>
+                    Recorrer parque <ChevronRight size={15} />
+                  </button>
+                </div>
+                <details className="park-context-sources">
+                  <summary>Paisaje interpretado · Fuentes y alcance</summary>
+                  <p>{site.sitingNote}</p>
+                  <ul>
+                    {site.sources.map((source) => (
+                      <li key={source.url}>
+                        <a href={source.url} target="_blank" rel="noreferrer">
+                          {source.title}
+                        </a>
+                        <small>{source.publisher}</small>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              </section>
               <div className="readouts" aria-label="Estimaciones bajo un viento fijo">
                 <div className="readouts-heading">
                   <span className="eyebrow">ESCENARIO NORMAL</span>

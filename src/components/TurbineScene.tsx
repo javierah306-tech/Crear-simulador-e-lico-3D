@@ -16,7 +16,11 @@ import type { TurbineModel } from '../data/types';
 import { useSimulator, type ComponentId } from '../store/useSimulator';
 import { normalOperation } from '../simulation/normalOperation';
 
+import ParkEnvironment, { selectedLandscape, WORLD_SCALE } from './ParkEnvironment';
+
 const base = import.meta.env.BASE_URL;
+// Stable GLB filenames must not reuse a visitor's cached geometry after an update.
+const assetUrl = (path: string) => `${base}${path}?v=0.4.0`;
 const groupOffsets: Record<string, [number, number, number]> = {
   RotorAssembly: [-3.5, 0, 0],
   MainShaft: [-0.7, 1.7, 0],
@@ -43,7 +47,7 @@ function transitionDuration(seconds: number) {
 
 function Asset({ model }: { model: TurbineModel }) {
   const { view, exploded, selected, playing, setSelected } = useSimulator();
-  const url = base + (view === 'exterior' ? model.asset.lod : model.asset.glb);
+  const url = assetUrl(view === 'interior' ? model.asset.glb : model.asset.lod);
   const gltf = useGLTF(url, base + 'draco/');
   const scene = useMemo(() => {
     const clone = gltf.scene.clone(true);
@@ -87,9 +91,11 @@ function Asset({ model }: { model: TurbineModel }) {
       if (!(object instanceof THREE.Mesh)) return;
       let coverNode: THREE.Object3D | null = object;
       let cover = false;
+      let coverName = '';
       while (coverNode) {
         if (isCover(coverNode.name)) {
           cover = true;
+          coverName = coverNode.name;
           break;
         }
         coverNode = coverNode.parent;
@@ -102,7 +108,15 @@ function Asset({ model }: { model: TurbineModel }) {
       materials.forEach((material) => {
         const mat = material as THREE.MeshStandardMaterial;
         mat.transparent = fade;
-        mat.opacity = fade ? (blade ? 0.22 : object.name === 'HubCover' ? 0.09 : 0.075) : 1;
+        mat.opacity = fade
+          ? blade
+            ? 0.16
+            : coverName.startsWith('GearboxCasing_')
+              ? 0.22
+              : coverName.startsWith('GeneratorCasing_')
+                ? 0.16
+                : 0.065
+          : 1;
         mat.depthWrite = !fade;
         mat.side = cover ? THREE.DoubleSide : THREE.FrontSide;
         mat.envMapIntensity = 0.8;
@@ -184,41 +198,38 @@ function EnergyFlow({ model }: { model: TurbineModel }) {
   const direct = model.specs.gearbox.value === false;
   const dfig = model.specs.generator.value?.startsWith('DFIG');
   const geared = model.specs.gearbox.value === true;
+  const gltf = useGLTF(
+    assetUrl(view === 'interior' ? model.asset.glb : model.asset.lod),
+    base + 'draco/',
+  );
   const paths = useMemo(() => {
-    const gx = direct ? -1.65 : 2.05;
-    const gy = geared ? 0.69 : 0;
-    const cx = direct ? 2.75 : 3.75;
-    const tx = direct ? 2.85 : 3.85;
-    const mechanical = geared
-      ? [
-          [-3.5, 0.12, 0.3],
-          [-1.3, 0.12, 0.3],
-          [0.1, 0.12, 0.3],
-          [0.7, gy, 0.3],
-          [gx, gy, 0.3],
-        ]
-      : [
-          [-3.5, 0.12, 0.3],
-          [-2.1, 0.12, 0.3],
-          [gx, gy, 0.3],
-        ];
+    const metadata = gltf.scene.getObjectByName('Turbine')?.userData;
+    const point = (key: string, fallback: number[]) =>
+      (metadata?.[key] ?? fallback) as [number, number, number];
+    const gen = point('energyGenerator', [direct ? -1.65 : 2.05, geared ? 0.69 : 0, 0]);
+    const converter = point('energyConverter', [direct ? 2.75 : 3.75, 0.13, -0.9]);
+    const transformer = point('energyTransformer', [direct ? 2.85 : 3.85, -0.52, 0.65]);
+    const offset = (v: number[], x: number, y: number, z: number) => [v[0] + x, v[1] + y, v[2] + z];
     const definitions: { points: number[][]; color: string; speed: number }[] = [
-      { points: mechanical, color: '#d8a356', speed: 0.12 },
+      {
+        points: [[-3.5, 0.12, 0.3], [-1.3, 0.12, 0.3], [0.3, 0.12, 0.3], offset(gen, 0, 0, 0.3)],
+        color: '#d8a356',
+        speed: 0.12,
+      },
       {
         points: [
-          [gx, gy + 0.8, 0.75],
-          [cx - 0.5, 1.3, 0.25],
-          [cx, 0.8, -0.9],
-          [cx + 0.65, 0.3, 0],
-          [tx, -0.3, 0.65],
+          offset(gen, 0, 0.7, 0.65),
+          offset(converter, -0.5, 1.2, 0),
+          offset(converter, 0, 0.7, 0),
+          offset(transformer, 0, 0.25, 0),
         ],
         color: '#3c9e78',
         speed: 0.16,
       },
       {
         points: [
-          [tx, -0.52, 0.65],
-          [tx - 0.4, -1.0, 0.75],
+          transformer,
+          offset(transformer, -0.4, -0.5, 0.15),
           [0.4, -1.4, 0.4],
           [0, -3.3, 0],
         ],
@@ -227,22 +238,21 @@ function EnergyFlow({ model }: { model: TurbineModel }) {
       },
     ];
     if (dfig) {
-      // Stator electricity bypasses the partial rotor converter.
       definitions[1] = {
         points: [
-          [gx, gy + 0.2, 0.85],
-          [tx - 0.7, 0.35, 1.25],
-          [tx, -0.3, 0.65],
+          offset(gen, 0, 0.2, 0.9),
+          offset(transformer, -0.7, 0.7, 0.3),
+          offset(transformer, 0, 0.2, 0),
         ],
         color: '#3c9e78',
         speed: 0.16,
       };
       definitions.push({
         points: [
-          [gx, gy + 0.8, -0.7],
-          [cx, 0.8, -0.9],
-          [cx + 0.65, 0.3, 0],
-          [tx, -0.3, 0.65],
+          offset(gen, 0, 0.7, -0.7),
+          offset(converter, 0, 0.7, 0),
+          offset(converter, 0.65, 0.3, 0.65),
+          offset(transformer, 0, 0.2, 0),
         ],
         color: '#718ab3',
         speed: 0.1,
@@ -255,7 +265,7 @@ function EnergyFlow({ model }: { model: TurbineModel }) {
       color,
       speed,
     }));
-  }, [direct, dfig, geared]);
+  }, [direct, dfig, geared, gltf.scene]);
   const particles = useRef<(THREE.Mesh | null)[]>([]);
   const elapsed = useRef(0);
   useFrame((_, delta) => {
@@ -298,25 +308,29 @@ function EnergyFlow({ model }: { model: TurbineModel }) {
   );
 }
 
-function CameraRig() {
+function CameraRig({ model }: { model: TurbineModel }) {
   const ref = useRef<ComponentRef<typeof OrbitControls>>(null);
   const { size } = useThree();
-  const { view, resetCount, modelId, exploded } = useSimulator();
+  const { view, resetCount, modelId, exploded, siteId } = useSimulator();
   useEffect(() => {
     const controls = ref.current;
     if (!controls) return;
     const position = exploded
       ? [-12, 7, 19]
-      : view === 'interior'
-        ? [-8.7, 4.2, 12.3]
-        : [-14, 5.8, 24];
+      : view === 'park'
+        ? [-50, 21, 98]
+        : view === 'interior'
+          ? [-8.7, 4.2, 12.3]
+          : [-14, 5.8, 24];
     const target = exploded
       ? [0.4, 0.6, 0]
-      : view === 'interior'
-        ? [0.1, -0.1, 0]
-        : [-1.4, -1.2, 0];
+      : view === 'park'
+        ? [0, -model.simulation.hubHeightM * WORLD_SCALE * 0.38, 0]
+        : view === 'interior'
+          ? [0.5, 0.15, 0]
+          : [-1.4, -1.2, 0];
     const aspect = size.width / size.height;
-    const fit = Math.max(1, (view === 'interior' ? 1.2 : 0.95) / aspect);
+    const fit = Math.max(1, (view === 'park' ? 0.82 : view === 'interior' ? 1.3 : 0.95) / aspect);
     if (fit > 1) {
       position[0] = target[0] + (position[0] - target[0]) * fit;
       position[1] = target[1] + (position[1] - target[1]) * fit;
@@ -342,7 +356,16 @@ function CameraRig() {
       cameraTween.kill();
       targetTween.kill();
     };
-  }, [view, resetCount, modelId, exploded, size.width, size.height]);
+  }, [
+    view,
+    resetCount,
+    modelId,
+    exploded,
+    siteId,
+    model.simulation.hubHeightM,
+    size.width,
+    size.height,
+  ]);
   return (
     <OrbitControls
       ref={ref}
@@ -350,7 +373,7 @@ function CameraRig() {
       enableDamping
       dampingFactor={0.07}
       minDistance={5.5}
-      maxDistance={80}
+      maxDistance={260}
       maxPolarAngle={Math.PI * 0.86}
     />
   );
@@ -359,11 +382,11 @@ function CameraRig() {
 function StudioLight() {
   return (
     <>
-      <ambientLight intensity={0.65} />
-      <hemisphereLight args={['#fff9eb', '#bbcbb5', 1.3]} />
-      <directionalLight position={[-9, 13, 12]} color="#fff3d7" intensity={3.1} />
-      <directionalLight position={[7, 7, -9]} color="#d4ead8" intensity={2.2} />
-      <directionalLight position={[2, -4, 10]} color="#ffe6cf" intensity={0.5} />
+      <ambientLight intensity={0.35} />
+      <hemisphereLight args={['#fff9eb', '#bbcbb5', 0.65]} />
+      <directionalLight position={[-9, 13, 12]} color="#fff3d7" intensity={2.4} />
+      <directionalLight position={[7, 7, -9]} color="#d4ead8" intensity={1.05} />
+      <directionalLight position={[2, -4, 10]} color="#ffe6cf" intensity={0.25} />
       <Environment resolution={64} frames={1}>
         <Lightformer
           form="rect"
@@ -403,11 +426,13 @@ function LoadingStatus() {
 }
 export default function TurbineScene({ model }: { model: TurbineModel }) {
   const playing = useSimulator((state) => state.playing);
+  const siteId = useSimulator((state) => state.siteId);
+  const site = selectedLandscape(model, siteId);
   return (
     <div className="scene-container">
       <Canvas
         frameloop={playing ? 'always' : 'demand'}
-        camera={{ position: [-14, 5.8, 24], fov: 40, near: 0.1, far: 200 }}
+        camera={{ position: [-14, 5.8, 24], fov: 40, near: 0.1, far: 1000 }}
         dpr={[1, 1.6]}
         gl={{ antialias: true, powerPreference: 'high-performance', alpha: true }}
         fallback={
@@ -417,13 +442,13 @@ export default function TurbineScene({ model }: { model: TurbineModel }) {
         }
         onPointerMissed={() => useSimulator.getState().setSelected(null)}
       >
-        <fog attach="fog" args={['#e8ede1', 80, 180]} />
+        <ParkEnvironment model={model} site={site} />
         <StudioLight />
         <Suspense fallback={null}>
           <Asset model={model} />
           <EnergyFlow model={model} />
         </Suspense>
-        <CameraRig />
+        <CameraRig model={model} />
         <AdaptiveDpr />
       </Canvas>
       <LoadingStatus />

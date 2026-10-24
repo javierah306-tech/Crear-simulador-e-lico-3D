@@ -1,12 +1,12 @@
 # Smartwind · Explorador eólico del Biobío
 
-Simulador educativo 3D en español de cinco modelos o variantes presentes en la documentación del Biobío. La nueva versión renueva los interiores mecánicos, los materiales y la interfaz con una paleta de arena, verde y cobre. Funciona sin registro, servidor de datos ni claves de acceso.
+Simulador educativo 3D en español de cinco modelos o variantes presentes en la documentación del Biobío. La versión 0.4.0 diferencia la forma y la disposición mecánica por fabricante y añade paisajes de los parques, con una paleta de arena, verde y cobre. Funciona sin registro, servidor de datos ni claves de acceso.
 
 Selección vigente: **Goldwind GW87/1500, Envision EN110-2.1, Gamesa G114 (familia 2,0 MW), Nordex N149 y Vestas V110-2.0 MW**.
 
 [Investigación técnica y límites de precisión](docs/investigacion-tecnica.md).
 
-El visitante puede alternar entre dos acercamientos principales: exterior a la altura de la góndola e interior traslúcido. La cámara orbital, la selección de piezas, la vista de explosión y el flujo de energía permiten explorar la máquina en operación normal. El viento permanece fijo en **8 m/s**; no hay reguladores de condiciones.
+El visitante puede alternar entre exterior a la altura de la góndola, interior traslúcido y vista del parque con la torre completa. Cada modelo muestra su parque, comuna y paisaje; Nordex permite elegir Los Olmos, Alena o Mesamavida. La cámara orbital, la selección de piezas, la vista de explosión y el flujo de energía permiten explorar la máquina en operación normal. El viento permanece fijo en **8 m/s**; no hay reguladores de condiciones.
 
 ## Ejecutar
 
@@ -32,7 +32,7 @@ pnpm preview
 - React, TypeScript, Vite, Three.js con React Three Fiber/drei, Zustand, GSAP y Tailwind CSS.
 - Cinco fuentes Blender editables y diez GLB con Draco: geometría detallada para el interior y LOD reducido para el exterior.
 - Palas perfiladas, buje, apoyos, tren mecánico, generador, equipos eléctricos y estructura de la góndola, con partes animadas identificables.
-- Dos cámaras principales, interior traslúcido, vista de explosión, selección por ratón o botones, ficha técnica y catálogo comparativo.
+- Dos cámaras técnicas y vista Parque; siete paisajes representativos con fuentes. Vista de explosión, selección por ratón o botones, ficha técnica y catálogo comparativo.
 - Datos y supuestos separados en JSON, pruebas de las fórmulas y validación del contrato de los assets.
 - CI automática que valida, compila y despliega GitHub Pages al subir a `main`; validación de pull requests y configuración alternativa para Netlify.
 
@@ -49,7 +49,7 @@ pnpm preview
 
 La fuente primaria es `02_PARQUES_COMPONENTES_BIOBIO.pdf`, contrastada con el corpus local de fabricantes en `modelos chilenos/`. Corte documental: 3 de octubre de 2026. Los JSON distinguen datos instalados, referencias de familia y campos ausentes. La ficha muestra **No documentado** cuando no existe evidencia. No se afirma un inventario vigente por unidad.
 
-`simulation` contiene los valores ilustrativos usados para calcular potencia, RPM y paso. Las Peñas conserva la discrepancia de potencia. Las geometrías, el detalle de engranajes, las relaciones de movimiento y la ubicación de los equipos son reconstrucciones didácticas originales; las imágenes recibidas inspiran el acabado y no acreditan una configuración instalada. Los modelos con transmisión sin documentar muestran una cadena funcional genérica y conservan esa incertidumbre en la ficha. Una ausencia de multiplicadora en esas geometrías no demuestra accionamiento directo.
+`simulation` contiene los valores ilustrativos usados para calcular potencia, RPM y paso. Las Peñas conserva la discrepancia de potencia. Las geometrías, el detalle de engranajes, las relaciones de movimiento y la ubicación de los equipos son reconstrucciones didácticas originales; las imágenes recibidas inspiran el acabado y no acreditan una configuración instalada. El paisaje representa el contexto rural documentado de cada comuna; terreno, parcelas, árboles y posiciones vecinas son ilustrativos, sin levantamiento topográfico ni coordenadas de cada unidad.
 
 Los PDF/HTML completos y las imágenes de inspiración no se redistribuyen como assets. El código y los modelos originales usan licencia MIT.
 
@@ -61,7 +61,7 @@ pnpm models
 # También se puede definir BLENDER_PATH con el ejecutable de Blender.
 ```
 
-`scripts/create_models.py` construye los assets originales, guarda fuentes `.blend` y exporta GLB con compresión Draco, etiquetas de componente y animación de rotor. Los assets están incluidos: Blender no es necesario para ejecutar ni compilar el visor.
+`scripts/create_models.py` y `scripts/model_identities.py` construyen los assets originales por fabricante, guarda fuentes `.blend` y exporta GLB con compresión Draco, etiquetas de componente y animación de rotor. Los assets están incluidos: Blender no es necesario para ejecutar ni compilar el visor.
 
 Para agregar una eólica basta un JSON que cumpla el esquema y un GLB compatible. El selector descubre los JSON automáticamente. `asset.lod` puede apuntar al mismo archivo si todavía no existe una versión reducida. Consulta el contrato en [arquitectura](docs/arquitectura-y-plan.md).
 

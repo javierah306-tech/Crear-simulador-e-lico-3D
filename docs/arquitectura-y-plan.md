@@ -1,6 +1,6 @@
 # Arquitectura y plan de entrega
 
-La nueva versión mantiene acceso directo al visor y renueva su interfaz con arena, verde y cobre, interiores mecánicos de mayor detalle y materiales diferenciados. El boceto se interpreta como un selector lateral, una escena central a altura de góndola, acceso a un interior traslúcido y un botón para avanzar al siguiente modelo. Se usan dos posiciones principales de cámara; el usuario también puede orbitar y acercar libremente. La indicación expresa de no ofrecer reguladores prevalece sobre el requisito posterior de un deslizador de viento: el escenario usa 8 m/s fijos y no ofrece edición de las condiciones.
+La nueva versión mantiene acceso directo al visor y renueva su interfaz con arena, verde y cobre, interiores mecánicos de mayor detalle y materiales diferenciados. El boceto se interpreta como un selector lateral, una escena central a altura de góndola, acceso a un interior traslúcido y un botón para avanzar al siguiente modelo. Se usan dos posiciones técnicas principales de cámara y una vista del parque; el usuario también puede orbitar y acercar libremente. La indicación expresa de no ofrecer reguladores prevalece sobre el requisito posterior de un deslizador de viento: el escenario usa 8 m/s fijos y no ofrece edición de las condiciones.
 
 ## Estructura
 
@@ -18,6 +18,7 @@ src/
   simulation/normalOperation.ts   escenario normal y estimaciones
   components/
     TurbineScene.tsx              Canvas R3F, GLB, raycasting, cámara y flujos
+    ParkEnvironment.tsx          terreno, campos, vegetación instanciada y vecinos
     TechnicalSheet.tsx            ficha y supuestos por campo
     Catalog.tsx                   comparación documental
 public/
@@ -27,6 +28,7 @@ public/
 assets/blender/*.blend            fuentes originales editables
 scripts/
   create_models.py                modelado y exportación Blender a GLB/Draco
+  model_identities.py             geometrías y disposiciones por fabricante
   export-models.mjs               lanzador Blender
   build_catalog.py               reproducción de la extracción curada
   generate_deliverables.py        tablas y esquema
@@ -36,13 +38,13 @@ tests/simulation.test.ts          invariantes de curva y umbrales
 docs/                            extracción, arquitectura, fuentes y plan
 ```
 
-El visor se carga con `React.lazy`. Cada GLB solo se solicita al seleccionar el modelo: LOD reducido en exterior y geometría detallada en interior. La cámara usa OrbitControls de drei y adapta su distancia inicial al formato del visor, incluido el retrato móvil; GSAP interpola acercamientos y posiciones de la vista de explosión. La animación de rotor viene del glTF exportado por Blender y ajusta su velocidad a las RPM estimadas. Los mecanismos auxiliares se animan mediante metadatos del GLB y comparten el reloj del mixer para evitar deriva respecto al rotor. Al pausar, el Canvas se actualiza por demanda. Las piezas estáticas se agrupan por componente y material para reducir llamadas de dibujo sin perder la selección del subsistema. La nueva versión usa carcasas independientes para descubrir ejes, apoyos y equipos en el interior. La iluminación utiliza un entorno generado en la aplicación, sin un HDR remoto. Las transiciones de cámara y explosión respetan la preferencia de reducir movimiento.
+El visor se carga con `React.lazy`. Cada GLB solo se solicita al seleccionar el modelo: LOD reducido en exterior/parque y geometría detallada en interior. La cámara usa OrbitControls de drei y adapta su distancia inicial al formato del visor, incluido el retrato móvil; GSAP interpola acercamientos y posiciones de la vista de explosión. La animación de rotor viene del glTF exportado por Blender y ajusta su velocidad a las RPM estimadas. Los mecanismos auxiliares se animan mediante metadatos del GLB y comparten el reloj del mixer para evitar deriva respecto al rotor. Al pausar, el Canvas se actualiza por demanda. Las piezas estáticas se agrupan por componente y material para reducir llamadas de dibujo sin perder la selección del subsistema. La nueva versión usa carcasas independientes para descubrir ejes, apoyos y equipos en el interior. La iluminación utiliza un entorno generado en la aplicación, sin un HDR remoto. Las transiciones de cámara y explosión respetan la preferencia de reducir movimiento.
 
 Las piezas tienen `extras.component` en glTF. El raycasting identifica ese atributo en la pieza o sus padres. Existe una lista equivalente de botones para selección por teclado. La ficha usa un diálogo nativo modal con foco contenido, cierre por Escape y devolución de foco al disparador. El Canvas tiene mensaje alternativo cuando WebGL no está disponible.
 
 ## Datos y extensión
 
-Cada dato técnico es `{ value, source, scope, note }`. `scope` puede ser `installed`, `family` o `missing`. Los datos ausentes tienen `value: null`; un valor de familia no se convierte silenciosamente en dato de un parque. El objeto `simulation` almacena valores ilustrativos separados, incluyendo supuestos explícitos. `parks[]` conserva discrepancias, evidencias y alturas particulares.
+Cada dato técnico es `{ value, source, scope, note }`. `scope` puede ser `installed`, `family` o `missing`. Los datos ausentes tienen `value: null`; un valor de familia no se convierte silenciosamente en dato de un parque. El objeto `simulation` almacena valores ilustrativos separados, incluyendo supuestos explícitos. `parks[]` conserva discrepancias, evidencias y alturas particulares. `engineering.identity` describe los rasgos propios; `landscapes[]` define parque, comuna, bioma, preset, semilla, alcance y fuentes. El estado `siteId` selecciona el entorno; al cambiar de modelo se restaura su primer sitio. El terreno se genera localmente sin mapas ni APIs externas. Vegetación instanciada, relieve determinista y suelo plano cerca del cimiento permiten cambiar entre siete ubicaciones.
 
 Para agregar un modelo se incorpora un JSON que cumpla el esquema y un GLB con la misma convención de componentes. No se modifica el selector. Si solo hay un GLB, `asset.lod` puede apuntar al mismo archivo que `asset.glb`; la validación lo permite. Para producción se recomienda un LOD real; los cinco modelos entregados tienen ambos niveles. No se requieren cambios de componentes React por modelo.
 
@@ -52,6 +54,7 @@ Para agregar un modelo se incorpora un JSON que cumpla el esquema y un GLB con l
 - Grupos `RotorAssembly`, `MainShaft`, `Generator`, `GeneratorRotor`, `Converter`, `Transformer`, `Yaw`, `Nacelle`, `Tower`; `Gearbox` solo si está documentada.
 - Meshes `Shell` o `Shell_*` para transparencia de góndola; `HubCover`, `GearboxCasing_*` y `GeneratorCasing_*` identifican carcasas de los mecanismos. Cada pieza o su grupo padre conserva `extras.component` con su identificador.
 - Pitch: grupos `Pitch_0` a `Pitch_<bladeCount − 1>` según el número de palas del escenario. Las piezas móviles auxiliares llevan `extras.motionAxis` (`x`, `y` o `z`), `extras.motionRatio` firmado respecto a las RPM del rotor y `extras.motionBaseRPM` como referencia de reproducción. La relación visual no se presenta como una relación OEM.
+- `Turbine.extras.energyGenerator`, `energyConverter` y `energyTransformer`: anclajes opcionales propios, en coordenadas glTF, para el flujo de energía. Sin ellos se conserva una ruta funcional de reserva.
 - Clip de rotación a 12 RPM nominales de reproducción; el runtime usa `timeScale = RPM / 12`.
 - El clip anima `RotorAssembly` sobre el eje X negativo. Los demás mecanismos se controlan desde sus metadatos; no deben recibir simultáneamente una animación glTF y otra del runtime sobre el mismo eje.
 - No se usa una geometría como evidencia de un componente instalado. Los assets son modelos educativos normalizados, con detalle mecánico original y sin planos CAD OEM. En una arquitectura sin documentar, la ausencia de `Gearbox` evita afirmar una transmisión concreta y no demuestra accionamiento directo.
@@ -84,7 +87,7 @@ En DFIG la electricidad del estator pasa al transformador y la rama del rotor at
 
 1. Subir el proyecto al [repositorio indicado por el propietario](https://github.com/javierah306-tech/Crear-simulador-e-lico-3D), rama `main`, incluidos los GLB, decodificadores y el lockfile. No subir `node_modules`, `dist`, extracciones temporales, la carpeta `modelos chilenos` ni documentos OEM completos.
 2. GitHub Pages ya está configurado con **GitHub Actions** y HTTPS en el repositorio. Cada subida a `main` ejecuta **Publicar en GitHub Pages**, con lint, esquema/GLB, fórmulas, build y despliegue. También se puede ejecutar manualmente desde **Actions**. El build de publicación configura la ruta base a `/<nombre-repositorio>/`. Las pull requests solo ejecutan validación.
-3. Verificar la [URL del sitio](https://javierah306-tech.github.io/Crear-simulador-e-lico-3D/), publicada por el job `deploy`: carga de Draco, cambios de modelo, dos vistas, navegación móvil y ausencia de registro. Para un repositorio de sitio de usuario (`usuario.github.io`), cambiar `VITE_BASE_PATH` a `/`.
+3. Verificar la [URL del sitio](https://javierah306-tech.github.io/Crear-simulador-e-lico-3D/), publicada por el job `deploy`: carga de Draco, cambios de modelo, tres vistas y siete parques, navegación móvil y ausencia de registro. Para un repositorio de sitio de usuario (`usuario.github.io`), cambiar `VITE_BASE_PATH` a `/`.
 
 Netlify: importar el repositorio; `netlify.toml` configura `pnpm build` y `dist`. Cloudflare Pages: usar el mismo comando y directorio, Node 24 y base `/`. La publicación requiere una cuenta de hosting para el propietario, pero el visitante no necesita cuenta. PWA y WebGPU son mejoras opcionales no implementadas.
 

@@ -14,7 +14,8 @@
     "notes",
     "simulation",
     "asset",
-    "engineering"
+    "engineering",
+    "landscapes"
   ],
   "properties": {
     "id": {
@@ -876,13 +877,17 @@
         "generatorVoltageV",
         "generatorSpeedRPM",
         "transformer",
-        "references"
+        "references",
+        "identity"
       ],
       "properties": {
         "reviewDate": {
           "type": "string"
         },
         "geometryScope": {
+          "type": "string"
+        },
+        "identity": {
           "type": "string"
         },
         "layoutCode": {
@@ -1178,6 +1183,91 @@
               "pages": {
                 "type": "string",
                 "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "landscapes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "parkName",
+          "municipality",
+          "region",
+          "biome",
+          "description",
+          "sitingNote",
+          "preset",
+          "seed",
+          "sources"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "parkName": {
+            "type": "string",
+            "minLength": 1
+          },
+          "municipality": {
+            "type": "string",
+            "minLength": 1
+          },
+          "region": {
+            "type": "string",
+            "minLength": 1
+          },
+          "biome": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sitingNote": {
+            "type": "string",
+            "minLength": 1
+          },
+          "preset": {
+            "enum": [
+              "valley-crops",
+              "alluvial-valley",
+              "coastal-forestry",
+              "rural-mosaic",
+              "interior-hills"
+            ]
+          },
+          "seed": {
+            "type": "integer"
+          },
+          "sources": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["title", "url", "publisher"],
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "url": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "publisher": {
+                  "type": "string",
+                  "minLength": 1
+                }
               }
             }
           }

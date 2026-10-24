@@ -13,6 +13,9 @@ from pathlib import Path
 from mathutils import Vector
 
 ROOT = Path(__file__).resolve().parents[1]
+import sys
+sys.path.insert(0,str(ROOT/'scripts'))
+import model_identities as identities
 OUT = ROOT / 'public/models'
 BLEND = ROOT / 'assets/blender'
 OUT.mkdir(parents=True, exist_ok=True)
@@ -206,7 +209,7 @@ def gear_mesh(name, radius, teeth, width, mat, parent, internal=False, bore=.15,
     add(name,vs,fs,mat,'gearbox',parent, smooth=False)
 
 
-def rounded_shell(name, xs, widths, heights, parent):
+def rounded_shell(name, xs, widths, heights, parent, shape=.54, material_override=None):
     # Loft with a rounded cross section. Roof, back wall and underside remain
     # separate so the educational interior can reveal the entire assembly.
     n=20 if LOW else 40
@@ -217,7 +220,7 @@ def rounded_shell(name, xs, widths, heights, parent):
             a=TAU*i/n
             ca,sa=math.cos(a),math.sin(a)
             # Rounded rectangle / soft superellipse.
-            ring.append((x, w/2*math.copysign(abs(ca)**.54,ca), h/2*math.copysign(abs(sa)**.54,sa)))
+            ring.append((x, w/2*math.copysign(abs(ca)**shape,ca), h/2*math.copysign(abs(sa)**shape,sa)))
         sections.append(ring)
     vs=[v for ring in sections for v in ring]
     bands={'roof':[], 'window':[], 'rear':[], 'floor':[]}
@@ -227,11 +230,11 @@ def rounded_shell(name, xs, widths, heights, parent):
             category='roof' if math.sin(a)>.45 else ('floor' if math.sin(a)<-.65 else ('rear' if math.cos(a)>0 else 'window'))
             bands[category].append((k*n+i,k*n+(i+1)%n,(k+1)*n+(i+1)%n,(k+1)*n+i))
     for label,faces in bands.items():
-        add('Shell_'+name+'_'+label,vs,faces,PEARL,'nacelle',parent,separate=True)
-    add('Shell_'+name+'_tail',vs,[tuple((len(sections)-1)*n+i for i in range(n))],PEARL,'nacelle',parent,separate=True)
+        add('Shell_'+name+'_'+label,vs,faces,material_override or PEARL,'nacelle',parent,separate=True)
+    add('Shell_'+name+'_tail',vs,[tuple((len(sections)-1)*n+i for i in range(n))],material_override or PEARL,'nacelle',parent,separate=True)
 
 
-def blade(name, parent, length, width):
+def blade(name, parent, length, width, marked=False):
     # Smooth NACA-like asymmetric airfoil, twist and swept tapered tip.
     section_count=13 if LOW else 24
     ring_count=16 if LOW else 28
@@ -254,7 +257,15 @@ def blade(name, parent, length, width):
         for j in range(ring_count):
             fs.append((i*ring_count+j,i*ring_count+(j+1)%ring_count,(i+1)*ring_count+(j+1)%ring_count,(i+1)*ring_count+j))
     fs += [tuple(reversed(range(ring_count))),tuple((section_count-1)*ring_count+j for j in range(ring_count))]
-    add(name,vs,fs,PEARL,'blades',parent,separate=True)
+    if marked:
+        red=[];white=[]
+        for face in fs:
+            t=(sum(vs[index][2] for index in face)/len(face)-1.12)/(length-1.12)
+            (red if (.58<t<.70 or t>.89) else white).append(face)
+        add(name,vs,white,PEARL,'blades',parent,separate=True)
+        add(name+'_aviation_markings',vs,red,REAR_RED,'blades',parent,separate=True)
+    else:
+        add(name,vs,fs,PEARL,'blades',parent,separate=True)
     # Root flange and visible bonding line.
     cylinder('Blade composite root',(0,0,1.1),.37,.44,PEARL,'blades',parent,axis='Z',inner=.29)
     torus('Root seal',(0,0,1.29),.375,.016,GRAPHITE,'blades',parent,axis='Z')
@@ -307,6 +318,8 @@ def build_tower(root, profile):
     # Small service door makes the exterior scale readable.
     box('Service door',(0,-1.025,-h+1.6),(.5,.045,1.4),SAGE,'tower',tower)
     box('Door handle',(.17,-1.07,-h+1.8),(.025,.035,.14),SILVER,'tower',tower)
+    if profile.get('style')=='envision':
+        cylinder('Tower aviation band',(0,0,-h*.45),.84,h*.045,REAR_RED,'tower',tower,axis='Z')
     yaw=group('Yaw','yaw',root)
     cylinder('Yaw slew bearing',(0,0,-1.62),.93,.24,SILVER,'yaw',yaw,axis='Z',inner=.64)
     torus('Yaw seal',(0,0,-1.75),.86,.035,GRAPHITE,'yaw',yaw,axis='Z')
@@ -332,13 +345,29 @@ def build_rotor(root, profile):
     n=SEG;vs,fs=[],[]
     for k in range(10 if not LOW else 6):
         u=k/((10 if not LOW else 6)-1)
-        x=-1.34+.93*u
-        r=.80*math.sin(math.pi/2*u)
+        nose=profile.get('nose',1.34)
+        x=-nose+(nose-.38)*u
+        power={'gamesa':.55,'vestas':1.3,'envision':.95,'nordex':.9}.get(profile.get('style',''),1)
+        r=.80*math.sin(math.pi/2*u)**power
         for j in range(n):
             a=TAU*j/n;vs.append((x,r*math.cos(a),r*math.sin(a)))
     for k in range(len(vs)//n-1):
         for j in range(n):fs.append((k*n+j,k*n+(j+1)%n,(k+1)*n+(j+1)%n,(k+1)*n+j))
     add('HubCover',vs,fs,PEARL,'hub',rotor,separate=True)
+    # Smooth spinner continuation, with three blade-root inspection openings.
+    # The cover exposes the cast hub only in the translucent inspection view.
+    vs,fs=[],[]
+    rings=[(-.38,.80),(-.18,.96),(.17,1.02),(.53,.99),(.84,.76)]
+    for x,r in rings:
+        for j in range(n):
+            a=TAU*j/n;vs.append((x,r*math.cos(a),r*math.sin(a)))
+    for k in range(len(rings)-1):
+        for j in range(n):
+            a=TAU*(j+.5)/n
+            near_port=any(abs(math.atan2(math.sin(a-math.pi/2-i*TAU/3),math.cos(a-math.pi/2-i*TAU/3)))<.38 for i in range(3))
+            if near_port and k in [1,2]:continue
+            fs.append((k*n+j,k*n+(j+1)%n,(k+1)*n+(j+1)%n,(k+1)*n+j))
+    add('HubCover_Rear',vs,fs,PEARL,'hub',rotor,separate=True)
     for i in range(3):
         arm=group(f'BladeArm_{i}',parent=rotor)
         arm.rotation_euler[0]=i*TAU/3
@@ -367,7 +396,7 @@ def build_rotor(root, profile):
             beam('Pitch linkage',(.3,-.2,.68),(.12,-.3,.94),.032,GOLD,'pitch',arm)
         box('Pitch control module',(.05,.1,.35),(.32,.18,.28),SAGE,'pitch',arm)
         pipe('Pitch power cable',[(.0,.1,.2),(.1,-.18,.3),(.3,-.22,.5)],.017,COPPER,'pitch',arm)
-        blade(f'Blade_{i}',pitch,profile['blade_length'],profile['blade_width'])
+        blade(f'Blade_{i}',pitch,profile['blade_length'],profile['blade_width'],profile.get('style')=='envision')
     return rotor
 
 
@@ -745,25 +774,35 @@ for data in sorted((ROOT/'src/data/models').glob('*.json')):
         RUBBER=material('Elastomer seals',(.025,.035,.033),.02,.72)
         maker_colors={'Goldwind':(.04,.28,.48),'Envision':(.025,.39,.39),'Gamesa':(.045,.21,.33),'Nordex':(.03,.19,.31),'Vestas':(.06,.23,.42)}
         MAKER=material('Manufacturer equipment enamel',maker_colors[model['manufacturer']],.30,.28)
-        profile=profile_for(model)
+        REAR_RED=material('Aviation and rear red',(.68,.025,.018),.12,.34)
+        identities.configure(globals())
+        profile=identities.identity_profile(profile_for(model),model)
         direct=model['specs']['gearbox']['value'] is False
         geared=model['specs']['gearbox']['value'] is True
         root=group('Turbine')
-        root['geometryRevision']='engineering-2026-10-24'
+        root['geometryRevision']='identity-landscape-v0.4'
+        root['shapeFamily']=profile['style']
         root['documentedLayout']=model['engineering']['layout']
         root['engineeringReviewDate']='2026-10-24'
         root['illustrativeGeometry']=True
         root['kinematicRatiosIllustrative']=model['engineering']['gearRatio']['value'] is None
         root['modelId']=model['id']
         build_tower(root,profile)
-        support_frame(root,8.1,direct)
+        if direct:
+            support_frame(root,8.1,True)
+        else:
+            identities.bedplate(root,profile)
         rotor=build_rotor(root,profile)
-        shaft=main_bearings(root,direct)
-        if geared:build_gearbox(root,shaft,profile)
-        build_generator(root,direct,geared,profile)
-        electrical_equipment(root,direct,profile)
-        shell_and_sensors(root,direct,profile)
-        professional_trim(root,profile,direct)
+        if direct:
+            shaft=main_bearings(root,True)
+            build_generator(root,True,False,profile)
+            electrical_equipment(root,True,profile)
+            anchors={'generator':[-1.65,0,0],'converter':[2.75,.13,-.9],'transformer':[2.85,-.52,.65]}
+        else:
+            anchors=identities.drivetrain(root,profile,model)
+        identities.body(root,profile)
+        identities.trim(root,profile)
+        for key,point in anchors.items():root['energy'+key.capitalize()]=point
         flush()
         animate_rotor(rotor)
         # Centimeters/meters here are normalized display units, never OEM CAD.
