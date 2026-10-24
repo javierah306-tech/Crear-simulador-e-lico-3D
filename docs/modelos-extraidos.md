@@ -1,6 +1,6 @@
 # Modelos y proveedores del Biobío
 
-Fuente base: 02_PARQUES_COMPONENTES_BIOBIO.pdf, Smartwind v1.0, corte documental 03-10-2026. Corpus complementario: Goldwind 1,5 MW, Vestas 2 MW, Vestas 4 MW, Vestas V112 LCA 2011 y HTML local Nordex N149. Se conserva el nivel de evidencia del informe; las referencias Bxx son las de ese informe, complementadas por referencias técnicas enlazadas en cada JSON.
+Fuente base: 02_PARQUES_COMPONENTES_BIOBIO.pdf, Smartwind v1.0, corte documental 03-10-2026. Corpus activo: Goldwind 1,5 MW, Vestas 2 MW, Nordex N149, Coener/Coordinador, Flender/Winergy y documentación OEM Gamesa. Se conserva el nivel de evidencia del informe; las referencias Bxx son las de ese informe, complementadas por referencias técnicas enlazadas en cada JSON.
 
 El catálogo seleccionado registra cinco modelos, uno por fabricante; revisión complementaria de fuentes primarias el 24-10-2026. No es un censo actualizado ni una certificación por número de serie. Se usa el Biobío actual.
 
@@ -40,15 +40,11 @@ Cada valor incluye su alcance. Ausencia de un dato no se reemplaza por la cifra 
 | N149 / Delta4000 · 4,8 MW | 3 [familia]    | No documentado | 20 [familia]   | No documentado                   |
 | V110 · 2,0 MW             | 3 [familia]    | No documentado | 21 [familia]   | No documentado                   |
 
-### Alturas y discrepancias
+### Alcance de las cinco fichas
 
-San Matías: 140 m de torre reportados en el informe p. 5 [B13]. Se conserva en `parks[].hubHeightM` con la nota de confirmar la definición de altura de buje; no se transfiere a Campo Lindo. Las otras alturas instaladas no constan. Opciones de altura de familia V110: 75/80/95/110/120/125 m; Nordex hasta 164 m; V150 ofrece varias torres en el folleto. No se escoge una como instalada.
+Envision: el informe del parque incluye una tabla de diseño preliminar; el comunicado OEM anuncia buje de 100 m, no una medición as-built. Gamesa: la referencia G114-2.0 no resuelve la discrepancia de Las Peñas. Vestas: las alturas comerciales no se asignan a Los Buenos Aires. Nordex y Goldwind: se distinguen parámetros de familia de la configuración instalada.
 
-V136 CP3.6 no hereda diámetro, pitch ni multiplicadora del V136-4.2. V112/E110/G114 no reciben diámetro por interpretación del nombre. El catálogo conserva los datos explícitos y hace visibles los vacíos.
-
-Las Peñas: constructor informa cuatro G114, 2 MW por unidad y 8,4 MW de proyecto; no se fija 2,1 MW ni 2,5 MW. Negrete: diez CP3.6 de 3,6 MW según CEN/operador frente a once de 3,45 MW según instalador; se conserva el alcance ensayado. San Matías: «N163 V150» se concilia con B13 como Vestas V150, manteniendo la inconsistencia. N149 de Los Olmos/Mesamavida: plataforma Delta4000 confirmada, modelo específico con evidencia de montaje. Alena: pedido y registro histórico, sin certificación de inventario 2026.
-
-Umbrales V150-4.2/4.5 del folleto comercial: 3 m/s de arranque, 24,5 m/s de corte. No se asignan a Mk3B/4,3 MW instaladas. V136-4.2: 3/25 m/s, no transferidos a CP3.6. Nordex: 20 m/s base y opción hasta 26 m/s, no certificada por parque. Goldwind: 22 m/s de corte en promedio de diez minutos, nominal estática 9,9 m/s.
+La documentación complementaria y los esquemas consultados se enlazan en investigacion-tecnica.md y engineering.references. No se deducen especificaciones del nombre de los modelos.
 
 ## Trazabilidad por campo
 

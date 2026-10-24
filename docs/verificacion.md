@@ -1,66 +1,45 @@
-# Verificación de la nueva versión
+# Verificación de la versión 0.3.0
 
-Actualización final del 6 de octubre de 2026. Esta página registra evidencias de la nueva versión; los resultados de la base del 4 de octubre no se trasladan automáticamente a los assets o a la interfaz renovados.
+Revisión: 24 de octubre de 2026. Se conservan cinco modelos, uno por fabricante. Se retiraron cuatro variantes Vestas de JSON, GLB y fuentes Blender activas. Los documentos de entrada originales se conservaron.
 
-## Comprobaciones de la entrega
+## Comprobaciones de esta revisión
 
-| Área          | Comprobación                                               | Estado de la nueva versión                      |
-| ------------- | ---------------------------------------------------------- | ----------------------------------------------- |
-| Compilación   | TypeScript y build de Vite                                 | Correcto                                        |
-| Código        | ESLint                                                     | Correcto: revisión completa sin errores         |
-| Datos         | JSON Schema, IDs únicos, umbrales y viento fijo            | Correcto: nueve registros                       |
-| Assets        | GLB v2, Draco, componentes, arquitectura y SHA público     | Correcto: dieciocho GLB idénticos a los locales |
-| LOD           | Variante reducida y detallada de cada modelo               | Correcto: todos los LOD reducen triángulos      |
-| Simulación    | Invariantes de potencia, RPM y umbrales                    | Correcto: nueve pruebas aprobadas               |
-| Navegador     | Edge: nueve modelos local, producción y URL pública        | Correcto: revisión completa                     |
-| Interacción   | Raycasting, botones, explosión, pausa, ficha y catálogo    | Correcto                                        |
-| Responsive    | Escritorio y móvil 390 × 844 sin desbordamiento horizontal | Correcto: cámara adaptada a retrato             |
-| Condiciones   | Ausencia de reguladores de viento                          | Correcto: sin controles de rango                |
-| GitHub        | Subida al repositorio indicado, rama main                  | Correcto: verificado remotamente                |
-| Sitio público | GitHub Pages con HTTPS, workflow build/deploy y HTTP 200   | Correcto: aplicación publicada                  |
+| Área           | Resultado                                                                                                         |
+| -------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Selección      | Cinco modelos; Goldwind, Envision, Gamesa, Nordex y Vestas, sin duplicados                                        |
+| Código         | TypeScript y ESLint correctos                                                                                     |
+| Datos y assets | Cinco JSON y diez GLB; Draco, animaciones, LOD y componentes correctos                                            |
+| Simulación     | Seis pruebas aprobadas, incluida coherencia nominal de Envision (1680 RPM, 118:1)                                 |
+| Topología      | Vestas/Gamesa/Envision: una planetaria y dos paralelas; Nordex: dos planetarias y una paralela; Goldwind: directo |
+| Navegador      | Cinco modelos y dos cámaras; selección, explosión, pausa, ficha y catálogo correctos                              |
+| Formato móvil  | 390 × 844 sin desbordamiento horizontal; cámara adaptada                                                          |
+| Condiciones    | Viento fijo de 8 m/s; sin reguladores                                                                             |
+| Publicación    | Correcto: GitHub Actions finalizó y web HTTPS verificada                                                          |
 
-La nueva versión está subida y verificada en [Crear-simulador-e-lico-3D](https://github.com/javierah306-tech/Crear-simulador-e-lico-3D), rama `main`. Primer commit remoto de esta versión: `66de6667634c4a620d31eb422f2b2bd4e52bb0c6`. GitHub Pages está configurado con Actions y HTTPS obligatorio. La [URL pública](https://javierah306-tech.github.io/Crear-simulador-e-lico-3D/) está publicada y devuelve HTTP 200 por HTTPS. El [workflow de publicación 37406715059](https://github.com/javierah306-tech/Crear-simulador-e-lico-3D/actions/runs/37406715059) terminó correctamente en sus jobs de build y despliegue, para el commit `d85c037`. La [primera CI 37406528098](https://github.com/javierah306-tech/Crear-simulador-e-lico-3D/actions/runs/37406528098) también aprobó instalación, lint, datos, pruebas y build.
+La revisión local de producción usó el prefijo /Crear-simulador-e-lico-3D/. La revisión se repitió contra la URL pública y aprobó las cinco máquinas, animación, pausa, selección, explosión, ficha, catálogo y formato móvil sin errores de consola.
 
-## Compilación y simulación
+## Assets actuales
 
-La compilación de producción y ESLint finalizaron correctamente. Las nueve pruebas de simulación comprueban potencia cero fuera del rango, llegada a nominal, crecimiento de potencia antes de la nominal, RPM acotadas y rechazo de un viento no finito. La interfaz continúa usando el escenario fijo de 8 m/s.
+| Modelo                           | Interior / LOD (KiB) | Triángulos interior / LOD |
+| -------------------------------- | -------------------: | ------------------------: |
+| Envision EN110 · 2,1 MW          |            535 / 310 |            128408 / 49316 |
+| Gamesa G114 · referencia 2,0 MW  |            537 / 311 |            127928 / 49120 |
+| Goldwind GW87/1500               |            516 / 271 |             97704 / 34616 |
+| Nordex N149 / Delta4000 · 4,8 MW |            519 / 303 |            120320 / 47156 |
+| Vestas V110 · 2,0 MW             |            547 / 315 |            131592 / 49552 |
 
-El build separa la aplicación y el visor 3D. Sus tamaños gzip son aproximadamente 82,72 kB para la aplicación, 319,66 kB para el módulo 3D diferido y 7,17 kB para CSS. El módulo 3D supera el umbral orientativo de 500 kB sin comprimir que advierte Vite; el visor se solicita como un módulo separado al montar la escena. El aviso no impide el build.
+## Precisión y límites
 
-## Navegador e interacción
+Las fuentes primarias y sus páginas están en [investigación técnica](investigacion-tecnica.md) y cada JSON (`engineering.references`). Las reconstrucciones siguen la estructura documentada de cada familia; no hay planos OEM acotados completos ni certificación as-built por número de serie. El número de dientes, reparto por etapas, posiciones internas y piezas de acabado son ilustrativos.
 
-La revisión completa en Microsoft Edge con WebGL recorrió los nueve modelos, en exterior e interior, sin errores de consola. Comparó el Canvas antes y después para comprobar movimiento, seleccionó piezas mediante raycasting y botones, abrió y cerró la ficha con sus supuestos, activó la vista de explosión y verificó las nueve filas del catálogo.
+La transmisión 118:1 y el nominal de 1680 RPM de Envision proceden de su tabla de diseño preliminar. La cinemática simplificada se ancla a ese punto mediante una TSR constante derivada, marcada como supuesto de control. Las otras relaciones 90:1 no se presentan como datos OEM.
 
-Las capturas de escritorio y de móvil a 390 × 844 permiten revisar encuadre y jerarquía visual. En retrato se ajustó la distancia inicial para conservar la máquina dentro del visor. La página no presenta desbordamiento horizontal y no contiene entradas de rango para alterar condiciones. Se revisó el contraste de las métricas sobre la paleta clara.
+Se comprobaron movimiento de la región mecánica y estabilidad al pausar, raycasting, selección por botones, explosión, ficha con referencias, catálogo de cinco filas y formato móvil. No hubo errores de consola en la revisión local de producción. Las capturas por modelo fueron inspeccionadas.
 
-La animación auxiliar comparte el reloj del mixer glTF para mantener sincronizados los mecanismos. Al pausar, el Canvas trabaja por demanda; la cámara y las interacciones continúan disponibles sin dibujar constantemente un rotor detenido. El flujo de energía ilustra la dirección funcional y no representa telemetría.
+El módulo 3D es diferido, aproximadamente 319,68 kB gzip; aplicación 84,26 kB y CSS 7,26 kB gzip. Vite advierte que el módulo 3D supera 500 kB sin comprimir, pero el build finaliza correctamente. Los decodificadores Draco se sirven localmente.
 
-La revisión de producción usó la ruta base `/Crear-simulador-e-lico-3D/`, cargó los nueve modelos y contrastó la región central de los mecanismos: cambió durante la animación y permaneció idéntica al pausar. Los assets V110 definitivos coinciden por SHA con las copias de `dist`. No se registraron errores de consola. Esta prueba local con la ruta del repositorio verifica el build; la revisión de navegador contra la URL pública se registra por separado del estado HTTP y del workflow.
+La revisión de navegador usa Edge con WebGL por software. No se han certificado FPS en teléfonos físicos de gama media ni Safari iOS. Los resultados y capturas temporales están en tmp/qa, ignorado por Git.
 
-La revisión final se repitió contra la web pública HTTPS y aprobó los nueve modelos, movimiento de la región mecánica y estabilidad al pausar, selección por raycasting, vista de explosión, ficha, catálogo y formato móvil 390 × 844 sin desbordamiento horizontal. No hubo errores de consola. Se descargaron además los dieciocho GLB publicados y se comparó su SHA-256 con cada archivo local definitivo: todos coinciden. Así se comprobó que el sitio sirve los interiores y LOD finales, incluido el V110 con su conexión entre etapas.
+## Publicación confirmada
 
-## Assets exportados
-
-El validador revisa cabecera y longitud GLB, chunk JSON, compresión Draco por primitiva, grupos y etiquetas de componentes, mecanismos de paso, un canal real de rotación para `RotorAssembly`, metadatos de movimiento finitos y coherencia de multiplicadora con la ficha. Comprueba que el LOD no tenga más triángulos que el interior. Para V110 verifica además una etapa planetaria y dos helicoidales, etiquetadas con alcance de familia, de acuerdo con la tabla primaria de `vestas_2mw.pdf` p. PDF 6.
-
-| Modelo                           | Interior / exterior (KiB) | Triángulos interior / exterior |
-| -------------------------------- | ------------------------: | -----------------------------: |
-| Goldwind GW1500-87               |                 347 / 201 |                66 720 / 27 368 |
-| Nordex N149 · 4,8 MW             |                 334 / 236 |                80 188 / 37 680 |
-| Vestas V110 · 2,0 MW             |                 418 / 268 |                88 620 / 40 408 |
-| Vestas V112 · 3,0 MW             |                 334 / 236 |                80 188 / 37 680 |
-| Vestas V150 Mk3B · 4,2 MW        |                 334 / 236 |                80 188 / 37 680 |
-| Vestas V150 · 4,3 MW             |                 334 / 236 |                80 188 / 37 680 |
-| Vestas V136 CP3.6                |                 220 / 139 |                61 624 / 23 756 |
-| Envision E110 · 2,1 MW           |                 220 / 139 |                61 624 / 23 756 |
-| Gamesa G114 · variante pendiente |                 220 / 139 |                61 624 / 23 756 |
-
-Tamaños redondeados hacia arriba; 1 KiB = 1024 bytes. Son archivos GLB antes de la compresión HTTP. El detalle adicional incluye las uniones, apoyos, carcasas, bastidores y equipos; las arquitecturas incompletas conservan su carácter genérico.
-
-## Alcance y límites
-
-La geometría nueva es original e ilustrativa. No representa un CAD autorizado ni un gemelo por número de serie. La ficha sigue indicando los datos ausentes; las arquitecturas sin documentar no se declaran como accionamiento directo por no dibujar una multiplicadora.
-
-El exterior utiliza el LOD reducido; el interior carga la variante detallada al solicitarla. Draco se sirve localmente. Los materiales evitan la descarga de texturas externas. El módulo 3D se carga de forma diferida. Su descarga inicial y las llamadas de dibujo de los interiores se deben medir en dispositivos físicos para fijar un presupuesto de rendimiento.
-
-No se han medido FPS en un teléfono físico de gama media ni validado Safari iOS. Las pruebas de navegador con renderizado por software permiten revisar carga, interacción y animación, pero no certifican el rendimiento en una GPU móvil. Los registros y capturas intermedios se guardan en `tmp/qa`, ignorado por Git.
+[Aplicación HTTPS](https://javierah306-tech.github.io/Crear-simulador-e-lico-3D/) y [workflow aprobado](https://github.com/javierah306-tech/Crear-simulador-e-lico-3D/actions/runs/40129461568), commit de implementación `6020285`. Los diez GLB publicados coinciden por SHA-256 con los archivos locales finales. Los ocho GLB de las cuatro variantes retiradas responden HTTP 404. La compilación, lint, datos y seis pruebas de simulación se aprobaron en CI.
