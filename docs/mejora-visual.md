@@ -1,6 +1,6 @@
 # Nueva versión visual y mecánica
 
-La mejora abarca los nueve modelos. Las cuatro imágenes proporcionadas se usan como inspiración de acabado: rodamientos y uniones visibles, generador anular para accionamiento directo, tren con multiplicadora cuando está documentado, bastidor, cableado y equipos auxiliares. No se copian como texturas ni se incorporan a la publicación.
+La mejora abarca los cinco modelos. Las cuatro imágenes proporcionadas se usan como inspiración de acabado: rodamientos y uniones visibles, generador anular para accionamiento directo, tren con multiplicadora cuando está documentado, bastidor, cableado y equipos auxiliares. No se copian como texturas ni se incorporan a la publicación.
 
 ## Dirección visual
 
@@ -27,3 +27,5 @@ La mejora visual no altera `src/data/models/*.json`, el resumen de fabricantes n
 ## Revisión de la entrega
 
 La lista de verificaciones, resultados y limitaciones está en [verificacion.md](verificacion.md). La fluidez en un navegador de escritorio no certifica el rendimiento de todos los teléfonos; la validación en dispositivos físicos se mantiene como etapa de optimización.
+
+Revisión 24-10-2026: la selección activa contiene un modelo por fabricante. La arquitectura y las nuevas referencias se describen en [investigación técnica](investigacion-tecnica.md). Envision usa relación documental de diseño 118:1; las otras relaciones de transmisión permanecen ilustrativas.

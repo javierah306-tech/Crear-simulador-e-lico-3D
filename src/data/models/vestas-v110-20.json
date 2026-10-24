@@ -93,7 +93,8 @@
   },
   "notes": [
     "Opciones comerciales de altura: 75, 80, 95, 110, 120 y 125 m; no prueban la altura instalada.",
-    "Los ~90 m del relato de un incidente no se usan como altura de buje."
+    "Los ~90 m del relato de un incidente no se usan como altura de buje.",
+    "Envolvente de familia documentada: longitud de góndola 10,4 m, anchura 3,5 m; altura de transporte 4 m y 5,4 m instalada con CoolerTop. La reconstrucción interna no es un plano acotado."
   ],
   "simulation": {
     "fixedWindMS": 8,
@@ -117,12 +118,59 @@
       "Proporciones y ubicación de componentes esquemáticas, sin planos por número de serie.",
       "Altura visual normalizada; las posiciones del convertidor y transformador son didácticas.",
       "ratedWindMS=12: supuesto para animación; dato documental ausente.",
-      "Relación de transmisión ilustrativa 90:1, no documentada."
+      "Dimensiones internas, número de dientes y distribución exacta de armarios son aproximaciones visuales sin planos acotados.",
+      "Relación total 90:1 elegida para visualizar el movimiento; no es una relación OEM confirmada.",
+      "Diámetros de rotor y altura visual mantienen una escala común; alturas no documentadas continúan como supuestos de 100 m."
     ]
   },
   "asset": {
     "glb": "models/vestas-v110-20.glb",
     "lod": "models/vestas-v110-20-low.glb",
     "schematic": true
+  },
+  "engineering": {
+    "reviewDate": "2026-10-24",
+    "geometryScope": "Reconstrucción técnica documentada. Sin planos OEM acotados: dimensiones internas, dientes, bobinados y elementos de acabado son ilustrativos.",
+    "layoutCode": "one-planetary-two-parallel",
+    "layout": "Una etapa planetaria y dos helicoidales",
+    "pitchDrive": {
+      "value": "Tres cilindros de paso",
+      "source": "Vestas 2 MW, p. PDF 6",
+      "scope": "family",
+      "note": "El freno aerodinámico de la ficha especifica tres cilindros de paso."
+    },
+    "gearRatio": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "Relación instalada no documentada; animación ilustrativa 90:1."
+    },
+    "generatorVoltageV": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "Tensión de esta variante no documentada."
+    },
+    "generatorSpeedRPM": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "Velocidad nominal de esta variante no documentada."
+    },
+    "transformer": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "Ubicación y características instaladas no confirmadas."
+    },
+    "references": [
+      {
+        "id": "VE",
+        "title": "V110-2.0 MW y folleto 2 MW conservado en el corpus",
+        "publisher": "Vestas",
+        "url": "https://www.vestas.com/en/energy-solutions/onshore-wind-turbines/2-mw-platform/V110-2-0-mw",
+        "pages": "Ficha V110: PDF 6"
+      }
+    ]
   }
 }

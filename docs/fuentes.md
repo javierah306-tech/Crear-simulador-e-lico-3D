@@ -20,3 +20,5 @@ Páginas clave contrastadas visualmente: informe p. 4-5 (catálogo/discrepancias
 Documentación primaria del stack consultada para compatibilidad: [instalación de React Three Fiber](https://r3f.docs.pmnd.rs/getting-started/installation) y [guía de Vite](https://vite.dev/guide/). React 19 se utiliza con Fiber 9. El lockfile fija las versiones resueltas durante la construcción.
 
 Las referencias B01-B27 son las del informe y no significan que se haya descargado o actualizado cada fuente original. El alcance temporal sigue siendo el corte documental del informe.
+
+La revisión complementaria del 24-10-2026 incorpora [documentación primaria electromecánica](investigacion-tecnica.md): Coener/Coordinador, Flender/Winergy y documentación OEM Gamesa en archivos públicos de reguladores. La bibliografía activa y las páginas utilizadas están también en cada JSON (`engineering.references`). Los documentos de variantes retiradas forman parte del corpus histórico, no del catálogo activo.

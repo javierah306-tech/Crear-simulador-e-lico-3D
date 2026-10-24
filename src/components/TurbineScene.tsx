@@ -85,7 +85,15 @@ function Asset({ model }: { model: TurbineModel }) {
   useEffect(() => {
     scene.traverse((object) => {
       if (!(object instanceof THREE.Mesh)) return;
-      const cover = isCover(object.name);
+      let coverNode: THREE.Object3D | null = object;
+      let cover = false;
+      while (coverNode) {
+        if (isCover(coverNode.name)) {
+          cover = true;
+          break;
+        }
+        coverNode = coverNode.parent;
+      }
       const blade = componentOf(object) === 'blades';
       const fade = view === 'interior' && (cover || blade);
       object.raycast = fade ? () => {} : THREE.Mesh.prototype.raycast;

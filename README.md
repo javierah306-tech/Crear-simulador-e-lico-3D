@@ -1,6 +1,10 @@
 # Smartwind · Explorador eólico del Biobío
 
-Simulador educativo 3D en español de nueve modelos o variantes presentes en la documentación del Biobío. La nueva versión renueva los interiores mecánicos, los materiales y la interfaz con una paleta de arena, verde y cobre. Funciona sin registro, servidor de datos ni claves de acceso.
+Simulador educativo 3D en español de cinco modelos o variantes presentes en la documentación del Biobío. La nueva versión renueva los interiores mecánicos, los materiales y la interfaz con una paleta de arena, verde y cobre. Funciona sin registro, servidor de datos ni claves de acceso.
+
+Selección vigente: **Goldwind GW87/1500, Envision EN110-2.1, Gamesa G114 (familia 2,0 MW), Nordex N149 y Vestas V110-2.0 MW**.
+
+[Investigación técnica y límites de precisión](docs/investigacion-tecnica.md).
 
 El visitante puede alternar entre dos acercamientos principales: exterior a la altura de la góndola e interior traslúcido. La cámara orbital, la selección de piezas, la vista de explosión y el flujo de energía permiten explorar la máquina en operación normal. El viento permanece fijo en **8 m/s**; no hay reguladores de condiciones.
 
@@ -26,7 +30,7 @@ pnpm preview
 ## Qué incluye
 
 - React, TypeScript, Vite, Three.js con React Three Fiber/drei, Zustand, GSAP y Tailwind CSS.
-- Nueve fuentes Blender editables y dieciocho GLB con Draco: geometría detallada para el interior y LOD reducido para el exterior.
+- Cinco fuentes Blender editables y diez GLB con Draco: geometría detallada para el interior y LOD reducido para el exterior.
 - Palas perfiladas, buje, apoyos, tren mecánico, generador, equipos eléctricos y estructura de la góndola, con partes animadas identificables.
 - Dos cámaras principales, interior traslúcido, vista de explosión, selección por ratón o botones, ficha técnica y catálogo comparativo.
 - Datos y supuestos separados en JSON, pruebas de las fórmulas y validación del contrato de los assets.
@@ -61,12 +65,12 @@ pnpm models
 
 Para agregar una eólica basta un JSON que cumpla el esquema y un GLB compatible. El selector descubre los JSON automáticamente. `asset.lod` puede apuntar al mismo archivo si todavía no existe una versión reducida. Consulta el contrato en [arquitectura](docs/arquitectura-y-plan.md).
 
-`scripts/build_catalog.py` reproduce la extracción curada y `scripts/generate_deliverables.py` genera tablas y esquema. No deben ejecutarse para sustituir datos desconocidos por valores inferidos del nombre de un modelo.
+`scripts/build_catalog.py` valida los cinco JSON curados sin regenerar variantes descartadas y `scripts/generate_deliverables.py` genera tablas y esquema. No deben ejecutarse para sustituir datos desconocidos por valores inferidos del nombre de un modelo.
 
 ## Repositorio y publicación
 
 La nueva versión está subida a [Crear-simulador-e-lico-3D](https://github.com/javierah306-tech/Crear-simulador-e-lico-3D), rama `main`. La aplicación está publicada en GitHub Pages con HTTPS y acceso libre. El workflow de publicación terminó correctamente.
 
-Abrir la aplicación: [Smartwind · Explorador eólico](https://javierah306-tech.github.io/Crear-simulador-e-lico-3D/). La web pública se verificó con los nueve modelos en escritorio y móvil; los dieciocho GLB publicados coinciden con los archivos locales. Resultados y límites en [verificación](docs/verificacion.md).
+Abrir la aplicación: [Smartwind · Explorador eólico](https://javierah306-tech.github.io/Crear-simulador-e-lico-3D/). La revisión de esta versión y el estado de publicación se registran en verificación. Resultados y límites en [verificación](docs/verificacion.md).
 
 Cada subida a `main` ejecuta **Publicar en GitHub Pages**: valida código, datos y simulación, compila el sitio y lo despliega. También puede ejecutarse manualmente desde **Actions**. Las pull requests ejecutan validación sin despliegue. No se requiere registro para visitar la aplicación.

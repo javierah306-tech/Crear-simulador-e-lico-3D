@@ -78,7 +78,7 @@ function inspectAsset(path: string, model: TurbineModel) {
   );
   // V110 family brochure, PDF p. 6: one planetary and two helical stages.
   // Ratios and tooth counts remain illustrative; check topology, not CAD dimensions.
-  if (model.id === 'vestas-v110-20') {
+  if (model.engineering.layoutCode === 'one-planetary-two-parallel') {
     const planetaryStages = asset.nodes.filter((node) =>
       /^PlanetaryStage\d+$/.test(node.name ?? ''),
     );
@@ -88,25 +88,44 @@ function inspectAsset(path: string, model: TurbineModel) {
         return match ? [match[1]] : [];
       }),
     );
-    assert.equal(planetaryStages.length, 1, `V110 debe tener una etapa planetaria: ${path}`);
+    assert.equal(
+      planetaryStages.length,
+      1,
+      `La transmisión debe tener una etapa planetaria: ${path}`,
+    );
     assert.deepEqual(
       [...helicalStages].sort(),
       ['1', '2'],
-      `V110 requiere dos etapas helicoidales: ${path}`,
+      `La transmisión requiere dos etapas helicoidales: ${path}`,
     );
     for (const stage of helicalStages) {
       assert(
         names.has(`HelicalStage${stage}_Input`) && names.has(`HelicalStage${stage}_Output`),
-        `Etapa helicoidal V110 incompleta: ${path}`,
+        `Etapa helicoidal incompleta: ${path}`,
       );
     }
     const gearboxExtras = asset.nodes.find((node) => node.name === 'Gearbox')?.extras;
     assert.equal(
       gearboxExtras?.stageLayoutScope,
       'family',
-      `V110 debe indicar alcance de familia: ${path}`,
+      `La transmisión debe indicar alcance de familia: ${path}`,
     );
   }
+  if (model.engineering.layoutCode === 'two-planetary-one-parallel') {
+    assert(
+      names.has('PlanetaryStage1') &&
+        names.has('PlanetaryStage2') &&
+        names.has('ParallelStageOutput'),
+      'La arquitectura Nordex debe conservar sus tres etapas documentadas.',
+    );
+  }
+  const rotorRatio = asset.nodes.find((node) => node.name === 'GeneratorRotor')?.extras
+    ?.motionRatio;
+  assert.equal(
+    Math.abs(Number(rotorRatio)),
+    model.specs.gearbox.value ? model.simulation.gearRatio : 1,
+    'La cinemática debe respetar la relación del escenario.',
+  );
   for (let i = 0; i < model.simulation.bladeCount; i++) {
     assert(names.has(`Pitch_${i}`), `Falta mecanismo de paso ${i}: ${path}`);
   }
@@ -186,12 +205,15 @@ const ajv = new Ajv({ allErrors: true, strict: false });
 const schema = JSON.parse(readFileSync('src/data/turbine.schema.json', 'utf8'));
 const validate = ajv.compile(schema);
 const ids = new Set<string>();
+const manufacturers = new Set<string>();
 let assetsChecked = 0;
 for (const file of readdirSync('src/data/models').filter((f) => f.endsWith('.json'))) {
   const model = JSON.parse(readFileSync('src/data/models/' + file, 'utf8')) as TurbineModel;
   assert(validate(model), `${file}: ${ajv.errorsText(validate.errors)}`);
   assert(!ids.has(model.id), `ID duplicado: ${model.id}`);
   ids.add(model.id);
+  assert(!manufacturers.has(model.manufacturer), 'Debe existir un solo modelo por fabricante.');
+  manufacturers.add(model.manufacturer);
   const scenario = model.simulation;
   assert(
     scenario.cutInMS < scenario.fixedWindMS && scenario.fixedWindMS < scenario.cutOutMS,
@@ -217,6 +239,13 @@ for (const file of readdirSync('src/data/models').filter((f) => f.endsWith('.jso
       `${Math.round(detailed.triangles)} / ${Math.round(reduced.triangles)} triángulos (interior/exterior).`,
   );
 }
+assert.equal(ids.size, 5, 'El catálogo seleccionado debe contener cinco modelos.');
+assert.deepEqual([...manufacturers].sort(), ['Envision', 'Gamesa', 'Goldwind', 'Nordex', 'Vestas']);
+assert.equal(
+  readdirSync('public/models').filter((name) => name.endsWith('.glb')).length,
+  10,
+  'Solo deben existir diez GLB de los cinco modelos.',
+);
 console.log(
   `OK: ${ids.size} JSON, ${assetsChecked} GLB, componentes, LOD, Draco, animación y arquitectura.`,
 );

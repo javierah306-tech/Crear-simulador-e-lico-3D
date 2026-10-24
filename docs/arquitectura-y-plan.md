@@ -44,7 +44,7 @@ Las piezas tienen `extras.component` en glTF. El raycasting identifica ese atrib
 
 Cada dato técnico es `{ value, source, scope, note }`. `scope` puede ser `installed`, `family` o `missing`. Los datos ausentes tienen `value: null`; un valor de familia no se convierte silenciosamente en dato de un parque. El objeto `simulation` almacena valores ilustrativos separados, incluyendo supuestos explícitos. `parks[]` conserva discrepancias, evidencias y alturas particulares.
 
-Para agregar un modelo se incorpora un JSON que cumpla el esquema y un GLB con la misma convención de componentes. No se modifica el selector. Si solo hay un GLB, `asset.lod` puede apuntar al mismo archivo que `asset.glb`; la validación lo permite. Para producción se recomienda un LOD real; los nueve modelos entregados tienen ambos niveles. No se requieren cambios de componentes React por modelo.
+Para agregar un modelo se incorpora un JSON que cumpla el esquema y un GLB con la misma convención de componentes. No se modifica el selector. Si solo hay un GLB, `asset.lod` puede apuntar al mismo archivo que `asset.glb`; la validación lo permite. Para producción se recomienda un LOD real; los cinco modelos entregados tienen ambos niveles. No se requieren cambios de componentes React por modelo.
 
 ### Contrato del GLB
 
@@ -75,7 +75,7 @@ En DFIG la electricidad del estator pasa al transformador y la rama del rotor at
 | Etapa                        | Resultado y criterio de salida                                                                              | Estado de entrega                                                          |
 | ---------------------------- | ----------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
 | 1. Prototipo con Goldwind    | GLB sin multiplicadora, vista exterior/interior, rotor animado, ficha y cámara orbital                      | Implementado y probado en navegador                                        |
-| 2. Catálogo completo         | Nueve modelos/variantes, selector por JSON, separación de arquitectura, vacíos y discrepancias visibles     | Implementado; nueva versión de interiores y acabado visual                 |
+| 2. Catálogo completo         | Cinco modelos/variantes, selector por JSON, separación de arquitectura, vacíos y discrepancias visibles     | Implementado; nueva versión de interiores y acabado visual                 |
 | 3. Fidelidad técnica         | Planos o manuales autorizados por variante, alturas instaladas, curvas OEM, mapa por número de serie        | Pendiente de documentación; no inventar para cerrar vacíos                 |
 | 4. Optimización y validación | Draco, LOD, carga diferida; medir en Android de gama media y Safari iOS; reducir draw calls si es necesario | Compresión, LOD y carga diferida implementados; benchmark físico pendiente |
 | 5. Publicación               | Repositorio remoto, workflow exitoso, URL HTTPS pública sin registro                                        | Publicado; CI/CD automático en main y evidencia en verificacion.md         |
@@ -93,3 +93,5 @@ La mejora de acabado se describe en [mejora-visual.md](mejora-visual.md). Las pr
 ## Límites prácticos
 
 No hay backend, autenticación ni uso de APIs de pago. Los assets originales y el código usan licencia MIT; los documentos de fabricantes conservan sus propios derechos y no se redistribuyen en el sitio. El rendimiento móvil tiene objetivo de fluidez pero no una certificación de FPS. El modo interior usa un esquema de subsistemas; para las máquinas sin ficha específica no se presenta como gemelo de la configuración instalada.
+
+Revisión 24-10-2026: la selección activa contiene un modelo por fabricante. La arquitectura y las nuevas referencias se describen en [investigación técnica](investigacion-tecnica.md). Envision usa relación documental de diseño 118:1; las otras relaciones de transmisión permanecen ilustrativas.

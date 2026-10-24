@@ -1,7 +1,7 @@
 {
   "id": "gamesa-g114",
   "manufacturer": "Gamesa",
-  "model": "G114 · variante pendiente",
+  "model": "G114 · referencia 2,0 MW",
   "supplier": {
     "value": "Gamesa",
     "source": "Informe p. 5",
@@ -25,16 +25,16 @@
   ],
   "specs": {
     "ratedPowerMW": {
-      "value": null,
-      "source": null,
-      "scope": "missing",
-      "note": "Discrepancia: 2 MW por unidad frente a 8,4 MW para cuatro unidades. No se fija variante."
+      "value": 2,
+      "source": "Gamesa G114-2.0 MW, folleto OEM marzo 2012, pp. PDF 1–2, archivo NY DPS",
+      "scope": "family",
+      "note": "Referencia de familia G114-2.0 MW; no resuelve la variante ni potencia instalada de Las Peñas."
     },
     "rotorDiameterM": {
-      "value": null,
-      "source": null,
-      "scope": "missing",
-      "note": "No consta en los documentos disponibles."
+      "value": 114,
+      "source": "Gamesa G114-2.0 MW, folleto OEM marzo 2012, pp. PDF 1–2, archivo NY DPS",
+      "scope": "family",
+      "note": "Referencia de familia G114-2.0 MW; no resuelve la variante ni potencia instalada de Las Peñas."
     },
     "hubHeightM": {
       "value": null,
@@ -43,28 +43,28 @@
       "note": "No consta en los documentos disponibles."
     },
     "bladeCount": {
-      "value": null,
-      "source": null,
-      "scope": "missing",
-      "note": "No consta en los documentos disponibles."
+      "value": 3,
+      "source": "Gamesa G114-2.0 MW, folleto OEM marzo 2012, pp. PDF 1–2, archivo NY DPS",
+      "scope": "family",
+      "note": "Referencia de familia G114-2.0 MW; no resuelve la variante ni potencia instalada de Las Peñas."
     },
     "generator": {
-      "value": null,
-      "source": null,
-      "scope": "missing",
-      "note": "No consta en los documentos disponibles."
+      "value": "DFIG · inducción doblemente alimentada",
+      "source": "Gamesa G114-2.0 MW, folleto OEM marzo 2012, pp. PDF 1–2, archivo NY DPS",
+      "scope": "family",
+      "note": "Referencia de familia G114-2.0 MW; no resuelve la variante ni potencia instalada de Las Peñas."
     },
     "gearbox": {
-      "value": null,
-      "source": null,
-      "scope": "missing",
-      "note": "No consta en los documentos disponibles."
+      "value": true,
+      "source": "Gamesa G114-2.0 MW, folleto OEM marzo 2012, pp. PDF 1–2, archivo NY DPS",
+      "scope": "family",
+      "note": "Referencia de familia G114-2.0 MW; no resuelve la variante ni potencia instalada de Las Peñas."
     },
     "powerControl": {
-      "value": null,
-      "source": null,
-      "scope": "missing",
-      "note": "No consta en los documentos disponibles."
+      "value": "pitch",
+      "source": "Gamesa G114-2.0 MW, folleto OEM marzo 2012, pp. PDF 1–2, archivo NY DPS",
+      "scope": "family",
+      "note": "Referencia de familia G114-2.0 MW; no resuelve la variante ni potencia instalada de Las Peñas."
     },
     "cutInMS": {
       "value": null,
@@ -92,8 +92,9 @@
     }
   },
   "notes": [
-    "La variante G114/2000 aparece en el informe, pero no resuelve la discrepancia de potencia del parque.",
-    "Potencia de 2 MW usada SOLO como supuesto del escenario, no como ficha instalada."
+    "Geometría de referencia: G114-2.0 MW. El informe original identifica G114/2000, pero 8,4 MW para cuatro unidades no permite certificar esa variante instalada en Las Peñas.",
+    "Tres etapas documentadas: una planetaria y dos paralelas; relaciones individuales y relación total 90:1 son ilustrativas.",
+    "Las torres comerciales 93/120/140 m no acreditan altura instalada. No se transfieren datos de la G114-2.1 MW."
   ],
   "simulation": {
     "fixedWindMS": 8,
@@ -107,7 +108,7 @@
     "pitchGainDegPerMS": 2,
     "gearRatio": 90,
     "bladeCount": 3,
-    "rotorDiameterM": 110,
+    "rotorDiameterM": 114,
     "hubHeightM": 100,
     "assumptions": [
       "Viento fijo de 8 m/s, uniforme, alineado con el rotor.",
@@ -116,17 +117,69 @@
       "Pitch didáctico: 1,5° bajo viento nominal, +2° por m/s sobre nominal.",
       "Proporciones y ubicación de componentes esquemáticas, sin planos por número de serie.",
       "Altura visual normalizada; las posiciones del convertidor y transformador son didácticas.",
-      "rotorDiameterM=110: supuesto para animación; dato documental ausente.",
       "cutInMS=3: supuesto para animación; dato documental ausente.",
       "ratedWindMS=12: supuesto para animación; dato documental ausente.",
       "cutOutMS=20: supuesto para animación; dato documental ausente.",
-      "bladeCount=3: supuesto para animación; dato documental ausente.",
-      "ratedPowerMW=2: capacidad ilustrativa sin variante confirmada."
+      "Dimensiones internas, número de dientes y distribución exacta de armarios son aproximaciones visuales sin planos acotados.",
+      "Relación total 90:1 elegida para visualizar el movimiento; no es una relación OEM confirmada.",
+      "Diámetros de rotor y altura visual mantienen una escala común; alturas no documentadas continúan como supuestos de 100 m."
     ]
   },
   "asset": {
     "glb": "models/gamesa-g114.glb",
     "lod": "models/gamesa-g114-low.glb",
     "schematic": true
+  },
+  "engineering": {
+    "reviewDate": "2026-10-24",
+    "geometryScope": "Reconstrucción técnica documentada. Sin planos OEM acotados: dimensiones internas, dientes, bobinados y elementos de acabado son ilustrativos.",
+    "layoutCode": "one-planetary-two-parallel",
+    "layout": "Una etapa planetaria y dos de ejes paralelos",
+    "pitchDrive": {
+      "value": "Hidráulico independiente",
+      "source": "Presentación OEM Gamesa 2.0 MW, expediente CORREZE 1, lámina G114",
+      "scope": "family",
+      "note": "Dato de referencia; requiere confirmación por unidad instalada."
+    },
+    "gearRatio": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "Relación instalada no documentada; animación ilustrativa 90:1."
+    },
+    "generatorVoltageV": {
+      "value": 690,
+      "source": "Presentación OEM Gamesa 2.0 MW, especificaciones de plataforma",
+      "scope": "family",
+      "note": "Dato de referencia; requiere confirmación por unidad instalada."
+    },
+    "generatorSpeedRPM": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "Velocidad nominal de esta variante no documentada."
+    },
+    "transformer": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "Ubicación y características instaladas no confirmadas."
+    },
+    "references": [
+      {
+        "id": "GA",
+        "title": "G114-2.0 MW: folleto original del fabricante",
+        "publisher": "Gamesa, copia pública en NY DPS",
+        "url": "https://documents.dps.ny.gov/public/common/viewdoc.aspx?docrefid=%7Bf41cd6af-1b53-42e6-b748-fd1e2b2bcb72%7D",
+        "pages": "1–2"
+      },
+      {
+        "id": "GP",
+        "title": "Presentación Gamesa 2.0 MW: transmisión, DFIM y paso hidráulico",
+        "publisher": "Gamesa, expediente Prefectura Corrèze",
+        "url": "https://www.correze.gouv.fr/index.php/content/download/19153/130715/file/29-1%20-%20Reponse%20demande%20complement_CORREZE1%20Complet.pdf",
+        "pages": "Láminas de plataforma y G114"
+      }
+    ]
   }
 }

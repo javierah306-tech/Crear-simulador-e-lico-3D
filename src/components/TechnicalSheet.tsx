@@ -68,6 +68,44 @@ export function TechnicalSheet({ model }: { model: TurbineModel }) {
           {model.manufacturer}. {model.supplier.note}
         </p>
       </div>
+      <section className="engineering-sheet" aria-label="Estructura electromecánica documentada">
+        <h4>Estructura electromecánica</h4>
+        <p>{model.engineering.layout}</p>
+        <dl>
+          {(
+            [
+              ['Accionamiento de paso', model.engineering.pitchDrive, ''],
+              ['Relación de transmisión', model.engineering.gearRatio, ':1'],
+              ['Tensión del generador', model.engineering.generatorVoltageV, 'V'],
+              ['Velocidad nominal del generador', model.engineering.generatorSpeedRPM, 'RPM'],
+              ['Transformación y red', model.engineering.transformer, ''],
+            ] as const
+          ).map(([label, fact, unit]) => (
+            <div className="spec-row" key={label}>
+              <dt>{label}</dt>
+              <dd>
+                {formatFact(fact, unit)}
+                <small>{fact.source || fact.note}</small>
+                <small>{fact.note}</small>
+              </dd>
+            </div>
+          ))}
+        </dl>
+        <p className="small muted">{model.engineering.geometryScope}</p>
+        <h4>Documentación técnica consultada</h4>
+        <ul className="engineering-references">
+          {model.engineering.references.map((reference) => (
+            <li key={reference.id}>
+              <a href={reference.url} target="_blank" rel="noreferrer">
+                {reference.title}
+              </a>
+              <small>
+                {reference.publisher} · {reference.pages} · Revisado {model.engineering.reviewDate}
+              </small>
+            </li>
+          ))}
+        </ul>
+      </section>
       <h4>Parques documentados</h4>
       {model.parks.map((p) => (
         <div className="park-note" key={p.name}>
@@ -77,7 +115,7 @@ export function TechnicalSheet({ model }: { model: TurbineModel }) {
           <p>
             {p.references.join(' · ')} · {p.note || 'Identificación documentada en el informe.'}
           </p>
-          <p>Altura instalada: {formatFact(p.hubHeightM, 'm')}</p>
+          <p>Altura de buje documentada: {formatFact(p.hubHeightM, 'm')}</p>
           {p.hubHeightM.value !== null && <p>{p.hubHeightM.note}</p>}
           {p.installationProvider && <p>Instalación: {p.installationProvider}</p>}
         </div>

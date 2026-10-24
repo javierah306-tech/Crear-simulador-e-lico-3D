@@ -11,3 +11,6 @@ tmp/
 *.blend1
 *.log
 modelos chilenos/
+
+__pycache__/
+*.pyc

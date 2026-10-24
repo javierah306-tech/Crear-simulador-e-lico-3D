@@ -1,7 +1,7 @@
 {
   "id": "envision-e110-21",
   "manufacturer": "Envision",
-  "model": "E110 · 2,1 MW",
+  "model": "EN110 · 2,1 MW",
   "supplier": {
     "value": "Envision",
     "source": "Informe p. 4",
@@ -15,10 +15,10 @@
       "evidence": "B",
       "note": "Cinco máquinas documentadas en montaje 2016.",
       "hubHeightM": {
-        "value": null,
-        "source": null,
-        "scope": "missing",
-        "note": "No consta una altura de buje instalada."
+        "value": 100,
+        "source": "Envision, comunicado del pedido La Esperanza, 10-09-2015",
+        "scope": "family",
+        "note": "Altura contratada anunciada por el fabricante; no es una medición de campo."
       },
       "installationProvider": "Tecnorenova"
     }
@@ -31,100 +31,160 @@
       "note": "Potencia unitaria descrita en el catálogo; no equivale a potencia neta de conexión."
     },
     "rotorDiameterM": {
-      "value": null,
-      "source": null,
-      "scope": "missing",
-      "note": "No consta en los documentos disponibles."
+      "value": 110,
+      "source": "Coener / Coordinador Eléctrico, La Esperanza, Rev. 1 (2019), p. PDF 8, tabla 3 de diseño preliminar",
+      "scope": "family",
+      "note": "Especificación de diseño preliminar incluida en el informe del parque; no sustituye planos as-built."
     },
     "hubHeightM": {
-      "value": null,
-      "source": null,
-      "scope": "missing",
-      "note": "No consta en los documentos disponibles."
+      "value": 100,
+      "source": "Envision, comunicado del pedido La Esperanza, 10-09-2015",
+      "scope": "family",
+      "note": "Altura contratada anunciada por el fabricante; no es una medición de campo."
     },
     "bladeCount": {
-      "value": null,
-      "source": null,
-      "scope": "missing",
-      "note": "No consta en los documentos disponibles."
+      "value": 3,
+      "source": "Coener / Coordinador Eléctrico, La Esperanza, Rev. 1 (2019), p. PDF 8, tabla 3 de diseño preliminar",
+      "scope": "family",
+      "note": "Especificación de diseño preliminar incluida en el informe del parque; no sustituye planos as-built."
     },
     "generator": {
-      "value": null,
-      "source": null,
-      "scope": "missing",
-      "note": "No consta en los documentos disponibles."
+      "value": "DFIG · inducción doblemente alimentada, refrigerada por aire",
+      "source": "Coener / Coordinador Eléctrico, La Esperanza, Rev. 1 (2019), p. PDF 8, tabla 3 de diseño preliminar",
+      "scope": "family",
+      "note": "Especificación de diseño preliminar incluida en el informe del parque; no sustituye planos as-built."
     },
     "gearbox": {
-      "value": null,
-      "source": null,
-      "scope": "missing",
-      "note": "No consta en los documentos disponibles."
+      "value": true,
+      "source": "Coener / Coordinador Eléctrico, La Esperanza, Rev. 1 (2019), p. PDF 8, tabla 3 de diseño preliminar",
+      "scope": "family",
+      "note": "Especificación de diseño preliminar incluida en el informe del parque; no sustituye planos as-built."
     },
     "powerControl": {
-      "value": null,
-      "source": null,
-      "scope": "missing",
-      "note": "No consta en los documentos disponibles."
+      "value": "pitch",
+      "source": "Coener / Coordinador Eléctrico, La Esperanza, Rev. 1 (2019), p. PDF 8, tabla 3 de diseño preliminar",
+      "scope": "family",
+      "note": "Especificación de diseño preliminar incluida en el informe del parque; no sustituye planos as-built."
     },
     "cutInMS": {
-      "value": null,
-      "source": null,
-      "scope": "missing",
-      "note": "No consta en los documentos disponibles."
+      "value": 3,
+      "source": "Coener / Coordinador Eléctrico, La Esperanza, Rev. 1 (2019), p. PDF 8, tabla 3 de diseño preliminar",
+      "scope": "family",
+      "note": "Especificación de diseño preliminar incluida en el informe del parque; no sustituye planos as-built."
     },
     "ratedWindMS": {
-      "value": null,
-      "source": null,
-      "scope": "missing",
-      "note": "No consta en los documentos disponibles."
+      "value": 9.5,
+      "source": "Coener / Coordinador Eléctrico, La Esperanza, Rev. 1 (2019), p. PDF 8, tabla 3 de diseño preliminar",
+      "scope": "family",
+      "note": "Especificación de diseño preliminar incluida en el informe del parque; no sustituye planos as-built."
     },
     "cutOutMS": {
-      "value": null,
-      "source": null,
-      "scope": "missing",
-      "note": "No consta en los documentos disponibles."
+      "value": 20,
+      "source": "Coener / Coordinador Eléctrico, La Esperanza, Rev. 1 (2019), p. PDF 8, tabla 3 de diseño preliminar",
+      "scope": "family",
+      "note": "Especificación de diseño preliminar incluida en el informe del parque; no sustituye planos as-built."
     },
     "converter": {
-      "value": null,
-      "source": null,
-      "scope": "missing",
-      "note": "No consta en los documentos disponibles."
+      "value": "IGBT PWM",
+      "source": "Coener / Coordinador Eléctrico, La Esperanza, Rev. 1 (2019), p. PDF 8, tabla 3 de diseño preliminar",
+      "scope": "family",
+      "note": "Especificación de diseño preliminar incluida en el informe del parque; no sustituye planos as-built."
     }
   },
   "notes": [
-    "Sin ficha OEM verificable de esta variante en el corpus. Geometría exterior genérica y cadena de conversión abstracta; no se inventa arquitectura."
+    "La documentación de La Esperanza confirma arquitectura DFIG con multiplicadora, diámetro, tres palas y umbrales de diseño preliminar.",
+    "El esquema Winergy PEAB es una referencia de familia; no confirma el proveedor de cada máquina instalada.",
+    "La tabla de diseño indica inclinación de eje de 6° y cono de 2,6°. No se aplica una inclinación visual independiente del tren común sin planos acotados.",
+    "El informe cita 0,6 kV/23 kV y tabla eléctrica de 690 V. Se mantienen ambos antecedentes sin conciliarlos artificialmente."
   ],
   "simulation": {
     "fixedWindMS": 8,
     "ratedPowerMW": 2.1,
     "cutInMS": 3,
-    "ratedWindMS": 12,
+    "ratedWindMS": 9.5,
     "cutOutMS": 20,
-    "tipSpeedRatio": 7,
-    "maxRotorRPM": 16,
+    "tipSpeedRatio": 8.631672946526818,
+    "maxRotorRPM": 15.254237288135593,
     "pitchBaseDeg": 1.5,
     "pitchGainDegPerMS": 2,
-    "gearRatio": 90,
+    "gearRatio": 118,
     "bladeCount": 3,
     "rotorDiameterM": 110,
     "hubHeightM": 100,
     "assumptions": [
       "Viento fijo de 8 m/s, uniforme, alineado con el rotor.",
       "Curva cúbica simplificada sin pérdidas; no es una curva medida ni certificada.",
-      "RPM estimadas con relación de velocidad de punta λ=7, límite de 16 RPM.",
       "Pitch didáctico: 1,5° bajo viento nominal, +2° por m/s sobre nominal.",
       "Proporciones y ubicación de componentes esquemáticas, sin planos por número de serie.",
       "Altura visual normalizada; las posiciones del convertidor y transformador son didácticas.",
-      "rotorDiameterM=110: supuesto para animación; dato documental ausente.",
-      "cutInMS=3: supuesto para animación; dato documental ausente.",
-      "ratedWindMS=12: supuesto para animación; dato documental ausente.",
-      "cutOutMS=20: supuesto para animación; dato documental ausente.",
-      "bladeCount=3: supuesto para animación; dato documental ausente."
+      "Dimensiones internas, número de dientes y distribución exacta de armarios son aproximaciones visuales sin planos acotados.",
+      "Relación total de diseño 118:1; reparto por etapas y número de dientes ilustrativos.",
+      "Diámetros de rotor y altura visual mantienen una escala común; alturas no documentadas continúan como supuestos de 100 m.",
+      "TSR constante 8.6317 derivada del punto de diseño 1680 RPM / 118:1 a 9,5 m/s y rotor 110 m. Es una aproximación del control, no su curva OEM."
     ]
   },
   "asset": {
     "glb": "models/envision-e110-21.glb",
     "lod": "models/envision-e110-21-low.glb",
     "schematic": true
+  },
+  "engineering": {
+    "reviewDate": "2026-10-24",
+    "geometryScope": "Reconstrucción técnica documentada. Sin planos OEM acotados: dimensiones internas, dientes, bobinados y elementos de acabado son ilustrativos.",
+    "layoutCode": "one-planetary-two-parallel",
+    "layout": "Tres etapas; corte compatible PEAB con etapa planetaria y dos ejes paralelos",
+    "pitchDrive": {
+      "value": "Eléctrico, motor AC y respaldo con supercondensador",
+      "source": "Coener / Coordinador Eléctrico, La Esperanza, Rev. 1 (2019), p. PDF 8, tabla 3 de diseño preliminar",
+      "scope": "family",
+      "note": "Dato de referencia; requiere confirmación por unidad instalada."
+    },
+    "gearRatio": {
+      "value": 118,
+      "source": "Coener / Coordinador Eléctrico, La Esperanza, Rev. 1 (2019), p. PDF 8, tabla 3 de diseño preliminar",
+      "scope": "family",
+      "note": "Dato de referencia; requiere confirmación por unidad instalada."
+    },
+    "generatorVoltageV": {
+      "value": 690,
+      "source": "Coener / Coordinador Eléctrico, La Esperanza, Rev. 1 (2019), p. PDF 8, tabla 3 de diseño preliminar",
+      "scope": "family",
+      "note": "Dato de referencia; requiere confirmación por unidad instalada."
+    },
+    "generatorSpeedRPM": {
+      "value": 1680,
+      "source": "Coener / Coordinador Eléctrico, La Esperanza, Rev. 1 (2019), p. PDF 8, tabla 3 de diseño preliminar",
+      "scope": "family",
+      "note": "Dato de referencia; requiere confirmación por unidad instalada."
+    },
+    "transformer": {
+      "value": "0,6 kV / 23 kV; red interna de 23 kV",
+      "source": "Informe Coener, p. PDF 6",
+      "scope": "installed",
+      "note": "El texto cita 0,6 kV y su tabla 690 V: se conserva la discrepancia; no se fija una relación exacta 690/23000."
+    },
+    "references": [
+      {
+        "id": "EN",
+        "title": "Informe técnico La Esperanza, Rev. 1",
+        "publisher": "Coener / Coordinador Eléctrico Nacional",
+        "url": "https://www.coordinador.cl/wp-content/uploads/2019/11/19-008-544-PE-La-Esperanza-Informe-detenci%C3%B3n-y-partida-04Nov19-Rev1.pdf",
+        "pages": "6–8"
+      },
+      {
+        "id": "WE",
+        "title": "Up-tower repair solutions: PEAB 4456,8 para E110 2,1 MW",
+        "publisher": "Flender / Winergy",
+        "url": "https://www.flender.com/media-download/media-direct/201905-Winergy-uptower-repair-solutions.pdf",
+        "pages": "11"
+      },
+      {
+        "id": "PR",
+        "title": "Pedido de cinco EN110-2.1 MW a 100 m",
+        "publisher": "Envision",
+        "url": "https://www.prnewswire.com/news-releases/envision-confirma-orden-por-105mw-de-petroquim-para-su-primer-parque-eolico-en-chile-526335301.html",
+        "pages": "Comunicado 2015"
+      }
+    ]
   }
 }

@@ -1659,3 +1659,27 @@ p {
     animation: none !important;
   }
 }
+
+.engineering-references {
+  padding-left: 19px;
+}
+.engineering-references li {
+  margin: 0 0 16px;
+}
+.engineering-references a {
+  color: #255a46;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.engineering-references small {
+  display: block;
+  margin-top: 5px;
+  color: #62725a;
+  font-size: 11px;
+}
+.engineering-sheet > p {
+  font-size: 13px;
+  line-height: 1.8;
+}

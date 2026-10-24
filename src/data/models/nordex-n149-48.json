@@ -145,12 +145,59 @@
       "Altura visual normalizada; las posiciones del convertidor y transformador son didácticas.",
       "ratedWindMS=12: supuesto para animación; dato documental ausente.",
       "bladeCount=3: supuesto para animación; dato documental ausente.",
-      "Relación de transmisión ilustrativa 90:1, no documentada."
+      "Dimensiones internas, número de dientes y distribución exacta de armarios son aproximaciones visuales sin planos acotados.",
+      "Relación total 90:1 elegida para visualizar el movimiento; no es una relación OEM confirmada.",
+      "Diámetros de rotor y altura visual mantienen una escala común; alturas no documentadas continúan como supuestos de 100 m."
     ]
   },
   "asset": {
     "glb": "models/nordex-n149-48.glb",
     "lod": "models/nordex-n149-48-low.glb",
     "schematic": true
+  },
+  "engineering": {
+    "reviewDate": "2026-10-24",
+    "geometryScope": "Reconstrucción técnica documentada. Sin planos OEM acotados: dimensiones internas, dientes, bobinados y elementos de acabado son ilustrativos.",
+    "layoutCode": "two-planetary-one-parallel",
+    "layout": "Dos etapas planetarias y una paralela",
+    "pitchDrive": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "El accionamiento concreto no está confirmado en la fuente consultada."
+    },
+    "gearRatio": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "Relación instalada no documentada; animación ilustrativa 90:1."
+    },
+    "generatorVoltageV": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "Tensión de esta variante no documentada."
+    },
+    "generatorSpeedRPM": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "Velocidad nominal de esta variante no documentada."
+    },
+    "transformer": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "Ubicación y características instaladas no confirmadas."
+    },
+    "references": [
+      {
+        "id": "NO",
+        "title": "N149/4.X: etapas de transmisión y generador",
+        "publisher": "Nordex",
+        "url": "https://www.nordex-online.com/es/product/n149-4-0-4-5/?noredirect=es-ES",
+        "pages": "Datos técnicos web"
+      }
+    ]
   }
 }

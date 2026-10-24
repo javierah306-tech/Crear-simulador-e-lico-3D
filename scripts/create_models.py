@@ -33,6 +33,9 @@ def material(name, color, metal=0, rough=.35):
     bs.inputs['Base Color'].default_value = (*color, 1)
     bs.inputs['Metallic'].default_value = metal
     bs.inputs['Roughness'].default_value = rough
+    if 'Coat Weight' in bs.inputs:
+        bs.inputs['Coat Weight'].default_value = .24 if metal < .5 else .08
+        bs.inputs['Coat Roughness'].default_value = .22
     return m
 
 
@@ -74,6 +77,17 @@ def flush():
         o['component'] = component
         for polygon in mesh.polygons:
             polygon.use_smooth = smooth
+        if not smooth and component in ['nacelle','converter','transformer']:
+            bevel=o.modifiers.new('Manufactured edge radii','BEVEL')
+            bevel.width=.015 if LOW else .022
+            bevel.segments=1 if LOW else 3
+            bevel.limit_method='ANGLE'
+            bevel.angle_limit=math.radians(35)
+            bevel.use_clamp_overlap=True
+            bpy.context.view_layer.objects.active=o
+            bpy.ops.object.modifier_apply(modifier=bevel.name)
+        if hasattr(o.data,'set_sharp_from_angle'):
+            o.data.set_sharp_from_angle(angle=math.radians(42))
     BATCHES.clear()
 
 
@@ -277,21 +291,22 @@ def support_frame(root, length, direct=False):
 def build_tower(root, profile):
     tower=group('Tower','tower',root)
     n=SEG
+    h=profile['tower_height']
     vs,fs=[],[]
-    for z,r in [(-26.5,1.03),(-18,.91),(-10,.76),(-1.7,.65)]:
+    for z,r in [(-h,1.03),(-h*.68,.91),(-h*.38,.76),(-1.7,.65)]:
         for i in range(n):
             a=TAU*i/n;vs.append((r*math.cos(a),r*math.sin(a),z))
     for k in range(3):
         for i in range(n):
             fs.append((k*n+i,k*n+(i+1)%n,(k+1)*n+(i+1)%n,(k+1)*n+i))
     add('Tower seamless steel',vs,fs,PEARL,'tower',tower)
-    for z,r in [(-1.7,.65),(-10,.76),(-18,.91),(-26.5,1.03)]:
+    for z,r in [(-1.7,.65),(-h*.38,.76),(-h*.68,.91),(-h,1.03)]:
         torus('Tower welded seam',(0,0,z),r,.017,SILVER,'tower',tower,axis='Z')
-    cylinder('Tower base plinth',(0,0,-26.6),1.22,.23,SILVER,'tower',tower,axis='Z')
-    bolt_ring('Tower foundation studs',(0,0,-26.43),1.12,12 if LOW else 24,GRAPHITE,'tower',tower,axis='Z')
+    cylinder('Tower base plinth',(0,0,-h-.1),1.22,.23,SILVER,'tower',tower,axis='Z')
+    bolt_ring('Tower foundation studs',(0,0,-h+.07),1.12,12 if LOW else 24,GRAPHITE,'tower',tower,axis='Z')
     # Small service door makes the exterior scale readable.
-    box('Service door',(0,-1.025,-24.9),(.5,.045,1.4),SAGE,'tower',tower)
-    box('Door handle',(.17,-1.07,-24.7),(.025,.035,.14),SILVER,'tower',tower)
+    box('Service door',(0,-1.025,-h+1.6),(.5,.045,1.4),SAGE,'tower',tower)
+    box('Door handle',(.17,-1.07,-h+1.8),(.025,.035,.14),SILVER,'tower',tower)
     yaw=group('Yaw','yaw',root)
     cylinder('Yaw slew bearing',(0,0,-1.62),.93,.24,SILVER,'yaw',yaw,axis='Z',inner=.64)
     torus('Yaw seal',(0,0,-1.75),.86,.035,GRAPHITE,'yaw',yaw,axis='Z')
@@ -327,13 +342,29 @@ def build_rotor(root, profile):
     for i in range(3):
         arm=group(f'BladeArm_{i}',parent=rotor)
         arm.rotation_euler[0]=i*TAU/3
+        cylinder('Cast hub radial neck',(0,0,.72),.40,.31,SILVER,'hub',arm,axis='Z',inner=.28)
+        torus('Hub port flange',(0,0,.82),.415,.025,SILVER,'hub',arm,axis='Z')
         pitch=group(f'Pitch_{i}','pitch',arm)
         cylinder('Pitch slew race',(0,0,.9),.45,.22,SILVER,'pitch',pitch,axis='Z',inner=.32)
         torus('Pitch seal',(0,0,1.02),.43,.023,GRAPHITE,'pitch',pitch,axis='Z')
         bolt_ring('Pitch root bolts',(0,0,1.06),.39,12 if LOW else 24,GRAPHITE,'pitch',pitch,axis='Z',size=.032)
-        cylinder('Pitch electric actuator',(.32,-.27,.45),.13,.35,SAGE,'pitch',arm,axis='Z')
-        cylinder('Pitch pinion gearbox',(.32,-.27,.72),.15,.11,SILVER,'pitch',arm,axis='Z')
-        beam('Pitch linkage',(.3,-.2,.68),(.12,-.3,.94),.032,GOLD,'pitch',arm)
+        if profile['pitch_kind']=='belt':
+            torus('Goldwind pitch timing belt',(0,0,.84),.465,.027,RUBBER,'pitch',arm,axis='Z')
+            for j in range(16 if LOW else 36):
+                a=TAU*j/(16 if LOW else 36)
+                box('Timing belt tooth',(.465*math.cos(a),.465*math.sin(a),.84),(.026,.025,.044),RUBBER,'pitch',arm)
+            cylinder('Belt drive motor',(.40,-.25,.47),.12,.32,MAKER,'pitch',arm,axis='Z')
+            cylinder('Belt drive pulley',(.40,-.25,.78),.095,.09,GRAPHITE,'pitch',arm,axis='Z')
+            beam('Belt upper span',(.37,-.34,.84),(.31,-.35,.84),.025,RUBBER,'pitch',arm)
+        elif profile['pitch_kind']=='cylinder':
+            beam('Pitch hydraulic cylinder',(-.30,-.23,.26),(.24,-.22,.58),.095,MAKER,'pitch',arm,12)
+            beam('Pitch polished piston',(.24,-.22,.58),(.30,-.18,.86),.041,SILVER,'pitch',arm,10)
+            cylinder('Pitch clevis pin',(.30,-.18,.86),.06,.17,GRAPHITE,'pitch',arm,axis='Y')
+            pipe('Pitch hydraulic hose',[(-.3,-.23,.26),(-.37,-.31,.18),(-.32,-.35,.58)],.019,RUBBER,'pitch',arm)
+        else:
+            cylinder('Pitch AC motor',(.32,-.27,.45),.13,.35,MAKER,'pitch',arm,axis='Z')
+            cylinder('Pitch pinion gearbox',(.32,-.27,.72),.15,.11,SILVER,'pitch',arm,axis='Z')
+            beam('Pitch linkage',(.3,-.2,.68),(.12,-.3,.94),.032,GOLD,'pitch',arm)
         box('Pitch control module',(.05,.1,.35),(.32,.18,.28),SAGE,'pitch',arm)
         pipe('Pitch power cable',[(.0,.1,.2),(.1,-.18,.3),(.3,-.22,.5)],.017,COPPER,'pitch',arm)
         blade(f'Blade_{i}',pitch,profile['blade_length'],profile['blade_width'])
@@ -381,7 +412,7 @@ def planetary_stage(parent, name, x, scale, carrier_ratio):
 def build_gearbox(root, shaft, profile):
     gear=group('Gearbox','gearbox',root)
     planetary_stage(gear,'PlanetaryStage1',-1.1,.88,-1)
-    v110 = profile['id'] == 'vestas-v110-20'
+    v110 = profile['layout'] == 'one-planetary-two-parallel'
     if v110:
         # Vestas 2 MW family source: one planetary + two helical stages.
         # The 5 x 3 x 6 = 90 ratio and shaft spacing remain modeling assumptions.
@@ -400,12 +431,13 @@ def build_gearbox(root, shaft, profile):
         for xx in [-.28,.23]:
             cylinder('Intermediate bearing',(xx,.50,.30),.12,.12,SAGE,'shaft',shaft,inner=.073)
         d2=math.hypot(.50,.39)
-        r3=d2*6/7;r4=d2/7
+        last_ratio=profile['ratio']/15
+        r3=d2*last_ratio/(last_ratio+1);r4=d2/(last_ratio+1)
         drive2=group('HelicalStage2_Input','gearbox',gear,(.31,.50,.30),ratio=15)
-        gear_mesh('Helical stage 2 input',r3,108,.22,SILVER,drive2,bore=.075,helix=.16,tooth_depth=.009)
-        output2=group('HelicalStage2_Output','gearbox',gear,(.31,0,.69),ratio=-90)
-        gear_mesh('Helical stage 2 output',r4,18,.22,GOLD,output2,bore=.043,helix=-.96,tooth_depth=.009)
-        output_ratio=-90
+        gear_mesh('Helical stage 2 input',r3,118 if profile['id'].startswith('envision') else 108,.22,SILVER,drive2,bore=.075,helix=.16,tooth_depth=.009)
+        output2=group('HelicalStage2_Output','gearbox',gear,(.31,0,.69),ratio=-profile['ratio'])
+        gear_mesh('Helical stage 2 output',r4,15 if profile['id'].startswith('envision') else 18,.22,GOLD,output2,bore=.043,helix=-.96,tooth_depth=.009)
+        output_ratio=-profile['ratio']
         casing_positions=[(-1.1,1.17),(.02,1.03)]
     else:
         planetary_stage(gear,'PlanetaryStage2',-.45,.62,-5)
@@ -474,7 +506,7 @@ def build_generator(root, direct, geared, profile):
         cylinder('GeneratorCasing_annular',(x,0,0),r+.14,.76,SAGE,'generator',gen,inner=r-.1,separate=True)
     else:
         x=2.05;z=.69 if geared else 0;r=.65 if geared else .78
-        rotor=group('GeneratorRotor','generator',gen,(x,0,z),ratio=(-90 if profile['id'] == 'vestas-v110-20' else 90) if geared else -1)
+        rotor=group('GeneratorRotor','generator',gen,(x,0,z),ratio=(-profile['ratio'] if profile['layout']=='one-planetary-two-parallel' else profile['ratio']) if geared else -1)
         cylinder('Electrical rotor core',(0,0,0),r*.54,1.55,GRAPHITE,'generator',rotor)
         bars=12 if LOW else 24
         for i in range(bars):
@@ -483,6 +515,17 @@ def build_generator(root, direct, geared, profile):
         for xx in [-.75,.75]:
             torus('Rotor end ring',(xx,0,0),r*.55,.042,COPPER,'generator',rotor)
             bolt_ring('Rotor plate bolts',(xx,0,0),r*.37,8,SILVER,'generator',rotor,size=.027)
+        if geared:
+            for j in range(3):
+                xx=.88+j*.095
+                torus('DFIG rotating slip ring',(xx,0,0),.245,.033,COPPER,'generator',rotor)
+                box('Stationary carbon brush',(x+xx,-.267,z),(.065,.095,.10),RUBBER,'generator',gen)
+                box('Brush holder',(x+xx,-.345,z),(.075,.075,.13),GRAPHITE,'generator',gen)
+                pipe('Rotor circuit cable',[(x+xx,-.40,z),(x+xx,-.57,z-.25),(3.5,-.9,-.5+j*.08)],.016,RUBBER,'generator',gen)
+            for side in [-1,1]:
+                for j in range(6 if LOW else 12):
+                    a=TAU*j/(6 if LOW else 12)
+                    torus('Wound rotor coil end',(side*.71,r*.35*math.cos(a),r*.35*math.sin(a)),.095,.018,COPPER,'generator',rotor,segments=10)
         # Coils and lamination ribs reveal electromechanical conversion.
         for i in range(12 if LOW else 24):
             a=TAU*i/(12 if LOW else 24)
@@ -546,11 +589,11 @@ def electrical_equipment(root, direct, profile):
     # Hydraulic/cooling auxiliaries are grouped with nacelle; educational layout.
     auxiliary=group('AuxiliaryEquipment','nacelle',root)
     box('Oil service skid',(.45,-.88,-.69),(1.12,.48,.40),GRAPHITE,'nacelle',auxiliary)
-    for x0 in [.12,.45]:
+    for x0 in ([] if direct else [.12,.45]):
         cylinder('Accumulator',(x0,-.9,-.23),.12,.51,SAGE,'nacelle',auxiliary,axis='Z')
         cylinder('Accumulator end cap',(x0,-.9,.06),.11,.055,SILVER,'nacelle',auxiliary,axis='Z')
         pipe('Hydraulic line',[(x0,-.91,-.44),(x0,-1.1,-.50),(-1.2,-1.1,-.52)],.023,GOLD,'nacelle',auxiliary)
-    cylinder('Cooling pump',(.75,-.9,-.45),.13,.35,SILVER,'nacelle',auxiliary,axis='Z')
+    if not direct:cylinder('Cooling pump',(.75,-.9,-.45),.13,.35,SILVER,'nacelle',auxiliary,axis='Z')
     box('Maintenance controller',(4.2,.3,.71),(.20,.53,.65),PEARL,'nacelle',auxiliary)
     for j in range(3):box('Control relay',(4.08,.12+j*.16,.7),(.035,.10,.36),GRAPHITE,'nacelle',auxiliary)
     pipe('Main cable tray',[(2.1,.9,-.8),(1.0,.9,-.8),(0,.9,-.8),(0,.3,-1.2),(0,.3,-3.2)],.045,COPPER,'nacelle',auxiliary)
@@ -562,12 +605,22 @@ def shell_and_sensors(root, direct, profile):
         rounded_shell('direct',[-3.35,-2.3,-1.3,.5,2.5,4.2,4.8],[2.9,4.25,4.45,3.2,2.95,2.45,1.9],[2.8,4.15,4.2,2.8,2.6,2.3,2.1],nacelle)
     else:
         w=profile['width'];h=profile['height']
-        rounded_shell('geared' if profile['known'] else 'generic',[-3.5,-3.1,-1.6,1.0,3.5,4.8,5.0],[2.6,w,w,w,w*.96,w*.83,w*.73],[2.7,h,h,h,h*.97,h*.90,h*.80],nacelle)
+        if profile['id'].startswith('vestas'):
+            # OEM family envelope 10.4 x 3.5 x 4 m; proportions only, internal
+            # locations still illustrative. CoolerTop accounts for 5.4 m height.
+            rounded_shell('vestas',[-3.5,-3.1,-1.6,1.0,4.5,6.5,6.9],[2.6,w,w,w,w*.96,w*.86,w*.78],[2.7,h,h,h,h*.97,h*.90,h*.85],nacelle)
+            cooler=group('Shell_CoolerTop_Assembly','nacelle',nacelle)
+            box('Shell_CoolerTop gasket',(5.0,0,2.0),(2.5,2.6,.12),RUBBER,'nacelle',cooler,separate=True)
+            box('Shell_CoolerTop fairing',(5.0,0,2.62),(2.45,2.5,1.25),PEARL,'nacelle',cooler,separate=True)
+            for j in range(10 if LOW else 18):
+                box('CoolerTop heat exchanger fin',(4.0+j*(2.0/(10 if LOW else 18)),0,3.28),(.025,2.24,.14),SILVER,'nacelle',cooler)
+        else:
+            rounded_shell('geared',[-3.5,-3.1,-1.6,1.0,3.5,4.8,5.0],[2.6,w,w,w,w*.96,w*.83,w*.73],[2.7,h,h,h,h*.97,h*.90,h*.80],nacelle)
     # Structural ribs stay visible when the exterior cover becomes translucent.
     for x in [-2.9,-1.7,.3,2.4,4.3]:
         beam('Nacelle roof rib',(x,1.25,-1),(x,1.25,1.32),.04,PEARL,'nacelle',nacelle)
         beam('Nacelle roof rib',(x,1.25,1.32),(x,-1.2,1.32),.04,PEARL,'nacelle',nacelle)
-    for i in range(8 if LOW else 16):
+    for i in range((0 if direct else 8) if LOW else (0 if direct else 16)):
         box('Rear heat exchanger',(4.85,-.90+i*.12,.15),(.13,.025,1.6),GRAPHITE,'nacelle',nacelle)
     # External roof instrumentation and flush access hatch.
     box('Roof service hatch',(3.1,0,1.58),(1.3,.8,.05),SAGE,'nacelle',nacelle)
@@ -606,25 +659,69 @@ def animate_rotor(rotor):
 
 def profile_for(model):
     identifier=model['id']
-    value=model['specs']['gearbox']['value']
-    p={'id':identifier,'known':value is not None,'width':3.3,'height':3.2,'blade_length':17,'blade_width':1.82}
-    if identifier.startswith('nordex'):
-        p.update(width=3.65,height=3.35,blade_length=18.8,blade_width=2.0)
-    elif identifier=='vestas-v110-20':
-        p.update(width=3.0,height=3.0,blade_length=16.0,blade_width=1.75)
-    elif identifier=='vestas-v112-30':
-        p.update(width=3.13,height=3.10,blade_length=16.4,blade_width=1.78)
-    elif identifier=='vestas-v136-36':
-        p.update(width=3.45,height=3.35,blade_length=18.0,blade_width=1.91)
-    elif identifier.startswith('vestas-v150'):
-        p.update(width=3.6,height=3.35,blade_length=19.0,blade_width=2.05)
-    elif identifier.startswith('goldwind'):
-        p.update(blade_length=15.4,blade_width=1.75)
-    elif identifier.startswith('envision'):
-        p.update(width=3.1,height=3.0,blade_length=16.4,blade_width=1.76)
-    elif identifier.startswith('gamesa'):
-        p.update(width=3.0,height=3.0,blade_length=16.5,blade_width=1.76)
+    specs=model['specs']
+    p={'id':identifier,'known':True,'width':3.3,'height':3.2,'blade_length':17,'blade_width':1.82,
+       'layout':model['engineering']['layoutCode'],'ratio':model['simulation']['gearRatio'],
+       'pitch_kind':'electric','maker':model['manufacturer'],'label':model['model'].split(' · ')[0]}
+    if identifier.startswith('goldwind'):p.update(width=4.25,height=4.15,blade_length=15.4,blade_width=1.75,pitch_kind='belt')
+    elif identifier.startswith('envision'):p.update(width=3.15,height=3.0,blade_length=17.0,blade_width=1.82)
+    elif identifier.startswith('gamesa'):p.update(width=3.20,height=3.05,blade_length=17.6,blade_width=1.85,pitch_kind='cylinder')
+    elif identifier.startswith('nordex'):p.update(width=3.65,height=3.35,blade_length=22.98,blade_width=2.0)
+    else:p.update(width=3.5,height=4.0,blade_length=17.0,blade_width=1.75,pitch_kind='cylinder')
+    p['blade_length']=model['simulation']['rotorDiameterM']*(15.4/87)
+    p['tower_height']=model['simulation']['hubHeightM']*(30.8/87)
     return p
+
+
+def label_mesh(name,text,location,size,parent,mat):
+    curve=bpy.data.curves.new(name,'FONT')
+    curve.body=text;curve.size=size;curve.extrude=.001;curve.resolution_u=3
+    o=bpy.data.objects.new(name,curve);bpy.context.collection.objects.link(o)
+    o.parent=parent;o.location=location;o.rotation_euler=(math.pi/2,0,0)
+    o['component']='nacelle';o.data.materials.append(mat)
+    bpy.context.view_layer.objects.active=o;o.select_set(True)
+    bpy.ops.object.convert(target='MESH');o.select_set(False)
+
+
+def professional_trim(root,profile,direct):
+    trim=group('Shell_FinishDetails','nacelle',root)
+    w=profile['width']
+    # Original modeled panel joints and fasteners, positions are not OEM dimensions.
+    def side_y(x):
+        if direct:
+            xs=[-3.35,-2.3,-1.3,.5,2.5,4.2,4.8]; widths=[2.9,4.25,4.45,3.2,2.95,2.45,1.9]
+            for i in range(len(xs)-1):
+                if xs[i]<=x<=xs[i+1]:
+                    t=(x-xs[i])/(xs[i+1]-xs[i]); return -(widths[i]*(1-t)+widths[i+1]*t)/2-.025
+        return -w/2-.025
+    y=side_y(-.9)
+    for x in [-1.5,.3,2.1,3.9]:
+        joint_y=side_y(x)
+        pipe('Shell_panel_joint',[(x,joint_y,-.65),(x,joint_y,.86)],.011,GRAPHITE,'nacelle',trim)
+        if not LOW:
+            for z in [-.6,.7]:cylinder('Shell_flush_screw',(x+.06,joint_y-.01,z),.019,.025,SILVER,'nacelle',trim,axis='Y',segments=6)
+    y=side_y(2.8)
+    box('Shell_inspection_gasket',(2.8,y-.01,.12),(.86,.018,.72),RUBBER,'nacelle',trim)
+    box('Shell_inspection_door',(2.8,y-.025,.12),(.80,.026,.66),PEARL,'nacelle',trim)
+    beam('Shell_recessed_handle',(3.02,y-.05,.10),(3.02,y-.05,.29),.016,SILVER,'nacelle',trim)
+    y=side_y(-.9)
+    label_mesh('Shell_manufacturer_label',profile['maker'].upper(),(-.9,y-.04,.35),.26,trim,MAKER)
+    label_mesh('Shell_model_label',profile['label'],(-.85,y-.045,.03),.16,trim,GRAPHITE)
+    # Rating plate explicitly identifies the educational reconstruction.
+    y=side_y(1.4)
+    box('Shell_technical_plate',(1.4,y-.04,-.42),(.8,.02,.23),SILVER,'nacelle',trim)
+    label_mesh('Shell_educational_plate','MODELO EDUCATIVO',(1.04,y-.057,-.46),.075,trim,GRAPHITE)
+    for x in [.0,2.3,3.6]:
+        torus('Shell_roof_lifting_eye',(x,0,1.64),.07,.021,SILVER,'nacelle',trim,axis='Y',segments=12)
+    if not direct:
+        for i in range(7 if LOW else 12):
+            box('Shell_vent_louvre',(3.5,y-.025,-.2+i*.065),(.6,.035,.018),GRAPHITE,'nacelle',trim)
+    else:
+        crane=group('AuxiliaryCrane','nacelle',root)
+        beam('Crane structural post',(2.5,.65,-.8),(2.5,.65,1.25),.06,MAKER,'nacelle',crane)
+        beam('Folded crane beam',(2.5,.65,1.25),(3.7,.65,1.25),.06,MAKER,'nacelle',crane)
+        beam('Crane hook cable',(3.55,.65,1.25),(3.55,.65,.8),.012,GRAPHITE,'nacelle',crane)
+        torus('Crane eye',(3.55,.65,.75),.06,.017,SILVER,'nacelle',crane,axis='Y',segments=12)
 
 
 for data in sorted((ROOT/'src/data/models').glob('*.json')):
@@ -645,13 +742,18 @@ for data in sorted((ROOT/'src/data/models').glob('*.json')):
         SAGE=material('Ecological sage enamel',(.24,.43,.33),.40,.30)
         COPPER=material('Copper winding',(.72,.32,.13),.78,.24)
         GOLD=material('Warm brass fasteners',(.70,.49,.22),.72,.27)
+        RUBBER=material('Elastomer seals',(.025,.035,.033),.02,.72)
+        maker_colors={'Goldwind':(.04,.28,.48),'Envision':(.025,.39,.39),'Gamesa':(.045,.21,.33),'Nordex':(.03,.19,.31),'Vestas':(.06,.23,.42)}
+        MAKER=material('Manufacturer equipment enamel',maker_colors[model['manufacturer']],.30,.28)
         profile=profile_for(model)
         direct=model['specs']['gearbox']['value'] is False
         geared=model['specs']['gearbox']['value'] is True
         root=group('Turbine')
-        root['geometryRevision']='premium-2026-10'
+        root['geometryRevision']='engineering-2026-10-24'
+        root['documentedLayout']=model['engineering']['layout']
+        root['engineeringReviewDate']='2026-10-24'
         root['illustrativeGeometry']=True
-        root['kinematicRatiosIllustrative']=True
+        root['kinematicRatiosIllustrative']=model['engineering']['gearRatio']['value'] is None
         root['modelId']=model['id']
         build_tower(root,profile)
         support_frame(root,8.1,direct)
@@ -661,6 +763,7 @@ for data in sorted((ROOT/'src/data/models').glob('*.json')):
         build_generator(root,direct,geared,profile)
         electrical_equipment(root,direct,profile)
         shell_and_sensors(root,direct,profile)
+        professional_trim(root,profile,direct)
         flush()
         animate_rotor(rotor)
         # Centimeters/meters here are normalized display units, never OEM CAD.

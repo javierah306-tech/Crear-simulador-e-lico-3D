@@ -42,6 +42,25 @@ export interface SimulationSpec {
   hubHeightM: number;
   assumptions: string[];
 }
+export interface EngineeringReference {
+  id: string;
+  title: string;
+  publisher: string;
+  url: string;
+  pages: string;
+}
+export interface EngineeringSpec {
+  reviewDate: string;
+  geometryScope: string;
+  layoutCode: 'direct' | 'one-planetary-two-parallel' | 'two-planetary-one-parallel';
+  layout: string;
+  pitchDrive: Fact<string>;
+  gearRatio: Fact<number>;
+  generatorVoltageV: Fact<number>;
+  generatorSpeedRPM: Fact<number>;
+  transformer: Fact<string>;
+  references: EngineeringReference[];
+}
 export interface TurbineModel {
   id: string;
   manufacturer: string;
@@ -51,5 +70,6 @@ export interface TurbineModel {
   specs: TurbineSpecs;
   notes: string[];
   simulation: SimulationSpec;
+  engineering: EngineeringSpec;
   asset: { glb: string; lod: string; schematic: boolean };
 }

@@ -72,7 +72,7 @@ await page.getByRole('button', { name: 'Cerrar ficha técnica' }).click();
 await page.getByRole('button', { name: 'Catálogo técnico', exact: true }).click();
 await page.screenshot({ path: 'tmp/qa/catalog.png', fullPage: true });
 const rows = await page.locator('tbody tr').count();
-if (rows !== 9) throw Error('Se esperaban nueve filas de catálogo.');
+if (rows !== 5) throw Error('Se esperaban cinco filas de catálogo.');
 await page.getByRole('button', { name: 'Ver modelo', exact: true }).nth(3).click();
 await page.waitForTimeout(1800);
 await page.getByRole('button', { name: 'Vista interior', exact: true }).click();
@@ -87,12 +87,13 @@ if (await page.locator('input[type=range]').count())
   throw Error('Se encontraron controles de viento no solicitados.');
 await page.setViewportSize({ width: 1440, height: 1050 });
 const cards = page.locator('.model-card');
-for (let i = 0; i < 9; i++) {
+for (let i = 0; i < 5; i++) {
   await cards.nth(i).click();
   await page.getByRole('button', { name: 'Vista exterior', exact: true }).click();
   await page.waitForTimeout(500);
   await page.getByRole('button', { name: 'Vista interior', exact: true }).click();
-  await page.waitForTimeout(600);
+  await page.waitForTimeout(1200);
+  await page.locator('.viewport').screenshot({ path: `tmp/qa/model-${i}.png` });
   if (await page.getByText('No se pudo cargar la vista 3D', { exact: true }).count())
     throw Error('Error de GLB en modelo ' + i);
 }

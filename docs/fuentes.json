@@ -46,5 +46,21 @@
     "original": "C:\\Users\\javie\\OneDrive\\Desktop\\Lab Neiron\\modelos 3D eolicos\\modelos chilenos\\fabricantes\\vestas_v150.html",
     "sha256": "77abcf5aefb1ab6300aaa347cd08b742784cbe58d059721320a63636582be270",
     "used": false
+  },
+  {
+    "file": "winergy-2019.pdf",
+    "url": "https://www.flender.com/media-download/media-direct/201905-Winergy-uptower-repair-solutions.pdf",
+    "reviewed": "2026-10-24",
+    "used": true,
+    "title": "Flender/Winergy, p. 11, Envision E110 PEAB",
+    "sha256": "6a65d93aa260fbbf35a8b4170f692d7a3d59da0a1fb722e1496903afb49e064d"
+  },
+  {
+    "file": "esperanza-coordinador.pdf",
+    "url": "https://www.coordinador.cl/wp-content/uploads/2019/11/19-008-544-PE-La-Esperanza-Informe-detenci%C3%B3n-y-partida-04Nov19-Rev1.pdf",
+    "reviewed": "2026-10-24",
+    "used": true,
+    "title": "Coener/Coordinador, tablas pp. PDF 6–8",
+    "sha256": "8af01dfd216cb0cc2dddbbebdbdb635b5c4186363a9d053bfb920980bb58e39a"
   }
 ]

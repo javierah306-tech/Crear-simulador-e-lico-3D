@@ -240,7 +240,7 @@ function App() {
                   Aerogeneradores <span>{models.length.toString().padStart(2, '0')}</span>
                 </h2>
               </div>
-              <p className="sidebar-caption">Nueve maneras de transformar el viento.</p>
+              <p className="sidebar-caption">Cinco fabricantes. Cinco modelos.</p>
               <div className="model-list">
                 {models.map((m, i) => (
                   <button

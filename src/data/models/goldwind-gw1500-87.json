@@ -1,7 +1,7 @@
 {
   "id": "goldwind-gw1500-87",
   "manufacturer": "Goldwind",
-  "model": "GW1500-87",
+  "model": "GW87/1500",
   "supplier": {
     "value": "Goldwind",
     "source": "Informe p. 4",
@@ -93,7 +93,8 @@
   },
   "notes": [
     "GW1500-87 es la denominación del parque; GW 87/1500 es la nomenclatura del folleto.",
-    "La altura instalada de Cuel no consta en el corpus."
+    "La altura instalada de Cuel no consta en el corpus.",
+    "El corte OEM identifica estator, rotor PM, buje, bancada y grúa auxiliar. El paso emplea correa y la refrigeración del generador es pasiva."
   ],
   "simulation": {
     "fixedWindMS": 8,
@@ -115,12 +116,60 @@
       "RPM estimadas con relación de velocidad de punta λ=7, límite de 16 RPM.",
       "Pitch didáctico: 1,5° bajo viento nominal, +2° por m/s sobre nominal.",
       "Proporciones y ubicación de componentes esquemáticas, sin planos por número de serie.",
-      "Altura visual normalizada; las posiciones del convertidor y transformador son didácticas."
+      "Altura visual normalizada; las posiciones del convertidor y transformador son didácticas.",
+      "Dimensiones internas, número de dientes y distribución exacta de armarios son aproximaciones visuales sin planos acotados.",
+      "Relación total de diseño 1:1; reparto por etapas y número de dientes ilustrativos.",
+      "Diámetros de rotor y altura visual mantienen una escala común; alturas no documentadas continúan como supuestos de 100 m."
     ]
   },
   "asset": {
     "glb": "models/goldwind-gw1500-87.glb",
     "lod": "models/goldwind-gw1500-87-low.glb",
     "schematic": true
+  },
+  "engineering": {
+    "reviewDate": "2026-10-24",
+    "geometryScope": "Reconstrucción técnica documentada. Sin planos OEM acotados: dimensiones internas, dientes, bobinados y elementos de acabado son ilustrativos.",
+    "layoutCode": "direct",
+    "layout": "Accionamiento directo; generador síncrono de imanes permanentes",
+    "pitchDrive": {
+      "value": "Eléctrico mediante correa",
+      "source": "Goldwind 1.5 MW PMDD, p. PDF 3",
+      "scope": "family",
+      "note": "Dato de referencia; requiere confirmación por unidad instalada."
+    },
+    "gearRatio": {
+      "value": 1,
+      "source": "Goldwind 1.5 MW PMDD, p. PDF 3",
+      "scope": "family",
+      "note": "Accionamiento directo, sin multiplicadora en el tren principal."
+    },
+    "generatorVoltageV": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "Tensión de esta variante no documentada."
+    },
+    "generatorSpeedRPM": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "Velocidad nominal de esta variante no documentada."
+    },
+    "transformer": {
+      "value": null,
+      "source": null,
+      "scope": "missing",
+      "note": "Ubicación y características instaladas no confirmadas."
+    },
+    "references": [
+      {
+        "id": "GW",
+        "title": "Goldwind 1.5 MW PMDD: corte funcional y especificaciones",
+        "publisher": "Goldwind",
+        "url": "https://www.goldwindamericas.com/sites/default/files/1.5%20MW%20PMDD%20Turbine%20-%20English.pdf",
+        "pages": "3–6"
+      }
+    ]
   }
 }

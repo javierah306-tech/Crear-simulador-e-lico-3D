@@ -1,22 +1,18 @@
 # Modelos y proveedores del Biobío
 
-Fuente base: 02_PARQUES_COMPONENTES_BIOBIO.pdf, Smartwind v1.0, corte documental 03-10-2026. Corpus complementario: Goldwind 1,5 MW, Vestas 2 MW, Vestas 4 MW, Vestas V112 LCA 2011 y HTML local Nordex N149. Se conserva el nivel de evidencia del informe; las referencias Bxx son las de ese informe, no consultas nuevas.
+Fuente base: 02_PARQUES_COMPONENTES_BIOBIO.pdf, Smartwind v1.0, corte documental 03-10-2026. Corpus complementario: Goldwind 1,5 MW, Vestas 2 MW, Vestas 4 MW, Vestas V112 LCA 2011 y HTML local Nordex N149. Se conserva el nivel de evidencia del informe; las referencias Bxx son las de ese informe, complementadas por referencias técnicas enlazadas en cada JSON.
 
-El catálogo registra nueve modelos o variantes y trece entradas de parque (Raki y Huajache separados). No es un censo actualizado ni una certificación por número de serie. Se usa el Biobío actual.
+El catálogo seleccionado registra cinco modelos, uno por fabricante; revisión complementaria de fuentes primarias el 24-10-2026. No es un censo actualizado ni una certificación por número de serie. Se usa el Biobío actual.
 
 ## Fabricantes, suministro y parques
 
-| Fabricante / modelo              | Potencia unitaria documentada | Parque(s)                    | Evidencia                                                         | Proveedor de instalación mencionado               |
-| -------------------------------- | ----------------------------- | ---------------------------- | ----------------------------------------------------------------- | ------------------------------------------------- |
-| Envision E110 · 2,1 MW           | 2.1 [parque]                  | La Esperanza                 | La Esperanza: B B03,B16                                           | La Esperanza: Tecnorenova                         |
-| Gamesa G114 · variante pendiente | No documentado                | Las Peñas                    | Las Peñas: B B17,B18                                              | Las Peñas: CJR Renewables                         |
-| Goldwind GW1500-87               | 1.5 [parque]                  | Cuel                         | Cuel: A B01                                                       | No documentado                                    |
-| Nordex N149 / Delta4000 · 4,8 MW | 4.8 [parque]                  | Alena, Los Olmos, Mesamavida | Alena: B B03,B06; Los Olmos: A/B B07,B08; Mesamavida: A/B B09,B10 | Los Olmos: Greenwork; Mesamavida: Tecnorenova     |
-| Vestas V110 · 2,0 MW             | 2 [parque]                    | Los Buenos Aires             | Los Buenos Aires: A B14,B20                                       | No documentado                                    |
-| Vestas V112 · 3,0 MW             | 3 [parque]                    | Raki, Huajache               | Raki: A B15; Huajache: A B15                                      | No documentado                                    |
-| Vestas V136 CP3.6 · PO1 · 50 Hz  | 3.6 [parque]                  | Negrete                      | Negrete: A B02,B05                                                | Negrete: Tecnorenova (referencia discrepante B23) |
-| Vestas V150 Mk3B · 4,2 MW        | 4.2 [parque]                  | Lomas de Duqueco             | Lomas de Duqueco: A B02,B04                                       | No documentado                                    |
-| Vestas V150 · 4,3 MW             | 4.3 [parque]                  | Campo Lindo, San Matías      | Campo Lindo: A B11; San Matías: A B12,B13                         | No documentado                                    |
+| Fabricante / modelo              | Potencia unitaria documentada | Parque(s)                    | Evidencia                                                         | Proveedor de instalación mencionado           |
+| -------------------------------- | ----------------------------- | ---------------------------- | ----------------------------------------------------------------- | --------------------------------------------- |
+| Envision EN110 · 2,1 MW          | 2.1 [parque]                  | La Esperanza                 | La Esperanza: B B03,B16                                           | La Esperanza: Tecnorenova                     |
+| Gamesa G114 · referencia 2,0 MW  | 2 [familia]                   | Las Peñas                    | Las Peñas: B B17,B18                                              | Las Peñas: CJR Renewables                     |
+| Goldwind GW87/1500               | 1.5 [parque]                  | Cuel                         | Cuel: A B01                                                       | No documentado                                |
+| Nordex N149 / Delta4000 · 4,8 MW | 4.8 [parque]                  | Alena, Los Olmos, Mesamavida | Alena: B B03,B06; Los Olmos: A/B B07,B08; Mesamavida: A/B B09,B10 | Los Olmos: Greenwork; Mesamavida: Tecnorenova |
+| Vestas V110 · 2,0 MW             | 2 [parque]                    | Los Buenos Aires             | Los Buenos Aires: A B14,B20                                       | No documentado                                |
 
 Fabricante, operador e instalador son roles distintos. «Proveedor» se entrega como fabricante identificado; el corpus no demuestra un contratista de suministro independiente para todos los parques. Tecnorenova/Greenwork/CJR son referencias de instalación, no fabricantes.
 
@@ -26,31 +22,23 @@ Cada valor incluye su alcance. Ausencia de un dato no se reemplaza por la cifra 
 
 ### Geometría y arquitectura
 
-| Modelo                    | Rotor (m)       | Buje instalado (m) | Palas          | Generador                                                   | Multiplicadora | Control         |
-| ------------------------- | --------------- | ------------------ | -------------- | ----------------------------------------------------------- | -------------- | --------------- |
-| E110 · 2,1 MW             | No documentado  | No documentado     | No documentado | No documentado                                              | No documentado | No documentado  |
-| G114 · variante pendiente | No documentado  | No documentado     | No documentado | No documentado                                              | No documentado | No documentado  |
-| GW1500-87                 | 87 [familia]    | No documentado     | 3 [familia]    | PMSG · síncrono de imanes permanentes [familia]             | No [familia]   | pitch [familia] |
-| N149 / Delta4000 · 4,8 MW | 149.1 [familia] | No documentado     | No documentado | DFIG · asíncrono doblemente alimentado [familia]            | Sí [familia]   | pitch [familia] |
-| V110 · 2,0 MW             | 110 [familia]   | No documentado     | 3 [familia]    | DFIG · doblemente alimentado con anillos rozantes [familia] | Sí [familia]   | pitch [familia] |
-| V112 · 3,0 MW             | No documentado  | No documentado     | No documentado | No documentado                                              | Sí [familia]   | No documentado  |
-| V136 CP3.6 · PO1 · 50 Hz  | No documentado  | No documentado     | No documentado | Inducción · subtipo no indicado [parque]                    | No documentado | No documentado  |
-| V150 Mk3B · 4,2 MW        | 150 [familia]   | No documentado     | 3 [familia]    | Inducción · subtipo no indicado [parque]                    | Sí [familia]   | pitch [familia] |
-| V150 · 4,3 MW             | 150 [familia]   | No documentado     | 3 [familia]    | No documentado                                              | Sí [familia]   | pitch [familia] |
+| Modelo                    | Rotor (m)       | Buje instalado (m) | Palas          | Generador                                                              | Multiplicadora | Control         |
+| ------------------------- | --------------- | ------------------ | -------------- | ---------------------------------------------------------------------- | -------------- | --------------- |
+| EN110 · 2,1 MW            | 110 [familia]   | 100 [familia]      | 3 [familia]    | DFIG · inducción doblemente alimentada, refrigerada por aire [familia] | Sí [familia]   | pitch [familia] |
+| G114 · referencia 2,0 MW  | 114 [familia]   | No documentado     | 3 [familia]    | DFIG · inducción doblemente alimentada [familia]                       | Sí [familia]   | pitch [familia] |
+| GW87/1500                 | 87 [familia]    | No documentado     | 3 [familia]    | PMSG · síncrono de imanes permanentes [familia]                        | No [familia]   | pitch [familia] |
+| N149 / Delta4000 · 4,8 MW | 149.1 [familia] | No documentado     | No documentado | DFIG · asíncrono doblemente alimentado [familia]                       | Sí [familia]   | pitch [familia] |
+| V110 · 2,0 MW             | 110 [familia]   | No documentado     | 3 [familia]    | DFIG · doblemente alimentado con anillos rozantes [familia]            | Sí [familia]   | pitch [familia] |
 
 ### Umbrales de operación y conversión
 
 | Modelo                    | Arranque (m/s) | Nominal (m/s)  | Corte (m/s)    | Convertidor                      |
 | ------------------------- | -------------- | -------------- | -------------- | -------------------------------- |
-| E110 · 2,1 MW             | No documentado | No documentado | No documentado | No documentado                   |
-| G114 · variante pendiente | No documentado | No documentado | No documentado | No documentado                   |
-| GW1500-87                 | 3 [familia]    | 9.9 [familia]  | 22 [familia]   | Escala completa (IGBT) [familia] |
+| EN110 · 2,1 MW            | 3 [familia]    | 9.5 [familia]  | 20 [familia]   | IGBT PWM [familia]               |
+| G114 · referencia 2,0 MW  | No documentado | No documentado | No documentado | No documentado                   |
+| GW87/1500                 | 3 [familia]    | 9.9 [familia]  | 22 [familia]   | Escala completa (IGBT) [familia] |
 | N149 / Delta4000 · 4,8 MW | 3 [familia]    | No documentado | 20 [familia]   | No documentado                   |
 | V110 · 2,0 MW             | 3 [familia]    | No documentado | 21 [familia]   | No documentado                   |
-| V112 · 3,0 MW             | No documentado | No documentado | No documentado | No documentado                   |
-| V136 CP3.6 · PO1 · 50 Hz  | No documentado | No documentado | No documentado | Escala completa [parque]         |
-| V150 Mk3B · 4,2 MW        | No documentado | No documentado | No documentado | Escala completa [familia]        |
-| V150 · 4,3 MW             | No documentado | No documentado | No documentado | Escala completa [familia]        |
 
 ### Alturas y discrepancias
 
@@ -64,21 +52,54 @@ Umbrales V150-4.2/4.5 del folleto comercial: 3 m/s de arranque, 24,5 m/s de cort
 
 ## Trazabilidad por campo
 
-### Envision E110 · 2,1 MW
+### Envision EN110 · 2,1 MW
 
 - P nominal (MW): 2.1 [parque]. Informe p. 4. Potencia unitaria descrita en el catálogo; no equivale a potencia neta de conexión.
-- Rotor (m): No documentado. Sin fuente específica. No consta en los documentos disponibles.
+- Rotor (m): 110 [familia]. Coener / Coordinador Eléctrico, La Esperanza, Rev. 1 (2019), p. PDF 8, tabla 3 de diseño preliminar. Especificación de diseño preliminar incluida en el informe del parque; no sustituye planos as-built.
+- Buje instalado (m): 100 [familia]. Envision, comunicado del pedido La Esperanza, 10-09-2015. Altura contratada anunciada por el fabricante; no es una medición de campo.
+- Palas: 3 [familia]. Coener / Coordinador Eléctrico, La Esperanza, Rev. 1 (2019), p. PDF 8, tabla 3 de diseño preliminar. Especificación de diseño preliminar incluida en el informe del parque; no sustituye planos as-built.
+- Generador: DFIG · inducción doblemente alimentada, refrigerada por aire [familia]. Coener / Coordinador Eléctrico, La Esperanza, Rev. 1 (2019), p. PDF 8, tabla 3 de diseño preliminar. Especificación de diseño preliminar incluida en el informe del parque; no sustituye planos as-built.
+- Multiplicadora: Sí [familia]. Coener / Coordinador Eléctrico, La Esperanza, Rev. 1 (2019), p. PDF 8, tabla 3 de diseño preliminar. Especificación de diseño preliminar incluida en el informe del parque; no sustituye planos as-built.
+- Control: pitch [familia]. Coener / Coordinador Eléctrico, La Esperanza, Rev. 1 (2019), p. PDF 8, tabla 3 de diseño preliminar. Especificación de diseño preliminar incluida en el informe del parque; no sustituye planos as-built.
+- Arranque (m/s): 3 [familia]. Coener / Coordinador Eléctrico, La Esperanza, Rev. 1 (2019), p. PDF 8, tabla 3 de diseño preliminar. Especificación de diseño preliminar incluida en el informe del parque; no sustituye planos as-built.
+- Nominal (m/s): 9.5 [familia]. Coener / Coordinador Eléctrico, La Esperanza, Rev. 1 (2019), p. PDF 8, tabla 3 de diseño preliminar. Especificación de diseño preliminar incluida en el informe del parque; no sustituye planos as-built.
+- Corte (m/s): 20 [familia]. Coener / Coordinador Eléctrico, La Esperanza, Rev. 1 (2019), p. PDF 8, tabla 3 de diseño preliminar. Especificación de diseño preliminar incluida en el informe del parque; no sustituye planos as-built.
+- Convertidor: IGBT PWM [familia]. Coener / Coordinador Eléctrico, La Esperanza, Rev. 1 (2019), p. PDF 8, tabla 3 de diseño preliminar. Especificación de diseño preliminar incluida en el informe del parque; no sustituye planos as-built.
+
+- La documentación de La Esperanza confirma arquitectura DFIG con multiplicadora, diámetro, tres palas y umbrales de diseño preliminar.
+- El esquema Winergy PEAB es una referencia de familia; no confirma el proveedor de cada máquina instalada.
+- La tabla de diseño indica inclinación de eje de 6° y cono de 2,6°. No se aplica una inclinación visual independiente del tren común sin planos acotados.
+- El informe cita 0,6 kV/23 kV y tabla eléctrica de 690 V. Se mantienen ambos antecedentes sin conciliarlos artificialmente.
+
+Supuestos empleados en el escenario:
+
+- Viento fijo de 8 m/s, uniforme, alineado con el rotor.
+- Curva cúbica simplificada sin pérdidas; no es una curva medida ni certificada.
+- Pitch didáctico: 1,5° bajo viento nominal, +2° por m/s sobre nominal.
+- Proporciones y ubicación de componentes esquemáticas, sin planos por número de serie.
+- Altura visual normalizada; las posiciones del convertidor y transformador son didácticas.
+- Dimensiones internas, número de dientes y distribución exacta de armarios son aproximaciones visuales sin planos acotados.
+- Relación total de diseño 118:1; reparto por etapas y número de dientes ilustrativos.
+- Diámetros de rotor y altura visual mantienen una escala común; alturas no documentadas continúan como supuestos de 100 m.
+- TSR constante 8.6317 derivada del punto de diseño 1680 RPM / 118:1 a 9,5 m/s y rotor 110 m. Es una aproximación del control, no su curva OEM.
+
+### Gamesa G114 · referencia 2,0 MW
+
+- P nominal (MW): 2 [familia]. Gamesa G114-2.0 MW, folleto OEM marzo 2012, pp. PDF 1–2, archivo NY DPS. Referencia de familia G114-2.0 MW; no resuelve la variante ni potencia instalada de Las Peñas.
+- Rotor (m): 114 [familia]. Gamesa G114-2.0 MW, folleto OEM marzo 2012, pp. PDF 1–2, archivo NY DPS. Referencia de familia G114-2.0 MW; no resuelve la variante ni potencia instalada de Las Peñas.
 - Buje instalado (m): No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Palas: No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Generador: No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Multiplicadora: No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Control: No documentado. Sin fuente específica. No consta en los documentos disponibles.
+- Palas: 3 [familia]. Gamesa G114-2.0 MW, folleto OEM marzo 2012, pp. PDF 1–2, archivo NY DPS. Referencia de familia G114-2.0 MW; no resuelve la variante ni potencia instalada de Las Peñas.
+- Generador: DFIG · inducción doblemente alimentada [familia]. Gamesa G114-2.0 MW, folleto OEM marzo 2012, pp. PDF 1–2, archivo NY DPS. Referencia de familia G114-2.0 MW; no resuelve la variante ni potencia instalada de Las Peñas.
+- Multiplicadora: Sí [familia]. Gamesa G114-2.0 MW, folleto OEM marzo 2012, pp. PDF 1–2, archivo NY DPS. Referencia de familia G114-2.0 MW; no resuelve la variante ni potencia instalada de Las Peñas.
+- Control: pitch [familia]. Gamesa G114-2.0 MW, folleto OEM marzo 2012, pp. PDF 1–2, archivo NY DPS. Referencia de familia G114-2.0 MW; no resuelve la variante ni potencia instalada de Las Peñas.
 - Arranque (m/s): No documentado. Sin fuente específica. No consta en los documentos disponibles.
 - Nominal (m/s): No documentado. Sin fuente específica. No consta en los documentos disponibles.
 - Corte (m/s): No documentado. Sin fuente específica. No consta en los documentos disponibles.
 - Convertidor: No documentado. Sin fuente específica. No consta en los documentos disponibles.
 
-- Sin ficha OEM verificable de esta variante en el corpus. Geometría exterior genérica y cadena de conversión abstracta; no se inventa arquitectura.
+- Geometría de referencia: G114-2.0 MW. El informe original identifica G114/2000, pero 8,4 MW para cuatro unidades no permite certificar esa variante instalada en Las Peñas.
+- Tres etapas documentadas: una planetaria y dos paralelas; relaciones individuales y relación total 90:1 son ilustrativas.
+- Las torres comerciales 93/120/140 m no acreditan altura instalada. No se transfieren datos de la G114-2.1 MW.
 
 Supuestos empleados en el escenario:
 
@@ -88,45 +109,14 @@ Supuestos empleados en el escenario:
 - Pitch didáctico: 1,5° bajo viento nominal, +2° por m/s sobre nominal.
 - Proporciones y ubicación de componentes esquemáticas, sin planos por número de serie.
 - Altura visual normalizada; las posiciones del convertidor y transformador son didácticas.
-- rotorDiameterM=110: supuesto para animación; dato documental ausente.
 - cutInMS=3: supuesto para animación; dato documental ausente.
 - ratedWindMS=12: supuesto para animación; dato documental ausente.
 - cutOutMS=20: supuesto para animación; dato documental ausente.
-- bladeCount=3: supuesto para animación; dato documental ausente.
+- Dimensiones internas, número de dientes y distribución exacta de armarios son aproximaciones visuales sin planos acotados.
+- Relación total 90:1 elegida para visualizar el movimiento; no es una relación OEM confirmada.
+- Diámetros de rotor y altura visual mantienen una escala común; alturas no documentadas continúan como supuestos de 100 m.
 
-### Gamesa G114 · variante pendiente
-
-- P nominal (MW): No documentado. Sin fuente específica. Discrepancia: 2 MW por unidad frente a 8,4 MW para cuatro unidades. No se fija variante.
-- Rotor (m): No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Buje instalado (m): No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Palas: No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Generador: No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Multiplicadora: No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Control: No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Arranque (m/s): No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Nominal (m/s): No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Corte (m/s): No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Convertidor: No documentado. Sin fuente específica. No consta en los documentos disponibles.
-
-- La variante G114/2000 aparece en el informe, pero no resuelve la discrepancia de potencia del parque.
-- Potencia de 2 MW usada SOLO como supuesto del escenario, no como ficha instalada.
-
-Supuestos empleados en el escenario:
-
-- Viento fijo de 8 m/s, uniforme, alineado con el rotor.
-- Curva cúbica simplificada sin pérdidas; no es una curva medida ni certificada.
-- RPM estimadas con relación de velocidad de punta λ=7, límite de 16 RPM.
-- Pitch didáctico: 1,5° bajo viento nominal, +2° por m/s sobre nominal.
-- Proporciones y ubicación de componentes esquemáticas, sin planos por número de serie.
-- Altura visual normalizada; las posiciones del convertidor y transformador son didácticas.
-- rotorDiameterM=110: supuesto para animación; dato documental ausente.
-- cutInMS=3: supuesto para animación; dato documental ausente.
-- ratedWindMS=12: supuesto para animación; dato documental ausente.
-- cutOutMS=20: supuesto para animación; dato documental ausente.
-- bladeCount=3: supuesto para animación; dato documental ausente.
-- ratedPowerMW=2: capacidad ilustrativa sin variante confirmada.
-
-### Goldwind GW1500-87
+### Goldwind GW87/1500
 
 - P nominal (MW): 1.5 [parque]. Informe p. 4. Potencia unitaria descrita en el catálogo; no equivale a potencia neta de conexión.
 - Rotor (m): 87 [familia]. Goldwind 1.5 MW, tabla de datos p. PDF 6 [B19]. Referencia de familia; no certifica la revisión instalada.
@@ -142,6 +132,7 @@ Supuestos empleados en el escenario:
 
 - GW1500-87 es la denominación del parque; GW 87/1500 es la nomenclatura del folleto.
 - La altura instalada de Cuel no consta en el corpus.
+- El corte OEM identifica estator, rotor PM, buje, bancada y grúa auxiliar. El paso emplea correa y la refrigeración del generador es pasiva.
 
 Supuestos empleados en el escenario:
 
@@ -151,6 +142,9 @@ Supuestos empleados en el escenario:
 - Pitch didáctico: 1,5° bajo viento nominal, +2° por m/s sobre nominal.
 - Proporciones y ubicación de componentes esquemáticas, sin planos por número de serie.
 - Altura visual normalizada; las posiciones del convertidor y transformador son didácticas.
+- Dimensiones internas, número de dientes y distribución exacta de armarios son aproximaciones visuales sin planos acotados.
+- Relación total de diseño 1:1; reparto por etapas y número de dientes ilustrativos.
+- Diámetros de rotor y altura visual mantienen una escala común; alturas no documentadas continúan como supuestos de 100 m.
 
 ### Nordex N149 / Delta4000 · 4,8 MW
 
@@ -180,7 +174,9 @@ Supuestos empleados en el escenario:
 - Altura visual normalizada; las posiciones del convertidor y transformador son didácticas.
 - ratedWindMS=12: supuesto para animación; dato documental ausente.
 - bladeCount=3: supuesto para animación; dato documental ausente.
-- Relación de transmisión ilustrativa 90:1, no documentada.
+- Dimensiones internas, número de dientes y distribución exacta de armarios son aproximaciones visuales sin planos acotados.
+- Relación total 90:1 elegida para visualizar el movimiento; no es una relación OEM confirmada.
+- Diámetros de rotor y altura visual mantienen una escala común; alturas no documentadas continúan como supuestos de 100 m.
 
 ### Vestas V110 · 2,0 MW
 
@@ -198,6 +194,7 @@ Supuestos empleados en el escenario:
 
 - Opciones comerciales de altura: 75, 80, 95, 110, 120 y 125 m; no prueban la altura instalada.
 - Los ~90 m del relato de un incidente no se usan como altura de buje.
+- Envolvente de familia documentada: longitud de góndola 10,4 m, anchura 3,5 m; altura de transporte 4 m y 5,4 m instalada con CoolerTop. La reconstrucción interna no es un plano acotado.
 
 Supuestos empleados en el escenario:
 
@@ -208,124 +205,6 @@ Supuestos empleados en el escenario:
 - Proporciones y ubicación de componentes esquemáticas, sin planos por número de serie.
 - Altura visual normalizada; las posiciones del convertidor y transformador son didácticas.
 - ratedWindMS=12: supuesto para animación; dato documental ausente.
-- Relación de transmisión ilustrativa 90:1, no documentada.
-
-### Vestas V112 · 3,0 MW
-
-- P nominal (MW): 3 [parque]. Informe p. 4. Potencia unitaria descrita en el catálogo; no equivale a potencia neta de conexión.
-- Rotor (m): No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Buje instalado (m): No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Palas: No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Generador: No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Multiplicadora: Sí [familia]. Informe p. 8; Vestas LCA 2011 p. PDF 72 [B27]. Referencia de familia; no certifica la revisión instalada.
-- Control: No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Arranque (m/s): No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Nominal (m/s): No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Corte (m/s): No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Convertidor: No documentado. Sin fuente específica. No consta en los documentos disponibles.
-
-- LCA histórica confirma componentes, sin certificar generador ni etapas de transmisión de Raki/Huajache. No se deduce diámetro del nombre del modelo.
-
-Supuestos empleados en el escenario:
-
-- Viento fijo de 8 m/s, uniforme, alineado con el rotor.
-- Curva cúbica simplificada sin pérdidas; no es una curva medida ni certificada.
-- RPM estimadas con relación de velocidad de punta λ=7, límite de 16 RPM.
-- Pitch didáctico: 1,5° bajo viento nominal, +2° por m/s sobre nominal.
-- Proporciones y ubicación de componentes esquemáticas, sin planos por número de serie.
-- Altura visual normalizada; las posiciones del convertidor y transformador son didácticas.
-- rotorDiameterM=110: supuesto para animación; dato documental ausente.
-- cutInMS=3: supuesto para animación; dato documental ausente.
-- ratedWindMS=12: supuesto para animación; dato documental ausente.
-- cutOutMS=20: supuesto para animación; dato documental ausente.
-- bladeCount=3: supuesto para animación; dato documental ausente.
-- Relación de transmisión ilustrativa 90:1, no documentada.
-
-### Vestas V136 CP3.6 · PO1 · 50 Hz
-
-- P nominal (MW): 3.6 [parque]. Informe p. 4. Potencia unitaria descrita en el catálogo; no equivale a potencia neta de conexión.
-- Rotor (m): No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Buje instalado (m): No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Palas: No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Generador: Inducción · subtipo no indicado [parque]. Informe p. 7 [B05]. Inducción con convertidor de escala completa; no se infiere DFIG.
-- Multiplicadora: No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Control: No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Arranque (m/s): No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Nominal (m/s): No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Corte (m/s): No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Convertidor: Escala completa [parque]. Informe p. 7 [B05]. Configuración ensayada de Negrete.
-
-- No se transfieren diámetro, umbrales, transmisión ni opciones del folleto V136-4.2 a CP3.6. El interior muestra únicamente la cadena funcional conocida.
-
-Supuestos empleados en el escenario:
-
-- Viento fijo de 8 m/s, uniforme, alineado con el rotor.
-- Curva cúbica simplificada sin pérdidas; no es una curva medida ni certificada.
-- RPM estimadas con relación de velocidad de punta λ=7, límite de 16 RPM.
-- Pitch didáctico: 1,5° bajo viento nominal, +2° por m/s sobre nominal.
-- Proporciones y ubicación de componentes esquemáticas, sin planos por número de serie.
-- Altura visual normalizada; las posiciones del convertidor y transformador son didácticas.
-- rotorDiameterM=110: supuesto para animación; dato documental ausente.
-- cutInMS=3: supuesto para animación; dato documental ausente.
-- ratedWindMS=12: supuesto para animación; dato documental ausente.
-- cutOutMS=20: supuesto para animación; dato documental ausente.
-- bladeCount=3: supuesto para animación; dato documental ausente.
-
-### Vestas V150 Mk3B · 4,2 MW
-
-- P nominal (MW): 4.2 [parque]. Informe p. 4. Potencia unitaria descrita en el catálogo; no equivale a potencia neta de conexión.
-- Rotor (m): 150 [familia]. Informe p. 7; Vestas 4 MW p. 9 [B25]. Referencia de familia; no certifica la revisión instalada.
-- Buje instalado (m): No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Palas: 3 [familia]. Informe p. 7; Vestas 4 MW p. 9 [B25]. Referencia de familia; no certifica la revisión instalada.
-- Generador: Inducción · subtipo no indicado [parque]. Informe p. 7 [B04]. Generador de inducción y convertidor completo documentados para Mk3B. No se etiqueta DFIG.
-- Multiplicadora: Sí [familia]. Informe p. 7; Vestas 4 MW p. 9 [B25]. Referencia de familia; no certifica la revisión instalada.
-- Control: pitch [familia]. Informe p. 7; Vestas 4 MW p. 9 [B25]. Referencia de familia; no certifica la revisión instalada.
-- Arranque (m/s): No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Nominal (m/s): No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Corte (m/s): No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Convertidor: Escala completa [familia]. Informe p. 7; Vestas 4 MW p. 9 [B25]. Referencia de familia; no certifica la revisión instalada.
-
-- El folleto V150-4.2/4.5 no documenta una variante 4,3 MW ni confirma umbrales de las unidades chilenas.
-
-Supuestos empleados en el escenario:
-
-- Viento fijo de 8 m/s, uniforme, alineado con el rotor.
-- Curva cúbica simplificada sin pérdidas; no es una curva medida ni certificada.
-- RPM estimadas con relación de velocidad de punta λ=7, límite de 16 RPM.
-- Pitch didáctico: 1,5° bajo viento nominal, +2° por m/s sobre nominal.
-- Proporciones y ubicación de componentes esquemáticas, sin planos por número de serie.
-- Altura visual normalizada; las posiciones del convertidor y transformador son didácticas.
-- cutInMS=3: supuesto para animación; dato documental ausente.
-- ratedWindMS=12: supuesto para animación; dato documental ausente.
-- cutOutMS=20: supuesto para animación; dato documental ausente.
-- Relación de transmisión ilustrativa 90:1, no documentada.
-
-### Vestas V150 · 4,3 MW
-
-- P nominal (MW): 4.3 [parque]. Informe p. 4. Potencia unitaria descrita en el catálogo; no equivale a potencia neta de conexión.
-- Rotor (m): 150 [familia]. Informe p. 7; Vestas 4 MW p. 9 [B25]. Referencia de familia; no certifica la revisión instalada.
-- Buje instalado (m): No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Palas: 3 [familia]. Informe p. 7; Vestas 4 MW p. 9 [B25]. Referencia de familia; no certifica la revisión instalada.
-- Generador: No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Multiplicadora: Sí [familia]. Informe p. 7; Vestas 4 MW p. 9 [B25]. Referencia de familia; no certifica la revisión instalada.
-- Control: pitch [familia]. Informe p. 7; Vestas 4 MW p. 9 [B25]. Referencia de familia; no certifica la revisión instalada.
-- Arranque (m/s): No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Nominal (m/s): No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Corte (m/s): No documentado. Sin fuente específica. No consta en los documentos disponibles.
-- Convertidor: Escala completa [familia]. Informe p. 7; Vestas 4 MW p. 9 [B25]. Referencia de familia; no certifica la revisión instalada.
-
-- El folleto V150-4.2/4.5 no documenta una variante 4,3 MW ni confirma umbrales de las unidades chilenas.
-- El generador de inducción del Mk3B de 4,2 MW no se transfiere a las variantes de 4,3 MW: su tipo queda sin documentar.
-
-Supuestos empleados en el escenario:
-
-- Viento fijo de 8 m/s, uniforme, alineado con el rotor.
-- Curva cúbica simplificada sin pérdidas; no es una curva medida ni certificada.
-- RPM estimadas con relación de velocidad de punta λ=7, límite de 16 RPM.
-- Pitch didáctico: 1,5° bajo viento nominal, +2° por m/s sobre nominal.
-- Proporciones y ubicación de componentes esquemáticas, sin planos por número de serie.
-- Altura visual normalizada; las posiciones del convertidor y transformador son didácticas.
-- cutInMS=3: supuesto para animación; dato documental ausente.
-- ratedWindMS=12: supuesto para animación; dato documental ausente.
-- cutOutMS=20: supuesto para animación; dato documental ausente.
-- Relación de transmisión ilustrativa 90:1, no documentada.
+- Dimensiones internas, número de dientes y distribución exacta de armarios son aproximaciones visuales sin planos acotados.
+- Relación total 90:1 elegida para visualizar el movimiento; no es una relación OEM confirmada.
+- Diámetros de rotor y altura visual mantienen una escala común; alturas no documentadas continúan como supuestos de 100 m.
